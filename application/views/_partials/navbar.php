@@ -23,14 +23,6 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">บัญชีของคุณ <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li class="text-center">
-                <?php if ($this->session->has_userdata('avatar')) : ?>
-                  <?=img('uploads/profiles/'.$this->session->avatar,'',array('class'=>'img-circle','style'=>'width:100px;height:100px;'));?>
-                <?php else: ?>
-                  <i class="fa fa-user fa-2x"></i>
-                <?php endif; ?>
-              </li>
-              <li class="divider"></li>
               <?php if ($this->session->has_userdata('is_admin')) : ?>
                 <li> <a href="<?=site_url('admin/news');?>">เข้าระบบผู้ดูแล</a> </li>
                 <li class="divider"></li>

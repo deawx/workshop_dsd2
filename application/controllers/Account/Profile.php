@@ -9,9 +9,10 @@ class Profile extends Private_Controller {
 	{
 		parent::__construct();
     $this->load->model('Profile_model','profile');
+		$this->id = $this->session->id;
     $this->data['parent'] = 'account';
     $this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
-		$this->data['user'] = $this->profile->get_user($this->session->username);
+		$this->data['user'] = $this->profile->get_id($this->id);
 
 		$this->data['css'] = array(link_tag('assets/css/editable-select.min.css'));
 		$this->data['js'] = array(script_tag('assets/js/editable-select.min.js'),script_tag('assets/js/jquery.inputmask.bundle.js'));
@@ -19,7 +20,6 @@ class Profile extends Private_Controller {
 
   public function index()
   {
-    //ตรวจสอบความถูกต้องจากฟอร์มที่ถูกส่งมา
 		if ($this->input->post()) :
 	    $this->form_validation->set_rules('title','คำนำหน้าชื่อ','required');
 	    $this->form_validation->set_rules('firstname','ชื่อ','required|max_length[100]');
@@ -27,19 +27,15 @@ class Profile extends Private_Controller {
 	    $this->form_validation->set_rules('englishname','ชื่อ-นามสกุล(ภาษาอังกฤษ)','required|max_length[255]');
 			$this->form_validation->set_rules('nationality','สัญชาติ','required|max_length[100]');
 	    $this->form_validation->set_rules('religion','ศาสนา','required|max_length[100]');
+	    $this->form_validation->set_rules('blood','หมู่โลหิต','required');
 			if ($this->form_validation->run() === FALSE) :
 				$this->session->set_flashdata('warning',validation_errors());
 			else:
-				$data = array(
-					'id' => $this->session->id,
-					'title' => $this->input->post('title'),
-					'firstname' => $this->input->post('firstname'),
-					'lastname' => $this->input->post('lastname'),
-					'englishname' => $this->input->post('englishname'),
-					'nationality' => $this->input->post('nationality'),
-					'religion' => $this->input->post('religion'),
-					'birthdate' => $this->input->post('y').'-'.$this->input->post('m').'-'.$this->input->post('d')
-				);
+				$data = $this->input->post();
+				$data['birthdate'] = $this->input->post('y').'-'.$this->input->post('m').'-'.$this->input->post('d');
+
+				// print_data($data); die();
+
 				if ($this->profile->save($data,'users')) :
 					$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
 				else:

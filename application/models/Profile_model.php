@@ -30,7 +30,15 @@ class Profile_model extends MY_Model {
       ->result_array();
   }
 
-  function get_user($identity)
+  function get_id($id)
+  {
+    return $this->db
+      ->where('id',$id)
+      ->get('users')
+      ->row_array();
+  }
+
+  function get_username($identity)
   {
     return $this->db
       ->where('username',$identity)

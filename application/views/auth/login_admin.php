@@ -2,7 +2,7 @@
   <div class="row" style="padding-top:10em;">
     <div class="col-sm-6 col-sm-offset-3">
       <div class="panel panel-primary">
-        <div class="panel-heading"> <h3 class="panel-title"> <?php echo lang('login_heading');?> <small><?php echo lang('login_subheading');?></small> </h3> </div>
+        <div class="panel-heading"> <h3 class="panel-title"> เข้าสู่ระบบผู้ดูแล <small><?php echo lang('login_subheading');?></small> </h3> </div>
         <div class="panel-body">
           <div id="infoMessage"><?php echo $message;?></div>
           <?php echo form_open("auth/login_admin",array('class'=>'form-horizontal','autocomplete'=>'off'));?>

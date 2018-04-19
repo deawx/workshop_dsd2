@@ -5,32 +5,25 @@
     <?=form_hidden('id',$user['id']);?>
     <div class="form-group">
       <?=form_label('คำนำหน้าชื่อ*','title',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_dropdown(array('name'=>'title','class'=>'form-control'),dropdown_title(),set_value('title',$user['title']));?>
-      </div>
+      <div class="col-md-8"> <?=form_dropdown(array('name'=>'title','class'=>'form-control'),dropdown_title(),set_value('title',$user['title']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('ชื่อ*','firstname',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'firstname','class'=>'form-control'),set_value('firstname',$user['firstname']));?>
-      </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'firstname','class'=>'form-control'),set_value('firstname',$user['firstname']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('นามสกุล*','lastname',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'lastname','class'=>'form-control'),set_value('lastname',$user['lastname']));?>
-      </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'lastname','class'=>'form-control'),set_value('lastname',$user['lastname']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('ชื่อ-นามสกุล(ภาษาอังกฤษ)*','lastname',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'englishname','class'=>'form-control'),set_value('englishname',$user['englishname']));?>
-      </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'englishname','class'=>'form-control'),set_value('englishname',$user['englishname']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('สัญชาติ*','nationality',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'nationality','class'=>'form-control'),set_value('nationality',$user['nationality']));?>
-      </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'nationality','class'=>'form-control'),set_value('nationality',$user['nationality']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('ศาสนา*','religion',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'religion','class'=>'form-control'),set_value('religion',$user['religion']));?>
-      </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'religion','class'=>'form-control'),set_value('religion',$user['religion']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('หมายเลขบัตรประชาชน*','id_card',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'id_card','class'=>'form-control','id'=>'id_card','maxlength'=>'13','readonly'=>TRUE),set_value('id_card',$user['id_card']));?>
-      </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'id_card','class'=>'form-control','id'=>'id_card','maxlength'=>'13','readonly'=>TRUE),set_value('id_card',$user['id_card']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('ว/ด/ป เกิด*','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-2">
@@ -46,6 +39,9 @@
         foreach (range('2500',(date('Y')+543)) as $value) $y[$value] = $value;
         echo form_dropdown(array('name'=>'y','class'=>'form-control'),$y,set_value('y',explode('-',$user['birthdate'])[0]));?>
       </div>
+    </div>
+    <div class="form-group"> <?=form_label('หมู่โลหิต*','blood',array('class'=>'control-label col-md-4'));?>
+      <div class="col-md-8"> <?=form_input(array('name'=>'blood','class'=>'form-control'),set_value('blood',$user['blood']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">

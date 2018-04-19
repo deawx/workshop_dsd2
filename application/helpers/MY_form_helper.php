@@ -154,11 +154,79 @@ if ( ! function_exists('dropdown_worktype'))
 			'ลูกจ้างธุรกิจในครัวเรือน'=>'ลูกจ้างธุรกิจในครัวเรือน'
 		);
 
-		$type_id = ltrim($type_id,'0');
+		$type_id = (string)$type_id;
 
-		if (intval($type_id) > 0)
+		if ($type_id)
 			return $type[$type_id];
 
 		return $type;
+	}
+}
+
+if ( ! function_exists('dropdown_workcategory'))
+{
+	function dropdown_workcategory($category_id='')
+	{
+		$category = array(
+			''=>'เลือกรายการ',
+			'ทำงานภาครัฐ'=>'ทำงานภาครัฐ',
+			'ทำงานภาคเอกชน'=>'ทำงานภาคเอกชน',
+			'ทำงานรัฐวิสาหกิจ'=>'ทำงานรัฐวิสาหกิจ',
+			'ประกอบธุรกิจส่วนตัว/ประกอบอาชีพอิสระ'=>'ประกอบธุรกิจส่วนตัว/ประกอบอาชีพอิสระ',
+			'ช่วยธุรกิจครัวเรือน'=>'ช่วยธุรกิจครัวเรือน'
+		);
+
+		$category_id = (string)$category_id;
+
+		if ($category_id)
+			return $category[$category_id];
+
+		return $category;
+	}
+}
+
+if ( ! function_exists('dropdown_workgroup'))
+{
+	function dropdown_workgroup($group_id='')
+	{
+		$group = array(
+			'ยานยนต์และชิ้นส่วน'=>'ยานยนต์และชิ้นส่วน','เหล็กและเหล็กกล้า'=>'เหล็กและเหล็กกล้า',
+			'เฟอร์นิเจอร์'=>'เฟอร์นิเจอร์','อาหาร'=>'อาหาร','ซอฟต์แวร์'=>'ซอฟต์แวร์',
+			'ปิโตรเคมี'=>'ปิโตรเคมี','ไฟฟ้าและอิเล็กทรอนิกส์'=>'ไฟฟ้าและอิเล็กทรอนิกส์',
+			'สิ่งทอและแฟชั่น'=>'สิ่งทอและแฟชั่น','เซรามิกส์'=>'เซรามิกส์','แม่พิมพ์'=>'แม่พิมพ์',
+			'ก่อสร้าง'=>'ก่อสร้าง','โลจิสติกส์'=>'โลจิสติกส์','ท่องเที่ยวและบริการ'=>'ท่องเที่ยวและบริการ',
+			'ผลิตภัณฑ์ยาง'=>'ผลิตภัณฑ์ยาง'
+		);
+
+		$group_id = (string)$group_id;
+
+		if ($group_id)
+			return $group[$group_id];
+
+		return $group;
+	}
+}
+
+if ( ! function_exists('dropdown_income_amount'))
+{
+	function dropdown_income_amount($income_id='')
+	{
+		$income = array(
+			''=>'เลือกรายการ',
+			'1-5,000 บาท'=>'1-5,000 บาท',
+			'5,001-9,000 บาท'=>'5,001-9,000 บาท',
+			'9,001-15,000 บาท'=>'9,001-15,000 บาท',
+			'15,001-20,000 บาท'=>'15,001-20,000 บาท',
+			'20,001-30,000 บาท'=>'20,001-30,000 บาท',
+			'30,001-40,000 บาท'=>'30,001-40,000 บาท',
+			'40,001 บาทขึ้นไป'=>'40,001 บาทขึ้นไป'
+		);
+
+		$income_id = (string)$income_id;
+
+		if ($income_id)
+			return $income[$income_id];
+
+		return $income;
 	}
 }

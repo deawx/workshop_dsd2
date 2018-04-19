@@ -12,25 +12,23 @@ class Request_model extends MY_Model {
   function get_standard_id($id='')
   {
     return $this->db
-      ->select('sd.id,sd.date_create,sd.date_update,sd.category,sd.assets_id,us.*')
-      ->like('us.email',$q)
+      ->select('sd.id,sd.date_create,sd.date_update,sd.category')
       ->where('sd.user_id',$id)
       ->order_by('sd.id','ASC')
       ->join('users AS us','sd.user_id=us.id')
       ->get('standards AS sd')
-      ->result_array();
+      ->row_array();
   }
 
   function get_skill_id($id='')
   {
     return $this->db
-      ->select('sk.id,sk.date_create,sk.date_update,sk.assets_id,us.email')
-      ->like('us.email',$q)
+      ->select('sk.id,sk.date_create,sk.date_update')
       ->where('sk.user_id',$id)
       ->order_by('sk.id','ASC')
       ->join('users AS us','sk.user_id=us.id')
       ->get('skills AS sk')
-      ->result_array();
+      ->row_array();
   }
 
   function get_standard_all($q=array(),$status=NULL)
@@ -170,6 +168,14 @@ class Request_model extends MY_Model {
     endforeach;
 
     return $events;
+  }
+
+  function get_userid($id,$request)
+  {
+    return $this->db
+      ->where('user_id',$id)
+      ->get($request)
+      ->row_array();
   }
 
 }
