@@ -451,10 +451,12 @@ class Request extends Private_Controller {
 		$schedule = array();
 		$schedules = $this->request->get_future('','accept');
 		foreach ($schedules as $key => $value) :
-			$profile = unserialize($value['profile']);
-			$schedule[$key]['title'] = $profile['title'].' '.$profile['firstname'].' '.$profile['lastname'];
-			$schedule[$key]['start'] = date('Y-m-d',$value['approve_schedule']);
+			print_data($value);
+			// $profile = unserialize($value['profile']);
+			// $schedule[$key]['title'] = $profile['title'].' '.$profile['firstname'].' '.$profile['lastname'];
+			// $schedule[$key]['start'] = date('Y-m-d',$value['approve_schedule']);
 		endforeach;
+		die();
 
 		$request = $this->request->get_all_id($this->id,'accept');
 		foreach ($request as $key => $value) :

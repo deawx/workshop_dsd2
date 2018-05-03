@@ -14,8 +14,8 @@
         <tr class="rows" style="display:none;">
           <td><?=mb_substr(strip_tags($value['title']),0,150,'UTF-8');?></td>
           <td><?=$value['category'];?></td>
-          <td><?=($value['date_create']) ? date('d-m-Y',$value['date_create']) : 'N/A';?></td>
-          <td><?=($value['date_update']) ? date('d-m-Y',$value['date_update']) : 'N/A';?></td>
+          <td><?=$value['date_create'];?></td>
+          <td><?=$value['date_update'];?></td>
           <td class="text-right">
             <?php if ($value['pinned'] === '1') : ?>
               <?=anchor('admin/news/pinned/'.$value['id'],'ถอดหมุด',array('class'=>'label label-default'));?>

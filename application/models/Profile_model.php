@@ -20,13 +20,11 @@ class Profile_model extends MY_Model {
   function get_users($q='',$limit='',$offset='')
   {
     return $this->db
-      ->like('us.email',$q)
-      ->where('ug.group_id','2')
-      ->order_by('us.id','DESC')
-      ->join('users_groups AS ug','ug.user_id=us.id')
+      ->like('id_card',$q)
+      ->order_by('id','DESC')
       ->limit($limit)
       ->offset($offset)
-      ->get('users AS us')
+      ->get('users')
       ->result_array();
   }
 

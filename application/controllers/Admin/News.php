@@ -31,14 +31,11 @@ class News extends Admin_Controller {
 		else:
 			$data = $this->input->post();
 			$data['id'] = ($this->input->post('id')) ? $this->input->post('id') : NULL;
-			$data['author_id'] = $this->session->user_id;
+			$data['author_id'] = $this->session->id;
 			if ($this->input->post('id')) :
-				$data['date_update'] = time();
+				$data['date_update'] = date('Y-m-d');
 			else:
-				$data['date_create'] = time();
-			endif;
-			if ($this->input->post('assets_id')) :
-				$data['assets_id'] = serialize($this->input->post('assets_id'));
+				$data['date_create'] = date('Y-m-d');
 			endif;
 
 			// print_data($data); die();
@@ -53,25 +50,15 @@ class News extends Admin_Controller {
 		endif;
 
 		$this->data['news'] = $this->news->get_id($id);
-		$this->data['assets'] = $this->assets->get_all();
 		$this->data['css'] = array(link_tag('assets/css/summernote.css'));
 		$this->data['js'] = array(script_tag('assets/js/summernote.js'));
 		$this->data['body'] = $this->load->view('news/post',$this->data,TRUE);
 		$this->load->view('_layouts/boxed',$this->data);
 	}
 
-	function attachment()
+	function _upload()
 	{
-		$data = $this->input->post();
-		$data['assets_id'] = $this->input->post('assets_id') ? serialize($this->input->post('assets_id')) : '';
-
-		if ($this->news->save($data)) :
-			$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
-		else:
-			$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
-		endif;
-
-		redirect('admin/news/post/'.$data['id']);
+		return ;
 	}
 
 	function pinned($id='')

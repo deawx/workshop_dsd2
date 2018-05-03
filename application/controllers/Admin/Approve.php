@@ -14,18 +14,32 @@ class Approve extends Admin_Controller {
 
 	function index()
 	{
-		$data = $this->input->post();
-		if ($data) :
-			$data['admin_id'] = $this->session->user_id;
-			$data['approve_date'] = time();
+		$approve_status = $this->input->post('approve_status');
+		if ($approve_status) :
+			$approve_status['admin_id'] = $this->session->id;
+			$approve_status['approve_date'] = time();
 
-			if ($data['approve_status'] === 'reject') :
-				$data['approve_schedule'] = NULL;
+			if ($approve_status['approve_status'] === 'reject') :
+				$approve_status['approve_schedule'] = NULL;
 			endif;
 
 			// print_data($data); die();
 
-			if ($this->request->save($data,$data['type'])) :
+			if ($this->request->save($approve_status,$approve_status['type'])) :
+				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
+			else:
+				$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
+			endif;
+			redirect('admin/approve');
+		endif;
+
+		$approve_schedule = $this->input->post('approve_schedule');
+		if ($approve_schedule) :
+			$approve_schedule['admin_id'] = $this->session->id;
+
+			// print_data($data); die();
+
+			if ($this->request->save($approve_schedule,$approve_schedule['type'])) :
 				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
 			else:
 				$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
@@ -35,12 +49,13 @@ class Approve extends Admin_Controller {
 
 		$q = $this->input->get();
 		$requests = $this->request->get_all();
+
 		foreach ($requests as $key => $value) :
-			if (time() > strtotime('+30 days',$value['date_create'])) :
+			if (time() > strtotime('+30 days',strtotime($value['date_create']))) :
 				unset($requests[$key]);
 			endif;
 			if ($q) :
-				if (isset($q['email']) && $q['email']!='' && $q['email']!=$value['email']) :
+				if (isset($q['id_card']) && $q['id_card']!='' && $q['id_card']!=$value['id_card']) :
 					unset($requests[$key]);
 				endif;
 				if (isset($q['approve_status']) && $q['approve_status']!='' && $q['approve_status']!=$value['approve_status']) :
@@ -52,7 +67,9 @@ class Approve extends Admin_Controller {
 			endif;
 		endforeach;
 
-		$this->data['requests'] = array_values($requests);
+		// print_data($requests); die();
+
+		$this->data['requests'] = $requests;
 		if (isset($q['export']) && $q['export']=='1') :
 			$this->data['navbar'] = '';
 			$this->data['body'] = $this->load->view('_pdf/export',$this->data,TRUE);
@@ -98,6 +115,22 @@ class Approve extends Admin_Controller {
 
 		$this->data['record'] = $record;
 		$this->load->view('_pdf/'.$type,$this->data);
+	}
+
+	function schedule()
+	{
+		$data = $this->input->post();
+		if ($data) :
+
+			// print_data($data); die();
+
+			if ($this->request->save($data,$data['type'])) :
+				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
+			else:
+				$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
+			endif;
+			redirect('admin/approve');
+		endif;
 	}
 
 	function status()

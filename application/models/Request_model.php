@@ -76,7 +76,7 @@ class Request_model extends MY_Model {
 
     $array = array_merge($standards,$skills);
     usort($array, function($a, $b) {
-      return ($a['admin_id'] != NULL) ? $a['admin_id'] : $a['date_create'] < $b['date_create'];
+      return ($a['admin_id'] != NULL) ? $a['admin_id'] : $a['id'] < $b['id'];
     });
 
     return $array;

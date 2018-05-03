@@ -7,22 +7,22 @@
     <?=form_close();?>
   </div>
   <table class="table table-condensed table-hover">
-    <thead> <tr> <th>ชื่อ-นามสกุล</th> <th>ชื่อล็อกอิน/อีเมล์</th> <th>วันที่สมัคร</th> <th>ใช้งานล่าสุด</th> <th style="width:10%"></th> </tr> </thead>
+    <thead> <tr> <th>ชื่อ-นามสกุล</th> <th>ชื่อล็อกอิน/เลขบัตรประชาชน</th> <th>วันที่สมัคร</th> <th>ใช้งานล่าสุด</th> <th style="width:10%"></th> </tr> </thead>
     <tbody>
       <?php foreach ($users as $value) : ?>
         <tr>
           <td><?=$value['title'].nbs().$value['firstname'].nbs().$value['lastname'];?></td>
           <td><?=$value['username'];?></td>
-          <td><?=date('d-m-Y',$value['created_on']);?></td>
-          <td><?=($value['last_login']) ? date('d-m-Y',$value['last_login']) : '';?></td>
+          <td><?=$value['date_create'];?></td>
+          <td><?=$value['last_login'];?></td>
           <td style="width:15%">
-            <?=anchor('admin/user/edit/'.$value['user_id'],'แก้ไข',array('class'=>'label label-info'));?>
-            <?php if ($value['active'] === '1') : ?>
-              <?=anchor('admin/user/deactivate/'.$value['user_id'],'ปิดใช้งาน',array('class'=>'label label-warning','onclick'=>"return confirm('ยืนยันการปิดใช้งาน?');"));?>
+            <?=anchor('admin/user/edit/'.$value['id'],'แก้ไข',array('class'=>'label label-info'));?>
+            <?php if ($value['is_active'] === '1') : ?>
+              <?=anchor('admin/user/deactivate/'.$value['id'],'ปิดใช้งาน',array('class'=>'label label-warning','onclick'=>"return confirm('ยืนยันการปิดใช้งาน?');"));?>
             <?php else: ?>
-              <?=anchor('admin/user/activate/'.$value['user_id'],'เปิดใช้งาน',array('class'=>'label label-info','onclick'=>"return confirm('ยืนยันการเปิดใช้งาน?');"));?>
+              <?=anchor('admin/user/activate/'.$value['id'],'เปิดใช้งาน',array('class'=>'label label-info','onclick'=>"return confirm('ยืนยันการเปิดใช้งาน?');"));?>
             <?php endif; ?>
-              <?=anchor('admin/user/delete/'.$value['user_id'],'ลบ',array('class'=>'label label-danger','onclick'=>"return confirm('ยืนยันการลบ?');"));?>
+              <?=anchor('admin/user/delete/'.$value['id'],'ลบ',array('class'=>'label label-danger','onclick'=>"return confirm('ยืนยันการลบ?');"));?>
           </td>
         </tr>
       <?php endforeach; ?>
