@@ -20,8 +20,8 @@ endforeach;
             <h4 class="list-group-item-heading"><?=mb_substr(strip_tags($value['title']),0,100,'UTF-8');?>
               <small><?=anchor('welcome/read/'.$value['id'],'อ่านต่อ',array('class'=>'label label-primary'));?></small>
             </h4>
-            วันที่ประกาศ : <span class="label label-info"><?=date('d-m-Y',$value['date_create']);?></span>
-            วันที่แก้ไข : <span class="label label-warning"><?=date('d-m-Y',$value['date_update']);?></span>
+            วันที่ประกาศ : <span class="label label-info"><?=$value['date_create'];?></span>
+            วันที่แก้ไข : <span class="label label-warning"><?$value['date_update'];?></span>
             จำนวนผู้เข้าชม : <span class="label label-default"><?=$value['views'];?></span>
           </li>
         <?php endforeach; ?>
@@ -38,8 +38,8 @@ endforeach;
             <p class="list-group-item-text"><?=mb_substr(strip_tags($value['detail']),0,200,'UTF-8');?></p>
             <?=anchor('welcome/read/'.$value['id'],'อ่านต่อ',array('class'=>'label label-primary'));?>
             <hr>
-            วันที่ประกาศ : <span class="label label-info"><?=date('d-m-Y',$value['date_create']);?></span>
-            วันที่แก้ไข : <span class="label label-warning"><?=date('d-m-Y',$value['date_update']);?></span>
+            วันที่ประกาศ : <span class="label label-info"><?=$value['date_create'];?></span>
+            วันที่แก้ไข : <span class="label label-warning"><?=$value['date_update'];?></span>
             จำนวนผู้เข้าชม : <span class="label label-default"><?=$value['views'];?></span>
           </li>
         <?php endforeach; ?>
