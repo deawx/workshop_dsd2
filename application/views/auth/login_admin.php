@@ -7,7 +7,7 @@
           <div id="infoMessage"><?php echo $message;?></div>
           <?php echo form_open("auth/login_admin",array('class'=>'form-horizontal','autocomplete'=>'off'));?>
           <div class="form-group"> <?php echo form_label('หมายเลขบัตรประชาชน:', 'identity',array('class'=>'control-label col-md-4'));?>
-            <div class="col-md-8"> <?php echo form_input($identity,'',array('class'=>'form-control'));?> </div>
+            <div class="col-md-8"> <?php echo form_input($identity,'',array('id'=>'identity','class'=>'form-control'));?> </div>
           </div>
           <div class="form-group"> <?php echo lang('login_password_label', 'password',array('class'=>'control-label col-md-4'));?>
             <div class="col-md-8"> <?php echo form_password($password,'',array('class'=>'form-control'));?> </div>
@@ -23,3 +23,9 @@
   </div>
   <?php $this->load->view('_partials/messages'); ?>
 </div>
+
+<script type="text/javascript">
+$(function(){
+  $('#identity').inputmask('9999999999999');
+});
+</script>

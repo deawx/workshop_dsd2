@@ -173,10 +173,7 @@ class Request extends Private_Controller {
 			endif;
 			redirect('account/request/index');
 		endif;
-
-		$this->data['css'] = array(link_tag('assets/css/editable-select.min.css'));
-		$this->data['js'] = array(script_tag('assets/js/editable-select.min.js'),script_tag('assets/js/jquery.inputmask.bundle.js'));
-
+		
 		if (intval($id) > 0) :
 			$this->data['navbar'] = NULL;
 			$this->data['standard'] = $this->request->search_id($id,'standards');
