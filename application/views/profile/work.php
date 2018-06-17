@@ -154,6 +154,10 @@ $(function() {
   <?php else: ?>
     work_yes.prop('disabled',true);
   <?php endif; ?>
+
+  work_yes.prop('disabled',true);
+  $('#work_no').prop('disabled',true);
+  $('#work_group').prop('disabled',true);
   work_status.on('change',function(){
     if (this.value === 'ผู้มีงานทำ') {
       work_yes.prop('disabled',false);
