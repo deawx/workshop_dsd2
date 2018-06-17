@@ -173,7 +173,7 @@ class Request extends Private_Controller {
 			endif;
 			redirect('account/request/index');
 		endif;
-		
+
 		if (intval($id) > 0) :
 			$this->data['navbar'] = NULL;
 			$this->data['standard'] = $this->request->search_id($id,'standards');
@@ -189,7 +189,7 @@ class Request extends Private_Controller {
 			$this->data['menu'] = 'standard';
 			$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
 			$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
-			if (($this->data['user']['title'] == '') OR
+			if (($this->data['user']['title'] === '') OR
 				($this->data['user']['firstname'] == '') OR
 				($this->data['user']['lastname'] == '') OR
 				($this->data['user']['englishname'] == '') OR
@@ -197,26 +197,24 @@ class Request extends Private_Controller {
 				($this->data['user']['nationality'] == '') OR
 				($this->data['user']['id_card'] == '') OR
 				($this->data['user']['birthdate'] == '') OR
-				($this->data['user']['age'] == '') OR
-				($this->data['user']['sex'] == '') OR
 				($this->data['user']['phone'] == '') OR
 				($this->data['user']['fax'] == '') OR
 				($this->data['user']['email'] == '')) :
 				$this->data['body'] = 'กรุณากรอกข้อมูลส่วนตัวให้ครบถ้วน';
-			elseif (($this->data['address_current']['address'] == '') OR
+			elseif (($this->data['address_current']['address'] === '') OR
 				($this->data['address_current']['street'] == '') OR
 				($this->data['address_current']['tambon'] == '') OR
 				($this->data['address_current']['amphur'] == '') OR
 				($this->data['address_current']['province'] == '') OR
 				($this->data['address_current']['zip'] == '')) :
 				$this->data['body'] = 'กรุณากรอกข้อมูลที่อยู่ให้ครบถ้วน';
-			elseif (($this->data['education']['degree'] == '') OR
+			elseif (($this->data['education']['degree'] === '') OR
 				($this->data['education']['department'] == '') OR
 				($this->data['education']['place'] == '') OR
 				($this->data['education']['province'] == '') OR
 				($this->data['education']['year'] == '')) :
 				$this->data['body'] = 'กรุณากรอกข้อมูลการศึกษาให้ครบถ้วน';
-			elseif ($this->data['work']['work_status'] == '') :
+			elseif ($this->data['work']['work_status'] === '') :
 				$this->data['body'] = 'กรุณากรอกข้อมูลการทำงานให้ครบถ้วน';
 			elseif ($this->data['standard']) :
 				$this->data['body'] = 'ท่านได้ยื่นคำร้องขอสอบมาตรฐานฝีมือแรงงานไปเรียบร้อยแล้ว';
