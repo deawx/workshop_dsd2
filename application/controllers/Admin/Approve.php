@@ -7,6 +7,7 @@ class Approve extends Admin_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Request_model','request');
+		$this->load->model('Profile_model','profile');
 
 		$this->data['parent'] = 'approve';
 		$this->data['navbar'] = $this->load->view('_partials/menubar',$this->data,TRUE);
@@ -52,7 +53,7 @@ class Approve extends Admin_Controller {
 
 		foreach ($requests as $key => $value) :
 			if (time() > strtotime('+30 days',strtotime($value['date_create']))) :
-				unset($requests[$key]);
+				// unset($requests[$key]);
 			endif;
 			if ($q) :
 				if (isset($q['id_card']) && $q['id_card']!='' && $q['id_card']!=$value['id_card']) :
@@ -93,7 +94,7 @@ class Approve extends Admin_Controller {
 				if (isset($q['approve_status']) && $q['approve_status']!='' && $q['approve_status']!=$value['approve_status']) :
 					unset($requests[$key]);
 				endif;
-				if (isset($q['date_create']) && $q['date_create']!='' && $q['date_create']!=date('d-m-Y',$value['date_create'])) :
+				if (isset($q['date_create']) && $q['date_create']!='' && $q['date_create']!=date('d-m-Y',strtotime($value['date_create']))) :
 					unset($requests[$key]);
 				endif;
 			endif;
@@ -105,12 +106,12 @@ class Approve extends Admin_Controller {
 		$this->load->view('_layouts/boxed',$this->data);
 	}
 
-	function view($code='')
+	function view($user_id,$types)
 	{
-		if ( ! intval($code) && ! strlen($code) === '11')
+		if ( ! intval($user_id) OR ! $types)
 			show_404();
 
-		$record = $this->request->get_code($code);
+		$record = $this->request->get_code($user_id,$types);
 		$type = isset($record['department']) ? 'standard' : 'skill';
 
 		$this->data['record'] = $record;

@@ -112,24 +112,12 @@ class Request_model extends MY_Model {
     return $array;
   }
 
-  function get_code($code='')
+  function get_code($user_id,$type)
   {
-    $code = (int) $code;
-
-    $standard = $this->db
-      ->where('date_create',$code)
-      ->get('standards');
-
-    if ($standard->num_rows() < 1) :
-      $skill = $this->db
-        ->where('date_create',$code)
-        ->get('skills');
-      if ($skill->num_rows() > 0) :
-        return $skill->row_array();
-      endif;
-    endif;
-
-    return $standard->row_array();
+    return $this->db
+      ->where('user_id',$user_id)
+      ->get($type,1)
+      ->row_array();
   }
 
   function get_date($date)
@@ -143,7 +131,7 @@ class Request_model extends MY_Model {
     foreach ($events as $key => $value) :
       if ($value['approve_status'] === 'accept') :
         if (strlen($value['approve_schedule']) > 0) :
-          $approve_schedule = date('d-m-Y',$value['approve_schedule']);
+          $approve_schedule = date('d-m-Y',strtotime($value['approve_schedule']));
           if ($approve_schedule === $date) :
             $array[] = $value;
           endif;

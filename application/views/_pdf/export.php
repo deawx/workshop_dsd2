@@ -36,16 +36,17 @@
           </thead>
           <tbody>
             <?php foreach ($requests as $key => $value) :
-              $expired = strtotime('+30 days',$value['date_create']);
+              $expired = strtotime('+30 days',strtotime($value['date_create']));
               $type = (isset($value['category'])?$value['category']:'สอบรับรองความรู้ความสามารถ');
-              $profile = unserialize($value['profile']); ?>
+              $profile = $this->profile->get_id($value['user_id']);
+              ?>
               <tr>
                 <td class="text-center"><?=++$key;?></td>
                 <td><?=$type;?></td>
                 <td><?=$profile['title'].nbs(2).$profile['firstname'].nbs(2).$profile['lastname'];?></td>
-                <td class="text-center"><?=date('d-m-Y',$value['date_create']);?></td>
-                <td class="text-center"><?=($value['date_update']!=NULL)?date('d-m-Y',$value['date_update']):'N/A';?></td>
-                <td class="text-center"><?=date('d-m-Y',$expired);?></td>
+                <td class="text-center"><?=date('d-m-Y',strtotime($value['date_create']));?></td>
+                <td class="text-center"><?=($value['date_update']!=NULL)?date('d-m-Y',strtotime($value['date_update'])):'N/A';?></td>
+                <td class="text-center"><?=date('d-m-Y',strtotime($expired));?></td>
               </tr>
             <?php endforeach; ?>
           </tbody>

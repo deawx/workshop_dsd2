@@ -14,7 +14,8 @@
   <![endif]-->
 </head>
 <?php
-$profile = unserialize($record['profile']);
+$profile = $this->profile->get_id($record['user_id']);
+// $profile = unserialize($record['profile']);
 $address = unserialize($record['address']);
 $education = unserialize($record['education']);
 $work_yes = unserialize($record['work_yes']);
@@ -55,12 +56,12 @@ $reference = unserialize($record['reference']);
                 <?=form_checkbox('title','น',set_checkbox('title','น',($profile['title']!='นาย')));?> หญิง
                 <span class="col-md-12">
                   <p><b>1.1 ข้อมูลทั่วไป</b>
-                    ..........<?=$profile['fullname'];?>.......... สัญชาติ ..........<?=$profile['nationality'];?>.......... ศาสนา ..........<?=$profile['religion'];?>.......... <br>
+                    ..........<?=$profile['englishname'];?>.......... สัญชาติ ..........<?=$profile['nationality'];?>.......... ศาสนา ..........<?=$profile['religion'];?>.......... <br>
                     <?php $profile['id_card'] = (strlen($profile['id_card'])===13) ? $profile['id_card'] : str_repeat(0,13) ;
                     $split = str_split($profile['id_card'],1);
                     foreach ($split as $key => $value) : $split[$key] = '<span style="border:1px solid black;padding:0.1em;">'.$value.'</span>'; endforeach; ?>
                     เลขประจำตัวประชาชน <?=$split[0];?> - <?=$split[1].nbs().$split[2].nbs().$split[3].nbs().$split[4];?> - <?=$split[5].nbs().$split[6].nbs().$split[7].nbs().$split[8].nbs().$split[9];?> - <?=$split[10].nbs().$split[11];?> - <?=$split[12];?>
-                    วัน เดือน ปีเกิด ..........<?=date('d',$profile['birthdate']);?> / <?=dropdown_month(date('m',$profile['birthdate']));?> / <?=date('Y',$profile['birthdate'])+543;?>..........
+                    วัน เดือน ปีเกิด ..........<?=date('d',strtotime($profile['birthdate']));?> / <?=dropdown_month(date('m',strtotime($profile['birthdate'])));?> / <?=date('Y',strtotime($profile['birthdate']))+543;?>..........
                     อายุ ..........<?=age_calculate($profile['birthdate']);?>.......... ปึ
                   </p>
                   <p><b>1.2 ที่อยู่ติดต่อได้</b>

@@ -12,18 +12,18 @@
       <?php if ($standard) : ?>
         <tr>
           <td><?=$standard['category'];?></td>
-          <td><?=$standard['date_create'];?></td>
-          <td><?=date('Y-m-d',strtotime('+30 days',strtotime($standard['date_create'])));?></td>
-          <td><?=$standard['approve_status'];?></td>
+          <td><?=date('d-m-Y',strtotime($standard['date_create']));?></td>
+          <td><?=date('d-m-Y',strtotime('+30 days',strtotime($standard['date_create'])));?></td>
+          <td><?=isset($standard['approve_status']) ? $standard['approve_status'] : 'N/A';?></td>
           <td><?=anchor_popup('account/request/standard/'.$standard['id'],'ดู');?></td>
         </tr>
       <?php endif; ?>
       <?php if ($skill) : ?>
         <tr>
           <td>สอบใบรับรองความรู้ความสามารถ</td>
-          <td><?=$skill['date_create'];?></td>
-          <td><?=date('Y-m-d',strtotime('+30 days',strtotime($skill['date_create'])));?></td>
-          <td><?=$skill['approve_status'];?></td>
+          <td><?=date('d-m-Y',strtotime($skill['date_create']));?></td>
+          <td><?=date('d-m-Y',strtotime('+30 days',strtotime($skill['date_create'])));?></td>
+          <td><?=isset($skill['approve_status']) ? $skill['approve_status'] : 'N/A';?></td>
           <td><?=anchor_popup('account/request/skill/'.$skill['id'],'ดู');?></td>
         </tr>
       <?php endif; ?>

@@ -45,8 +45,12 @@ class Auth extends Public_Controller {
 	{
 		$this->data['title'] = $this->lang->line('login_heading');
 
+		if ($this->input->post())
+		{
+			$_POST['identity'] = str_replace('_','',$_POST['identity']);
+		}
 		//validate form input
-		$this->form_validation->set_rules('identity','หมายเลขบัตรประชาชน','required');
+		$this->form_validation->set_rules('identity','หมายเลขบัตรประชาชน','required|integer|exact_length[13]');
 		$this->form_validation->set_rules('password','รหัสผ่าน','required');
 
 		if ($this->form_validation->run() == true)
@@ -87,8 +91,12 @@ class Auth extends Public_Controller {
 	{
 		$this->data['title'] = $this->lang->line('login_heading');
 
+		if ($this->input->post())
+		{
+			$_POST['identity'] = str_replace('_','',$_POST['identity']);
+		}
 		//validate form input
-		$this->form_validation->set_rules('identity',str_replace(':','','หมายเลขบัตรประชาชน'),'required');
+		$this->form_validation->set_rules('identity','หมายเลขบัตรประชาชน','required|integer|exact_length[13]');
 		$this->form_validation->set_rules('password',str_replace(':','',$this->lang->line('login_password_label')),'required');
 
 		if ($this->form_validation->run() == true)
@@ -647,7 +655,7 @@ class Auth extends Public_Controller {
 		$this->data['title'] = $this->lang->line('create_user_heading');
 
 		$this->data['identity_column'] = $this->config->item('identity','ion_auth');
-		$this->form_validation->set_rules('identity','หมายเลขบัตรประชาชน','required|is_unique[users.username]');
+		$this->form_validation->set_rules('identity','หมายเลขบัตรประชาชน','required|is_unique[users.username]|integer|exact_length[13]');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 

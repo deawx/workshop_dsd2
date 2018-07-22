@@ -14,7 +14,8 @@
   <![endif]-->
 </head>
 <?php
-$profile = unserialize($record['profile']);
+$profile = $this->profile->get_id($record['user_id']);
+// $profile = unserialize($record['profile']);
 $address = unserialize($record['address']);
 $reference = unserialize($record['reference']);
 $type = isset($value['category']) ? $value['category'] : 'หนังสือรับรองความรู้ความสามารถ';

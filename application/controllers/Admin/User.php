@@ -52,6 +52,7 @@ class User extends Admin_Controller {
 			$this->session->set_flashdata('warning',validation_errors());
 		else:
 			$data = $this->input->post();
+			unset($data['password']);
 			if($this->profile->save($data)) :
 				$this->session->set_flashdata('success','บันทึกข้อมูลเสร็จสิ้น');
 			else:
@@ -70,7 +71,8 @@ class User extends Admin_Controller {
 		if ( ! intval($user_id) > 0 OR $user_id == '4')
 			show_404();
 
-		$this->auth->delete_user($user_id);
+		$this->profile->remove($user_id);
+		$this->session->set_flashdata('success','ลบข้อมูลเสร็จสิ้น');
 
 		redirect('admin/user');
 	}

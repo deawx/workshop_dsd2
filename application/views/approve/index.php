@@ -81,7 +81,7 @@ $uri_string = uri_string().'?'.$uri_get;
                 </div>
               </div>
             </td>
-            <td><?=anchor('admin/approve/view/'.$value['date_create'],'ดู',array('class'=>'label label-default','target'=>'_blank'));?></td>
+            <td><?=anchor('admin/approve/view/'.$value['user_id'].'/'.$type,'ดู',array('class'=>'label label-default','target'=>'_blank'));?></td>
           </tr>
       <?php endforeach; ?>
     </tbody>

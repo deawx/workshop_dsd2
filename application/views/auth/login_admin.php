@@ -17,7 +17,10 @@
           </div>
           <?php echo form_close();?>
         </div>
-        <div class="panel-footer text-right"> </div>
+        <div class="panel-footer">
+          <a href="login">เข้าสู่ระบบบุคคลทั่วไป</a>
+          <a href="register" class="pull-right"><?php echo lang('create_user_heading');?></a>
+        </div>
       </div>
     </div>
   </div>

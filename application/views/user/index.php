@@ -2,7 +2,7 @@
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลสมาชิกทั้งหมด <?=count($users);?> รายการ</h3> </div>
   <div class="panel-body">
     <?=form_open(uri_string(),array('method'=>'get','class'=>'form-inline pull-right'));?>
-    <div class="form-group"> <?=form_input(array('name'=>'q','class'=>'form-control','placeholder'=>'ค้นหาอีเมล์'));?> </div>
+    <div class="form-group"> <?=form_input(array('name'=>'q','class'=>'form-control','placeholder'=>'ค้นหาเลขบัตรประชาชน','value'=>$this->input->get('q')));?> </div>
     <div class="form-group"> <?=form_submit('','ค้นหา',array('class'=>'btn btn-default pull-right'));?> </div>
     <?=form_close();?>
   </div>
@@ -18,9 +18,9 @@
           <td style="width:15%">
             <?=anchor('admin/user/edit/'.$value['id'],'แก้ไข',array('class'=>'label label-info'));?>
             <?php if ($value['is_active'] === '1') : ?>
-              <?=anchor('admin/user/deactivate/'.$value['id'],'ปิดใช้งาน',array('class'=>'label label-warning','onclick'=>"return confirm('ยืนยันการปิดใช้งาน?');"));?>
+              <?//=anchor('admin/user/deactivate/'.$value['id'],'ปิดใช้งาน',array('class'=>'label label-warning','onclick'=>"return confirm('ยืนยันการปิดใช้งาน?');"));?>
             <?php else: ?>
-              <?=anchor('admin/user/activate/'.$value['id'],'เปิดใช้งาน',array('class'=>'label label-info','onclick'=>"return confirm('ยืนยันการเปิดใช้งาน?');"));?>
+              <?//=anchor('admin/user/activate/'.$value['id'],'เปิดใช้งาน',array('class'=>'label label-info','onclick'=>"return confirm('ยืนยันการเปิดใช้งาน?');"));?>
             <?php endif; ?>
               <?=anchor('admin/user/delete/'.$value['id'],'ลบ',array('class'=>'label label-danger','onclick'=>"return confirm('ยืนยันการลบ?');"));?>
           </td>

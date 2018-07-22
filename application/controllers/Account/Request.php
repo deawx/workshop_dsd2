@@ -375,8 +375,7 @@ class Request extends Private_Controller {
 	{
 		$this->session->set_flashdata('warning','');
 
-		$this->data['requests'] = $this->request->get_all_id($this->id,'accept');
-		$this->data['assets'] = $this->assets->get_all();
+		$this->data['requests'] = $this->request->get_all_id($this->id,'');
 
 		$this->data['menu'] = 'result';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
@@ -446,12 +445,12 @@ class Request extends Private_Controller {
 		$schedule = array();
 		$schedules = $this->request->get_future('','accept');
 		foreach ($schedules as $key => $value) :
-			print_data($value);
-			// $profile = unserialize($value['profile']);
-			// $schedule[$key]['title'] = $profile['title'].' '.$profile['firstname'].' '.$profile['lastname'];
-			// $schedule[$key]['start'] = date('Y-m-d',$value['approve_schedule']);
+			// print_data($value);
+			$profile = $this->profile->get_id($value['user_id']);
+			$schedule[$key]['title'] = $profile['title'].' '.$profile['firstname'].' '.$profile['lastname'];
+			$schedule[$key]['start'] = date('Y-m-d',strtotime($value['approve_schedule']));
 		endforeach;
-		die();
+		// die();
 
 		$request = $this->request->get_all_id($this->id,'accept');
 		foreach ($request as $key => $value) :

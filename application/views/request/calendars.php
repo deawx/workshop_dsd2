@@ -25,7 +25,8 @@ $(function(){
     noEventsMessage: "ไม่มีกิจกรรมที่จะแสดง"
   });
 
-  var calendar = $('#calendar');
+  var calendar = '';
+  // var calendar = $('#calendar');
   var modal = $('#dayClick');
 
   calendar.fullCalendar({

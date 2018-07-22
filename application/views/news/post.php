@@ -10,10 +10,10 @@
       <div class="col-md-9"> <?=form_dropdown(array('name'=>'category','class'=>'form-control'),array(''=>'เลือกรายการ','ประชาสัมพันธ์'=>'ประชาสัมพันธ์','ข่าวสารทั่วไป'=>'ข่าวสารทั่วไป','ประกาศผลการสอบ'=>'ประกาศผลการสอบ',),set_value('category',$news['category']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('วันที่โพสต์','',array('class'=>'control-label col-md-3'));?>
-      <div class="col-md-9"> <?=form_input(array('name'=>'date_create','class'=>'form-control','disabled'=>TRUE,'value'=>($news['date_create']) ? date('d-m-Y',$news['date_create']) : ''));?> </div>
+      <div class="col-md-9"> <?=form_input(array('name'=>'date_create','class'=>'form-control','disabled'=>TRUE,'value'=>($news['date_create']) ? date('d-m-Y',strtotime($news['date_create'])) : ''));?> </div>
     </div>
     <div class="form-group"> <?=form_label('วันที่แก้ไข','',array('class'=>'control-label col-md-3'));?>
-      <div class="col-md-9"> <?=form_input(array('name'=>'date_update','class'=>'form-control','disabled'=>TRUE,'value'=>($news['date_update']) ? date('d-m-Y',$news['date_update']) : ''));?> </div>
+      <div class="col-md-9"> <?=form_input(array('name'=>'date_update','class'=>'form-control','disabled'=>TRUE,'value'=>($news['date_update']) ? date('d-m-Y',strtotime($news['date_update'])) : ''));?> </div>
     </div>
     <div class="form-group"> <?=form_label('เนื้อหาข่าวสาร','',array('class'=>'control-label col-md-3'));?>
       <div class="col-md-9"> <?=form_textarea(array('name'=>'detail','class'=>'form-control','id'=>'summernote','value'=>$news['detail']),set_value('detail'));?> </div>
