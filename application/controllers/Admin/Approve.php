@@ -150,4 +150,10 @@ class Approve extends Admin_Controller {
 		endif;
 	}
 
+	function calendar()
+	{
+		$this->data['body'] = $this->load->view('approve/calendar',$this->data,TRUE);
+		$this->load->view('_layouts/boxed',$this->data);
+	}
+
 }

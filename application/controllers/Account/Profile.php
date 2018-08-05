@@ -58,7 +58,7 @@ class Profile extends Private_Controller {
 		$this->form_validation->set_rules('address[tambon]','ตำบล','required');
 		$this->form_validation->set_rules('address[amphur]','อำเภอ','required');
 		$this->form_validation->set_rules('address[province]','จังหวัด','required');
-		$this->form_validation->set_rules('address[zip]','รหัสไปรษณีย์','is_numeric|max_length[5]');
+		$this->form_validation->set_rules('address[zip]','รหัสไปรษณีย์','required|is_numeric|max_length[5]');
 
 		if ($this->form_validation->run() === FALSE) :
 			$this->session->set_flashdata('warning',validation_errors());
@@ -93,7 +93,7 @@ class Profile extends Private_Controller {
 			else:
 				$this->form_validation->set_rules('email','อีเมล์','required|valid_email|max_length[100]');
 			endif;
-			$this->form_validation->set_rules('phone','เบอร์โทรศัพท์','is_numeric|max_length[10]');
+			$this->form_validation->set_rules('phone','เบอร์โทรศัพท์','required|is_numeric|max_length[10]');
 			$this->form_validation->set_rules('fax','แฟกซ์','is_numeric|max_length[10]');
 
 			if ($this->form_validation->run() === FALSE) :

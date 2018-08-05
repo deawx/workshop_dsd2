@@ -15,9 +15,16 @@
 </head>
 <?php
 $profile = $this->profile->get_id($record['user_id']);
-// $profile = unserialize($record['profile']);
-$address = unserialize($record['address']);
-$education = unserialize($record['education']);
+$address = unserialize($profile['address']);
+$education = unserialize($profile['education']);
+$work = unserialize($profile['work']);
+// echo '<pre>';
+// print_r($profile);
+// print_r($address);
+// print_r($education);
+// print_r($work);
+// print_r($record);
+// echo '</pre>';
 $work_yes = unserialize($record['work_yes']);
 $work_abroad = unserialize($record['work_abroad']);
 $reference = unserialize($record['reference']);
@@ -44,19 +51,19 @@ $reference = unserialize($record['reference']);
                 <?=form_checkbox('category','ทดสอบ/รับรองฝีมือแรงงานนานาชาติ (ช่างเชื่อมมาตรฐานสากล)',set_checkbox('category','ทดสอบ/รับรองฝีมือแรงงานนานาชาติ (ช่างเชื่อมมาตรฐานสากล)',($record['category']==='ทดสอบ/รับรองฝีมือแรงงานนานาชาติ (ช่างเชื่อมมาตรฐานสากล)')));?>ทดสอบ/รับรองฝีมือแรงงานนานาชาติ (ช่างเชื่อมมาตรฐานสากล)<br>
               </span>
               <span class="col-md-4">
-                หน่วยงาน : <?=$record['department'];?><br> สาขาอาชีพ : <?=$record['branch'];?><br> ระดับ : <?=$record['level'];?><br> </span>
+                หน่วยงาน : <?=isset($record['department'])?$record['department']:'';?><br> สาขาอาชีพ : <?=isset($record['branch'])?$record['branch']:'';?><br> ระดับ : <?=isset($record['level'])?$record['level']:'';?><br> </span>
               </td>
               <td class="text-center" style="width:30%;padding-top:4em;"> รูปถ่าย <br> 1 นิ้ว <br> </td>
             </tr>
             <tr>
               <td colspan="2">
                 <b>1. ข้อมูลส่วนบุคคล</b>
-                ชื่อ ..........<?=$profile['title'].nbs(2).$profile['firstname'];?>.......... นามสกุล ..........<?=$profile['lastname'];?>..........
+                ชื่อ ..........<?=isset($profile['title'])?$profile['title']:''.nbs(2).isset($profile['firstname'])?$profile['firstname']:'';?>.......... นามสกุล ..........<?=isset($profile['lastname'])?$profile['lastname']:'';?>..........
                 เพศ <?=form_checkbox('title','นาย',set_checkbox('title','นาย',($profile['title']=='นาย')));?> ชาย
                 <?=form_checkbox('title','น',set_checkbox('title','น',($profile['title']!='นาย')));?> หญิง
                 <span class="col-md-12">
                   <p><b>1.1 ข้อมูลทั่วไป</b>
-                    ..........<?=$profile['englishname'];?>.......... สัญชาติ ..........<?=$profile['nationality'];?>.......... ศาสนา ..........<?=$profile['religion'];?>.......... <br>
+                    ..........<?=isset($profile['englishname'])?$profile['englishname']:'';?>.......... สัญชาติ ..........<?=$profile['nationality'];?>.......... ศาสนา ..........<?=$profile['religion'];?>.......... <br>
                     <?php $profile['id_card'] = (strlen($profile['id_card'])===13) ? $profile['id_card'] : str_repeat(0,13) ;
                     $split = str_split($profile['id_card'],1);
                     foreach ($split as $key => $value) : $split[$key] = '<span style="border:1px solid black;padding:0.1em;">'.$value.'</span>'; endforeach; ?>
@@ -65,9 +72,15 @@ $reference = unserialize($record['reference']);
                     อายุ ..........<?=age_calculate($profile['birthdate']);?>.......... ปึ
                   </p>
                   <p><b>1.2 ที่อยู่ติดต่อได้</b>
-                    บ้านเลขที่/หมู่ที่/หน่วยงาน/อาคาร ..........<?=$address['address'];?>..........<br>
-                    ถนน/ตรอกซอย ..........<?=$address['street'];?>.......... ตำบล ..........<?=$address['tambon'];?>.......... อำเภอ ..........<?=$address['amphur'];?>.......... จังหวัด ..........<?=$address['province'];?>..........<br>
-                    รหัสไปรษณีย์ ..........<?=$address['zip'];?>.......... โทรศัพท์ ..........<?=$address['phone'];?>.......... โทรสาร ..........<?=$address['fax'];?>.......... อีเมล์ ..........<?=$address['email'];?>..........
+                    บ้านเลขที่/หมู่ที่/หน่วยงาน/อาคาร ..........<?=isset($address['address'])?$address['address']:'';?>..........<br>
+                    ถนน/ตรอกซอย ..........<?=isset($address['street'])?$address['street']:'';?>..........
+                    ตำบล ..........<?=isset($address['tambon'])?$address['tambon']:'';?>..........
+                    อำเภอ ..........<?=isset($address['amphur'])?$address['amphur']:'';?>..........
+                    จังหวัด ..........<?=isset($address['province'])?$address['province']:'';?>..........<br>
+                    รหัสไปรษณีย์ ..........<?=isset($address['zip'])?$address['zip']:'';?>..........
+                    โทรศัพท์ ..........<?=isset($address['phone'])?$address['phone']:'';?>..........
+                    โทรสาร ..........<?=isset($address['fax'])?$address['fax']:'';?>..........
+                    อีเมล์ ..........<?=isset($address['email'])?$address['email']:'';?>..........
                   </p>
                   <p><b>1.3 ประเภทผู้สมัคร</b>
                     <?=form_checkbox('type','ผู้รับการฝึกจาก กพร.',set_checkbox('type','ผู้รับการฝึกจาก กพร.',($record['type']==='ผู้รับการฝึกจาก กพร.')));?>ผู้รับการฝึกจาก กพร.
@@ -88,7 +101,11 @@ $reference = unserialize($record['reference']);
                   <p><b>1.5 ระดับการศึกษาสูงสุด</b>
                     <?php $edus = array('ประถมศึกษา','ม.3','ม.6','ปก.ศ.ต้น','ปก.ศ.สูง/อนุปริญญา','ปวช.','ปวท.','ปวส.','ปริญญาตรี','ปริญญาโท','ปริญญาเอก');
                     foreach ($edus as $key => $value) : echo form_checkbox('education[degree]',$value,set_checkbox('education[degree]',$value,($education['degree']===$value))).$value.nbs(3); endforeach; ?>
-                    <br>สาขาวิชา ..........<?=$education['branch'];?>.......... สถานศึกษา ..........<?=$education['place'];?>.......... จังหวัด ..........<?=$education['province'];?>.......... ปี พ.ศ.ที่สำเร็จ ..........<?=$education['year'];?>..........
+                    <br>
+                    สาขาวิชา ..........<?=isset($education['branch'])?$education['branch']:'';?>..........
+                    สถานศึกษา ..........<?=isset($education['place'])?$education['place']:'';?>..........
+                    จังหวัด ..........<?=isset($education['province'])?$education['province']:'';?>..........
+                    ปี พ.ศ.ที่สำเร็จ ..........<?=isset($education['year'])?$education['year']:'';?>..........
                   </p>
                 </span>
               </td>

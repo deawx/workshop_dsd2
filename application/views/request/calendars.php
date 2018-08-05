@@ -25,8 +25,7 @@ $(function(){
     noEventsMessage: "ไม่มีกิจกรรมที่จะแสดง"
   });
 
-  var calendar = '';
-  // var calendar = $('#calendar');
+  var calendar = $('#calendar');
   var modal = $('#dayClick');
 
   calendar.fullCalendar({
@@ -34,14 +33,20 @@ $(function(){
     defaultView: 'month',
     eventLimit: true,
     eventLimit: 1,
-    validRange: function(nowDate) { return { start: nowDate.add(1,'day'), end: nowDate.clone().add(6,'months') }; },
+    validRange: function(nowDate){
+      return {
+        start: nowDate.add(1,'day'),
+        end: nowDate.clone().add(6,'months')
+      };
+    },
     hiddenDays: [ 0,6 ],
     businessHours: [{ dow: [ 1,2,3,4,5 ], start: '08:00', end: '17:00' }],
     events: [
       <?php foreach ($schedule as $value) : ?>
       {
-        title : '<?=$value["title"]?>',
-        start : '<?=$value["start"]?>'
+        title: '<?=$value["title"]?>',
+        start: '<?=$value["start"]?>',
+        rendering: 'background'
       },
       <?php endforeach; ?>
     ],

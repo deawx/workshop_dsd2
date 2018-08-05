@@ -386,6 +386,36 @@ class Request extends Private_Controller {
 
 	function calendar()
 	{
+		$conf = array(
+			'show_next_prev' => TRUE,
+			'next_prev_url' => site_url(),
+			'template' => array(
+				'table_open' => '<table class="table table-bordered text-center">',
+				'heading_row_start' => '<tr>',
+				'heading_previous_cell' => '<th class="text-center"><a href="{previous_url}">&lt;&lt;</a></th>',
+				'heading_title_cell' => '<th colspan="{colspan}" class="text-center" id="title_year">{heading}+543</th>',
+				'heading_next_cell' => '<th class="text-center"><a href="{next_url}">&gt;&gt;</a></th>',
+				'week_row_start' => '<tr>',
+				'week_day_cell' => '<td>{week_day}</td>',
+				'cal_cell_start' => '<td class="">',
+				'cal_cell_start_today' => '<td class="bg-primary">',
+				'cal_cell_start_other' => '<td class="other-month">',
+				'cal_cell_content' => '<a href="{content}">{day}</a>',
+				'cal_cell_content_today' => '<div class="highlight"><a href="{content}">{day}</a></div>'
+			)
+		);
+		$this->load->library('calendar',$conf);
+
+		$this->data['calendar'] = $this->calendar->generate($this->uri->segment(5),$this->uri->segment(6));
+		$this->data['menu'] = 'calendar';
+		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
+		$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
+		$this->data['body'] = $this->load->view('request/calendar',$this->data,TRUE);
+		$this->load->view('_layouts/rightside',$this->data);
+	}
+
+	function calendars()
+	{
 		$this->session->set_flashdata('warning','');
 
 		$this->form_validation->set_rules('code','ประเภทการสอบ','required');
@@ -465,6 +495,15 @@ class Request extends Private_Controller {
 		$this->data['css'] = array(link_tag('assets/css/fullcalendar.css'),link_tag('assets/css/fullcalendar.print.css','stylesheet','text/css','fullcalendar','print'));
 		$this->data['js'] = array(script_tag('assets/js/moment.min.js'),script_tag('assets/js/moment.th.js'),script_tag('assets/js/fullcalendar.js'));
 		$this->data['body'] = $this->load->view('request/calendars',$this->data,TRUE);
+		?>
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/th.js"></script> -->
+		<?php
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 

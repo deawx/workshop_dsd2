@@ -14,12 +14,12 @@
     <div class="form-group"> <?=form_label('วันที่เลือกสอบ','',array('class'=>'control-label col-md-3'));?>
       <div class="col-md-9"> <?=form_input(array('name'=>'approve_schedule','class'=>'form-control','readonly'=>TRUE,'value'=>$approve_schedule));?> </div>
     </div>
-    <div class="form-group"> <?=form_label('ช่วงเวลาสอบ','',array('class'=>'control-label col-md-3'));?>
+    <!-- <div class="form-group"> <?=form_label('ช่วงเวลาสอบ','',array('class'=>'control-label col-md-3'));?>
       <div class="col-md-9">
         <?=form_dropdown(array('name'=>'approve_time','class'=>'form-control'),array(''=>'เลือกรายการ','ช่วงเช้า 09.00 - 12.00 น.'=>'ช่วงเช้า 09.00 - 12.00 น.','ช่วงบ่าย 13.00 - 16.00 น.'=>'ช่วงบ่าย 13.00 - 16.00 น.'));?>
         <p class="help-block">*ให้เลือกในกรณีสอบมาตรฐานฝีมือแรงงาน</p>
       </div>
-    </div>
+    </div> -->
     <div class="form-group"> <?=form_label('','',array('class'=>'control-label col-md-3'));?>
       <div class="col-md-9"> <?=form_submit('','บันทึกข้อมูล',array('class'=>'btn btn-primary btn-block'));?> </div>
     </div>
@@ -28,20 +28,20 @@
     <h4>ท่านยังไม่มีรายการเลือกวันสอบ</h4>
   <?php endif; ?>
 </div>
-<ul>
+<!-- <ul>
   <li>ผู้เข้าสอบมาตรฐานฝีมือแรงงานแห่งชาติจำนวน <?=$standard;?> รายการ (ช่วงเช้า <?=$morning;?> / ช่วงบ่าย <?=$afternoon;?>)</li>
   <li>ผู้เข้าสอบรับรองความรู้ความสามารถจำนวน <?=$skill;?> รายการ</li>
-</ul>
+</ul> -->
 <div class="modal-footer" style="padding:0;">
   <table class="table table-bordered">
-    <thead> <tr> <th class="text-center">ผู้เข้าสอบ</th> <th class="text-center">ประเภท</th> <th class="text-center">ช่วงเวลา</th> </tr> </thead>
+    <!-- <thead> <tr> <th class="text-center">ผู้เข้าสอบ</th> <th class="text-center">ประเภท</th> <th class="text-center">ช่วงเวลา</th> </tr> </thead> -->
+    <thead> <tr> <th class="text-center">ผู้เข้าสอบ</th> <th class="text-center">ประเภท</th> </tr> </thead>
     <tbody>
       <?php if (count($events)>0) :
         foreach ($events as $key => $value) : ?>
           <tr>
             <td class="text-left"><?=$value['name'];?></td>
             <td style="width:30%;"><?=$value['job'];?></td>
-            <td style="width:25%;"><?=$value['time'];?></td>
           </tr>
         <?php endforeach;
       endif; ?>

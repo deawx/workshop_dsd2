@@ -15,11 +15,17 @@
 </head>
 <?php
 $profile = $this->profile->get_id($record['user_id']);
-// $profile = unserialize($record['profile']);
-$address = unserialize($record['address']);
-$address_current = unserialize($record['address_current']);
-$education = unserialize($record['education']);
-$work = unserialize($record['work']);
+$address = unserialize($profile['address']);
+$address_current = unserialize($profile['address_current']);
+$education = unserialize($profile['education']);
+$work = unserialize($profile['work']);
+// echo '<pre>';
+// print_r($profile);
+// print_r($address);
+// print_r($education);
+// print_r($work);
+// print_r($record);
+// echo '</pre>';
 $reference = unserialize($record['reference']);
 ?>
 <body>
@@ -44,7 +50,7 @@ $reference = unserialize($record['reference']);
         <div class="col-md-12">
           <p class="col-md-4 col-md-offset-8">เขียนที่ ........................................</p>
           <p class="col-md-4 col-md-offset-8">วันที่ .....<?=date('d');?> เดือน .....<?=dropdown_month(date('m'));?> พ.ศ. .....<?=date('Y')+543;?></p>
-          <p>1.ข้าพเจ้า ..........<?=$profile['title'].nbs().$profile['firstname'];?>.......... นามสกุล ..........<?=$profile['lastname'];?>..........</p>
+          <p>1.ข้าพเจ้า ..........<?=isset($profile['title'])?$profile['title']:''.nbs().isset($profile['firstname'])?$profile['firstname']:'';?>.......... นามสกุล ..........<?=isset($profile['lastname'])?$profile['lastname']:'';?>..........</p>
           <p>เกิดวันที่ ..........<?=date('d',strtotime($profile['birthdate']));?> เดือน ..........<?=dropdown_month(date('m',strtotime($profile['birthdate'])));?> พ.ศ. ..........<?=date('Y',strtotime($profile['birthdate']))+543;?> อายุ ..........<?=age_calculate($profile['birthdate']);?> ปี สัญชาติ ..........<?=$profile['nationality'];?> หมู่โลหิต ..........<?=$profile['blood'];?> </p>
           <?php $profile['id_card'] = (strlen($profile['id_card'])===13) ? $profile['id_card'] : str_repeat(0,13) ;
           $split = str_split($profile['id_card'],1);
@@ -52,12 +58,22 @@ $reference = unserialize($record['reference']);
             $split[$key] = '<span style="border:1px solid black;padding:0.1em;">'.$value.'</span>';
           endforeach; ?>
           <p>เลขประจำตัวประชาชน <?=$split[0];?>  <?=$split[1].nbs().$split[2].nbs().$split[3].nbs().$split[4];?>  <?=$split[5].nbs().$split[6].nbs().$split[7].nbs().$split[8].nbs().$split[9];?>  <?=$split[10].nbs().$split[11];?>  <?=$split[12];?></p>
-          <p>ที่อยู่ตามทะเบียนบ้าน เลขที่ ..........<?=$address['address'];?>.......... หมู่ ..........<?=isset($address['moo'])?$address['moo']:'';?>.......... ซอย ..........<?=isset($address['soi'])?$address['soi']:'';?>.......... ถนน ..........<?=$address['street'];?>..........</p>
-          <p>แขวง/ตำบล ..........<?=$address['tambon'];?>.......... เขต/อำเภอ ..........<?=$address['amphur'];?>..........</p>
-          <p>จังหวัด ..........<?=$address['province'];?>.......... รหัสไปรษณีย์ ..........<?=$address['zip'];?>..........</p>
+          <p>ที่อยู่ตามทะเบียนบ้าน เลขที่ ..........<?=isset($address['address'])?$address['address']:'';?>..........
+            หมู่ ..........<?=isset($address['moo'])?$address['moo']:'';?>..........
+            ซอย ..........<?=isset($address['soi'])?$address['soi']:'';?>..........
+            ถนน ..........<?=isset($address['street'])?$address['street']:'';?>..........
+          </p>
+          <p>แขวง/ตำบล ..........<?=isset($address['tambon'])?$address['tambon']:'';?>..........
+            เขต/อำเภอ ..........<?=isset($address['amphur'])?$address['amphur']:'';?>..........
+          </p>
+          <p>จังหวัด ..........<?=isset($address['province'])?$address['province']:'';?>.......... รหัสไปรษณีย์ ..........<?=isset($address['zip'])?$address['zip']:'';?>..........</p>
           <p>โทรศัพท์ ..........<?=isset($address['phone'])?$address['phone']:'';?>.......... โทรสาร ..........<?=isset($address['fax'])?$address['fax']:'';?>.......... อีเมล์ ..........<?=isset($address['email'])?$address['email']:'';?>..........</p>
 
-          <p>ที่อยู่ตามปัจจุบัน เลขที่ ..........<?=$address_current['address'];?>.......... หมู่ ..........<?=isset($address_current['moo'])?$address_current['moo']:'';?>.......... ซอย ..........<?=isset($address_current['soi'])?$address_current['soi']:'';?>.......... ถนน ..........<?=$address_current['street'];?>..........</p>
+          <p>ที่อยู่ตามปัจจุบัน เลขที่ ..........<?=isset($address_current['address'])?$address_current['address']:'';?>..........
+            หมู่ ..........<?=isset($address_current['moo'])?$address_current['moo']:'';?>..........
+            ซอย ..........<?=isset($address_current['soi'])?$address_current['soi']:'';?>..........
+            ถนน ..........<?=isset($address_current['street'])?$address_current['street']:'';?>..........
+          </p>
           <p>แขวง/ตำบล ..........<?=$address_current['tambon'];?>.......... เขต/อำเภอ ..........<?=$address_current['amphur'];?>..........</p>
           <p>จังหวัด ..........<?=$address_current['province'];?>.......... รหัสไปรษณีย์ ..........<?=$address_current['zip'];?>..........</p>
           <p>โทรศัพท์ ..........<?=isset($address_current['phone'])?$address_current['phone']:'';?>.......... โทรสาร ..........<?=isset($address_current['fax'])?$address_current['fax']:'';?>.......... อีเมล์ ..........<?=isset($address_current['email'])?$address_current['email']:'';?>..........</p>
