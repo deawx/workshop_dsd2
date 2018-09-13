@@ -8,13 +8,13 @@
         <tr class="rows" style="display:none;">
           <td><?=isset($value['category']) ? $value['category'] : 'หนังสือรับรองความรู้ความสามารถ';?></td>
           <td><?=($value['approve_schedule']!='0000-00-00') ? date('d-m-Y',strtotime($value['approve_schedule'])) : 'N/A';?></td>
-          <td><?=($value['approve_schedule']!='0000-00-00') ? anchor_popup('account/request/queue/'.$value['date_create'],'ดู',array('class'=>'label label-info')) : 'N/A';?></td>
+          <td><?=($value['approve_schedule']!='0000-00-00') ? anchor_popup('account/request/queue/'.$value['date_create'],'ดู',array('class'=>'btn btn-info btn-sm')) : 'N/A';?></td>
           <td><?=($value['approve_schedule']!='0000-00-00') ? $value['status'] : 'N/A';?></td>
         </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
-  <div class="panel-footer"> <?=anchor('#','ก่อนหน้า',array('class'=>'label label-default','id'=>'more'));?> </div>
+  <div class="panel-footer"> <?=anchor('#','ก่อนหน้า',array('class'=>'btn btn-default btn-sm','id'=>'more'));?> </div>
 </div>
 
 <script type="text/javascript">

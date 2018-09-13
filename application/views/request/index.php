@@ -15,7 +15,7 @@
           <td><?=date('d-m-Y',strtotime($standard['date_create']));?></td>
           <td><?=date('d-m-Y',strtotime('+30 days',strtotime($standard['date_create'])));?></td>
           <td><?=isset($standard['approve_status']) ? $standard['approve_status'] : 'N/A';?></td>
-          <td><?=anchor_popup('account/request/standard/'.$standard['id'],'ดู');?></td>
+          <td><?=anchor_popup('account/request/standard/'.$standard['id'],'ดู',array('class'=>'btn btn-default btn-sm'));?></td>
         </tr>
       <?php endif; ?>
       <?php if ($skill) : ?>
@@ -24,7 +24,7 @@
           <td><?=date('d-m-Y',strtotime($skill['date_create']));?></td>
           <td><?=date('d-m-Y',strtotime('+30 days',strtotime($skill['date_create'])));?></td>
           <td><?=isset($skill['approve_status']) ? $skill['approve_status'] : 'N/A';?></td>
-          <td><?=anchor_popup('account/request/skill/'.$skill['id'],'ดู');?></td>
+          <td><?=anchor_popup('account/request/skill/'.$skill['id'],'ดู',array('class'=>'btn btn-default btn-sm'));?></td>
         </tr>
       <?php endif; ?>
     </tbody>

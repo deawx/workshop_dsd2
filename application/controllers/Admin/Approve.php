@@ -15,6 +15,20 @@ class Approve extends Admin_Controller {
 
 	function index()
 	{
+		$this->session->set_flashdata('warning','');
+		$date_reject = $this->input->post('date_reject');
+		if ($date_reject) :
+			$this->form_validation->set_rules('date_reject','วันที่ปิดรับคำร้อง','required|callback_date_check',array(
+				'date_check' => '%s ซ้ำกับข้อมูลในระบบ'
+			));
+			if ($this->form_validation->run() == FALSE) :
+				$this->session->set_flashdata('warning',validation_errors());
+			else:
+				$this->request->save(array(
+					'date' => date('Y-m-d',strtotime($date_reject))
+				),'date_reject');
+			endif;
+		endif;
 		$approve_status = $this->input->post('approve_status');
 		if ($approve_status) :
 			$approve_status['admin_id'] = $this->session->id;
@@ -77,6 +91,7 @@ class Approve extends Admin_Controller {
 		else:
 			$this->data['css'] = array(link_tag('assets/css/datepicker.min.css'));
 			$this->data['js'] = array(script_tag('assets/js/datepicker.min.js'),script_tag('assets/js/datepicker.th.min.js'));
+			$this->data['date_reject'] = $this->request->search(array('date >'=>date('Y-m-d')),'date_reject');
 			$this->data['body'] = $this->load->view('approve/index',$this->data,TRUE);
 		endif;
 		$this->load->view('_layouts/boxed',$this->data);
@@ -150,10 +165,22 @@ class Approve extends Admin_Controller {
 		endif;
 	}
 
-	function calendar()
+	function date_check($date)
 	{
-		$this->data['body'] = $this->load->view('approve/calendar',$this->data,TRUE);
-		$this->load->view('_layouts/boxed',$this->data);
+		$date = date('Y-m-d',strtotime($date));
+		$exist = $this->db
+			->where(array('date'=>$date))
+			->get('date_reject');
+		return ($exist->num_rows() > 0) ? FALSE : TRUE;
+	}
+
+	function date_cancel($date_id)
+	{
+		$return = $this->request->remove($date_id,'date_reject');
+		if ($return === FALSE) :
+			$this->session->set_flashdata('info','ลบข้อมูลเสร็จสิ้น');
+		endif;
+		redirect('admin/approve');
 	}
 
 }

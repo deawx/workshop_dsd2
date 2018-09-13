@@ -18,18 +18,18 @@
           <td><?=$value['date_update'];?></td>
           <td class="text-right">
             <?php if ($value['pinned'] === '1') : ?>
-              <?=anchor('admin/news/pinned/'.$value['id'],'ถอดหมุด',array('class'=>'label label-default'));?>
+              <?=anchor('admin/news/pinned/'.$value['id'],'ถอดหมุด',array('class'=>'btn btn-default btn-sm'));?>
             <?php else: ?>
-              <?=anchor('admin/news/pinned/'.$value['id'],'ปักหมุด',array('class'=>'label label-default'));?>
+              <?=anchor('admin/news/pinned/'.$value['id'],'ปักหมุด',array('class'=>'btn btn-default btn-sm'));?>
             <?php endif; ?>
-            <?=anchor('admin/news/post/'.$value['id'],'แก้ไข',array('class'=>'label label-info'));?>
-            <?=anchor('admin/news/delete/'.$value['id'],'ลบ',array('class'=>'label label-danger','onclick'=>"return confirm('ยืนยันการลบ?');"));?>
+            <?=anchor('admin/news/post/'.$value['id'],'แก้ไข',array('class'=>'btn btn-info btn-sm'));?>
+            <?=anchor('admin/news/delete/'.$value['id'],'ลบ',array('class'=>'btn btn-danger btn-sm','onclick'=>"return confirm('ยืนยันการลบ?');"));?>
           </td>
         </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
-  <div class="panel-footer"> <?=anchor('#','ก่อนหน้า',array('class'=>'label label-default','id'=>'more'));?> </div>
+  <div class="panel-footer"> <?=anchor('#','ก่อนหน้า',array('class'=>'btn btn-default btn-sm','id'=>'more'));?> </div>
 </div>
 
 <script type="text/javascript">

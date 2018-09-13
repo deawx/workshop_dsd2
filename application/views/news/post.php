@@ -47,7 +47,7 @@
                 <td><?=form_checkbox(array('name'=>'assets_id[]'),$asset['id'],set_checkbox('assets_id',$asset['id'],(any_in_array($asset['id'],$assets_id))));?></td>
                 <td><?=$asset['client_name'];?></td>
                 <td><?=byte_format($asset['file_size']);?></td>
-                <td><?=anchor('uploads/attachments/'.$asset['file_name'],'ดู',array('class'=>'label label-info','target'=>'_blank'));?></td>
+                <td><?=anchor('uploads/attachments/'.$asset['file_name'],'ดู',array('class'=>'btn btn-info btn-sm','target'=>'_blank'));?></td>
               </tr>
             <?php endforeach; ?>
           </tbody>

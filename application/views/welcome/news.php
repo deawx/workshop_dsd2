@@ -18,11 +18,11 @@ endforeach;
         <?php foreach ($pnn as $value) : ?>
           <li class="list-group-item">
             <h4 class="list-group-item-heading"><?=mb_substr(strip_tags($value['title']),0,100,'UTF-8');?>
-              <small><?=anchor('welcome/read/'.$value['id'],'อ่านต่อ',array('class'=>'label label-primary'));?></small>
+              <small><?=anchor('welcome/read/'.$value['id'],'อ่านต่อ',array('class'=>'btn btn-primary btn-sm'));?></small>
             </h4>
-            วันที่ประกาศ : <span class="label label-info"><?=$value['date_create'];?></span>
-            วันที่แก้ไข : <span class="label label-warning"><?$value['date_update'];?></span>
-            จำนวนผู้เข้าชม : <span class="label label-default"><?=$value['views'];?></span>
+            วันที่ประกาศ : <span class="btn btn-info btn-sm"><?=$value['date_create'];?></span>
+            วันที่แก้ไข : <span class="btn btn-warning btn-sm"><?$value['date_update'];?></span>
+            จำนวนผู้เข้าชม : <span class="btn btn-default btn-sm"><?=$value['views'];?></span>
           </li>
         <?php endforeach; ?>
       </ul>
@@ -36,11 +36,11 @@ endforeach;
           <li class="list-group-item">
             <h4 class="list-group-item-heading"><?=mb_substr(strip_tags($value['title']),0,100,'UTF-8');?></h4>
             <p class="list-group-item-text"><?=mb_substr(strip_tags($value['detail']),0,200,'UTF-8');?></p>
-            <?=anchor('welcome/read/'.$value['id'],'อ่านต่อ',array('class'=>'label label-primary'));?>
+            <?=anchor('welcome/read/'.$value['id'],'อ่านต่อ',array('class'=>'btn btn-primary btn-sm'));?>
             <hr>
-            วันที่ประกาศ : <span class="label label-info"><?=$value['date_create'];?></span>
-            วันที่แก้ไข : <span class="label label-warning"><?=$value['date_update'];?></span>
-            จำนวนผู้เข้าชม : <span class="label label-default"><?=$value['views'];?></span>
+            วันที่ประกาศ : <span class="btn btn-info btn-sm"><?=$value['date_create'];?></span>
+            วันที่แก้ไข : <span class="btn btn-warning btn-sm"><?=$value['date_update'];?></span>
+            จำนวนผู้เข้าชม : <span class="btn btn-default btn-sm"><?=$value['views'];?></span>
           </li>
         <?php endforeach; ?>
       </ul>

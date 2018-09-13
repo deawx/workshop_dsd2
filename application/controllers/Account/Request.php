@@ -386,6 +386,7 @@ class Request extends Private_Controller {
 
 	function calendar()
 	{
+		$date_reject = array();
 		$conf = array(
 			'show_next_prev' => TRUE,
 			'next_prev_url' => site_url(),

@@ -16,13 +16,13 @@
           <td><?=$value['date_create'];?></td>
           <td><?=$value['last_login'];?></td>
           <td style="width:15%">
-            <?=anchor('admin/user/edit/'.$value['id'],'แก้ไข',array('class'=>'label label-info'));?>
+            <?=anchor('admin/user/edit/'.$value['id'],'แก้ไข',array('class'=>'btn btn-info btn-sm'));?>
             <?php if ($value['is_active'] === '1') : ?>
-              <?//=anchor('admin/user/deactivate/'.$value['id'],'ปิดใช้งาน',array('class'=>'label label-warning','onclick'=>"return confirm('ยืนยันการปิดใช้งาน?');"));?>
+              <?//=anchor('admin/user/deactivate/'.$value['id'],'ปิดใช้งาน',array('class'=>'btn btn-warning btn-sm','onclick'=>"return confirm('ยืนยันการปิดใช้งาน?');"));?>
             <?php else: ?>
-              <?//=anchor('admin/user/activate/'.$value['id'],'เปิดใช้งาน',array('class'=>'label label-info','onclick'=>"return confirm('ยืนยันการเปิดใช้งาน?');"));?>
+              <?//=anchor('admin/user/activate/'.$value['id'],'เปิดใช้งาน',array('class'=>'btn btn-info btn-sm','onclick'=>"return confirm('ยืนยันการเปิดใช้งาน?');"));?>
             <?php endif; ?>
-              <?=anchor('admin/user/delete/'.$value['id'],'ลบ',array('class'=>'label label-danger','onclick'=>"return confirm('ยืนยันการลบ?');"));?>
+              <?=anchor('admin/user/delete/'.$value['id'],'ลบ',array('class'=>'btn btn-danger btn-sm','onclick'=>"return confirm('ยืนยันการลบ?');"));?>
           </td>
         </tr>
       <?php endforeach; ?>
