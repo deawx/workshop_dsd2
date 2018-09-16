@@ -3,6 +3,7 @@
 <div class="panel panel-warning">
   <div class="panel-heading"> <h3 class="panel-title"> แก้ไขข้อมูลรายการขอสอบรับรองความรู้ความสามารถ </h3> </div>
   <?=form_open_multipart(uri_string(),array('name'=>'skill','class'=>'form-horizontal','autocomplete'=>'off'));?>
+  <?=form_hidden('approve_status',$skill['approve_status']);?>
   <?=form_hidden('id',$skill['id']);?>
   <div class="panel-body">
 
@@ -43,13 +44,15 @@
         <p class="help-block">*รองรับไฟล์รูปภาพที่มีขนาดไม่เกิน 2MB</p>
       </div>
     </div>
-    <hr>
-    <div class="form-group"> <?=form_label('','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?=form_submit('','ยืนยัน',array('class'=>'btn btn-primary'));?>
-        <?=form_button('','ปิดหน้านี้',array('class'=>'btn btn-default','onclick'=>'window.close()'));?>
+    <?php if ($skill['approve_status'] !== 'accept') : ?>
+      <hr>
+      <div class="form-group"> <?=form_label('','',array('class'=>'control-label col-md-4'));?>
+        <div class="col-md-8">
+          <?=form_submit('','ยืนยัน',array('class'=>'btn btn-primary'));?>
+          <?=form_button('','ปิดหน้านี้',array('class'=>'btn btn-default','onclick'=>'window.close()'));?>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
 
   </div>
   <div class="panel-footer"> </div>

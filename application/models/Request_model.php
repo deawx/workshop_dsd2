@@ -82,15 +82,12 @@ class Request_model extends MY_Model {
     return $array;
   }
 
-  function get_all_id($id='',$status=NULL)
+  function get_all_id($id='')
   {
     $this->db
       ->select('*,id AS standard_id')
       ->where('user_id',$id)
       ->order_by('id','ASC');
-
-    if ($status != NULL)
-      $this->db->where('approve_status',$status);
 
     $standards = $this->db->get('standards')->result_array();
 
@@ -99,15 +96,12 @@ class Request_model extends MY_Model {
       ->where('user_id',$id)
       ->order_by('id','ASC');
 
-    if ($status != NULL)
-      $this->db->where('approve_status',$status);
-
     $skills = $this->db->get('skills')->result_array();
 
     $array = array_merge($standards,$skills);
-    usort($array, function($a, $b) {
-      return ($a['admin_id'] != NULL) ? $a['admin_id'] : $a['date_create'] < $b['date_create'];
-    });
+    // usort($array, function($a, $b) {
+    //   return ($a['approve_status'] !== 'accept') ? $a['approve_status'] : $a['date_create'] < $b['date_create'];
+    // });
 
     return $array;
   }
@@ -129,14 +123,15 @@ class Request_model extends MY_Model {
 
     $array = array();
     foreach ($events as $key => $value) :
-      if ($value['approve_status'] === 'accept') :
-        if (strlen($value['approve_schedule']) > 0) :
+      // if ($value['approve_status'] === 'accept') :
+        // if ($value['approve_schedule'] !== '0000-00-00') :
+          $date = date('d-m-Y',strtotime($date));
           $approve_schedule = date('d-m-Y',strtotime($value['approve_schedule']));
           if ($approve_schedule === $date) :
             $array[] = $value;
           endif;
-        endif;
-      endif;
+        // endif;
+      // endif;
     endforeach;
 
     return $array;
@@ -144,13 +139,13 @@ class Request_model extends MY_Model {
 
   function get_future($q=array(),$status='')
   {
-    $standards = $this->get_standard_all($q,$status);
-    $skills = $this->get_skill_all($q,$status);
+    $standards = $this->get_standard_all($q);
+    $skills = $this->get_skill_all($q);
 
     $events = array_merge($standards,$skills);
 
     foreach ($events as $key => $value) :
-      if ($value['approve_schedule'] == NULL) :
+      if ($value['approve_schedule'] === '0000-00-00') :
         unset($events[$key]);
       endif;
     endforeach;

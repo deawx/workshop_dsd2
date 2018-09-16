@@ -60,7 +60,7 @@
   <div class="form-group"> <?=form_label('ประเทศที่จะไปทำงาน*','',array('class'=>'control-label col-md-4'));?>
     <div class="col-md-8"> <?=form_input(array('name'=>'work_abroad[country]','class'=>'form-control'),set_value('work_abroad[country]')); ?> </div>
   </div>
-  <div class="form-group"> <?=form_label('ระยะเวลาจ้าง*','',array('class'=>'control-label col-md-4'));?>
+  <div class="form-group"> <?=form_label('ระยะเวลาจ้าง(ปี)*','',array('class'=>'control-label col-md-4'));?>
     <div class="col-md-8"> <?=form_input(array('name'=>'work_abroad[duration]','class'=>'form-control','id'=>'duration','maxlength'=>'2'),set_value('work_abroad[duration]'));?> </div>
   </div>
 </div>

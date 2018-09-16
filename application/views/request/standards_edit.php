@@ -3,6 +3,7 @@
 <div class="panel panel-warning">
   <div class="panel-heading"> <h3 class="panel-title"> แก้ไขข้อมูลรายการขอสอบมาตรฐานฝีมือแรงงาน </h3> </div>
   <?=form_open_multipart(uri_string(),array('class'=>'form-horizontal','autocomplete'=>'off'));?>
+  <?=form_hidden('approve_status',$standard['approve_status']);?>
   <?=form_hidden('id',$standard['id']);?>
   <div class="panel-body">
 
@@ -13,7 +14,7 @@
       <div class="col-md-8"> <?=form_input(array('name'=>'branch','class'=>'form-control'),set_value('branch',isset($standard['branch'])?$standard['branch']:NULL));?> </div>
     </div>
     <div class="form-group"> <?=form_label('ระดับ','level',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'level','class'=>'form-control'),set_value('level',isset($standard['level'])?$standard['level']:NULL));?> </div>
+      <div class="col-md-8"> <?=form_dropdown(array('name'=>'level','class'=>'form-control'),array(''=>'เลือกรายการ','1'=>'1','2'=>'2','3'=>'3'),set_value('level',isset($standard['level'])?$standard['level']:NULL));?> </div>
     </div>
     <div class="form-group"> <?=form_label('ประเภทการสอบ','category',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
@@ -77,7 +78,7 @@
       <div class="form-group"> <?=form_label('ประเทศที่จะไปทำงาน','',array('class'=>'control-label col-md-4'));?>
         <div class="col-md-8"> <?=form_input(array('name'=>'work_abroad[country]','class'=>'form-control'),set_value('work_abroad[country]',isset($work_abroad['country'])?$work_abroad['country']:NULL)); ?> </div>
       </div>
-      <div class="form-group"> <?=form_label('ระยะเวลาจ้าง','',array('class'=>'control-label col-md-4'));?>
+      <div class="form-group"> <?=form_label('ระยะเวลาจ้าง(ปี)','',array('class'=>'control-label col-md-4'));?>
         <div class="col-md-8"> <?=form_input(array('name'=>'work_abroad[duration]','class'=>'form-control','id'=>'duration','maxlength'=>'2'),set_value('work_abroad[duration]',isset($work_abroad['duration'])?$work_abroad['duration']:NULL));?> </div>
       </div>
     </div>
@@ -122,13 +123,15 @@
         <p class="help-block">*รองรับไฟล์รูปภาพที่มีขนาดไม่เกิน 2MB</p>
       </div>
     </div>
-    <hr>
-    <div class="form-group"> <?=form_label('','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?=form_submit('','ยืนยัน',array('class'=>'btn btn-primary'));?>
-        <?=form_button('','ปิดหน้านี้',array('class'=>'btn btn-default','onclick'=>'window.close()'));?>
+    <?php if ($standard['approve_status'] !== 'accept') : ?>
+      <hr>
+      <div class="form-group"> <?=form_label('','',array('class'=>'control-label col-md-4'));?>
+        <div class="col-md-8">
+          <?=form_submit('','ยืนยัน',array('class'=>'btn btn-primary'));?>
+          <?=form_button('','ปิดหน้านี้',array('class'=>'btn btn-default','onclick'=>'window.close()'));?>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
 
   </div>
   <div class="panel-footer"> </div>

@@ -48,10 +48,36 @@ class User extends Admin_Controller {
 		endif;
 		$this->form_validation->set_rules('phone','เบอร์โทรศัพท์','is_numeric|max_length[10]');
 		$this->form_validation->set_rules('fax','แฟกซ์','is_numeric|max_length[10]');
+
+		$this->form_validation->set_rules('title','คำนำหน้าชื่อ','required');
+		$this->form_validation->set_rules('firstname','ชื่อ','required|max_length[100]');
+		$this->form_validation->set_rules('lastname','นามสกุล','required|max_length[100]');
+		$this->form_validation->set_rules('englishname','ชื่อ-นามสกุล(ภาษาอังกฤษ)','required|max_length[255]');
+		$this->form_validation->set_rules('nationality','สัญชาติ','required|max_length[100]');
+		$this->form_validation->set_rules('religion','ศาสนา','required|max_length[100]');
+		$this->form_validation->set_rules('blood','หมู่โลหิต','required');
+
+		$this->form_validation->set_rules('address[address]','ที่อยู่','required');
+		$this->form_validation->set_rules('address[tambon]','ตำบล','required');
+		$this->form_validation->set_rules('address[amphur]','อำเภอ','required');
+		$this->form_validation->set_rules('address[province]','จังหวัด','required');
+		$this->form_validation->set_rules('address[zip]','รหัสไปรษณีย์','required|is_numeric|max_length[5]');
+
+		$this->form_validation->set_rules('education[degree]','ระดับการศึกษา','required');
+		$this->form_validation->set_rules('education[place]','สถานศึกษา','required');
+		$this->form_validation->set_rules('education[department]','สาขาวิชา','required');
+		$this->form_validation->set_rules('education[province]','จังหวัดที่ศึกษา','required');
+		$this->form_validation->set_rules('education[year]','ปีที่จบการศึกษา','required');
+
 		if ($this->form_validation->run() == FALSE) :
 			$this->session->set_flashdata('warning',validation_errors());
 		else:
 			$data = $this->input->post();
+			$data['birthdate'] = $this->input->post('y').'-'.$this->input->post('m').'-'.$this->input->post('d');
+			$data['address'] = serialize($data['address']);
+			$data['address_current'] = ($this->input->post('exist')) ? serialize($data['address']) : serialize($data['address_current']);
+		 	$data['education'] = $this->input->post('education') ? serialize($this->input->post('education')) : NULL;
+
 			unset($data['password']);
 			if($this->profile->save($data)) :
 				$this->session->set_flashdata('success','บันทึกข้อมูลเสร็จสิ้น');
@@ -74,24 +100,6 @@ class User extends Admin_Controller {
 		$this->profile->remove($user_id);
 		$this->session->set_flashdata('success','ลบข้อมูลเสร็จสิ้น');
 
-		redirect('admin/user');
-	}
-
-	public function activate($user_id = NULL)
-	{
-		if ( ! intval($user_id) > 0)
-			show_404();
-
-		$this->auth->activate($user_id);
-		redirect('admin/user');
-	}
-
-	public function deactivate($user_id = NULL)
-	{
-		if ( ! intval($user_id) > 0 OR $user_id == '4')
-			show_404();
-
-		$this->auth->deactivate($user_id);
 		redirect('admin/user');
 	}
 

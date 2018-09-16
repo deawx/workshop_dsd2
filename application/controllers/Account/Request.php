@@ -25,11 +25,10 @@ class Request extends Private_Controller {
 	{
 		$this->session->set_flashdata('warning','');
 
-		if ($this->input->post()) :
-			$type = $this->input->post('type');
-			$data = $this->input->post();
+		$data = $this->input->post();
+		if ($data) :
 			// print_data($data); die();
-			if ($this->request->save($data,$type)) :
+			if ($this->request->save($data,$data['type'])) :
 				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
 			else:
 				$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
@@ -92,10 +91,15 @@ class Request extends Private_Controller {
 			$this->session->set_flashdata('warning',validation_errors());
 		else:
 			$data = $this->input->post();
-			if ($this->input->post('id')) :
+			if ($data['approve_status'] === 'accept') :
+				$this->session->set_flashdata('info','คำร้องผ่านการอนุมัติแล้ว ไม่สามารถแก้ไขข้อมูลย้อนหลัง');
+				redirect('account/request/index');
+			endif;
+			if ($data['id'] !== '') :
 				$data['date_update'] = date('Y-m-d');
 			else:
 				$data['date_create'] = date('Y-m-d');
+				$data['date_update'] = date('Y-m-d');
 			endif;
 			// $d = $this->input->post('d');
 			// $m = $this->input->post('m');
@@ -134,19 +138,20 @@ class Request extends Private_Controller {
 			$data['reference'] = $this->input->post('reference') ? serialize($this->input->post('reference')) : NULL;
 
 			$data['profile'] = serialize(array(
-				$this->data['user']['title'],
-				$this->data['user']['firstname'],
-				$this->data['user']['lastname'],
-				$this->data['user']['englishname'],
-				$this->data['user']['religion'],
-				$this->data['user']['nationality'],
-				$this->data['user']['id_card'],
-				$this->data['user']['birthdate'],
-				$this->data['user']['age'],
-				$this->data['user']['sex'],
-				$this->data['user']['phone'],
-				$this->data['user']['fax'],
-				$this->data['user']['email']
+				'user_id' => $this->data['user']['user_id'],
+				'title' => $this->data['user']['title'],
+				'firstname' => $this->data['user']['firstname'],
+				'lastname' => $this->data['user']['lastname'],
+				'englishname' => $this->data['user']['englishname'],
+				'religion' => $this->data['user']['religion'],
+				'nationality' => $this->data['user']['nationality'],
+				'id_card' => $this->data['user']['id_card'],
+				'birthdate' => $this->data['user']['birthdate'],
+				'age' => $this->data['user']['age'],
+				'sex' => $this->data['user']['sex'],
+				'phone' => $this->data['user']['phone'],
+				'fax' => $this->data['user']['fax'],
+				'email' => $this->data['user']['email']
 			));
 			$data['address_current'] = serialize($this->data['address_current']);
 			$data['education'] = serialize($this->data['education']);
@@ -259,10 +264,15 @@ class Request extends Private_Controller {
 			$this->session->set_flashdata('warning',validation_errors());
 		else:
 			$data = $this->input->post();
-			if ($this->input->post('id')) :
+			if ($data['approve_status'] === 'accept') :
+				$this->session->set_flashdata('info','คำร้องผ่านการอนุมัติแล้ว ไม่สามารถแก้ไขข้อมูลย้อนหลัง');
+				redirect('account/request/index');
+			endif;
+			if ($data['id'] !== '') :
 				$data['date_update'] = date('Y-m-d');
 			else:
 				$data['date_create'] = date('Y-m-d');
+				$data['date_update'] = date('Y-m-d');
 			endif;
 			// $d = $this->input->post('d');
 			// $m = $this->input->post('m');
@@ -286,13 +296,20 @@ class Request extends Private_Controller {
 			$data['reference'] = $this->input->post('reference') ? serialize($this->input->post('reference')) : NULL;
 
 			$data['profile'] = serialize(array(
-				$this->data['user']['title'],
-				$this->data['user']['firstname'],
-				$this->data['user']['lastname'],
-				$this->data['user']['nationality'],
-				$this->data['user']['id_card'],
-				$this->data['user']['birthdate'],
-				$this->data['user']['blood']
+				'title' => $this->data['user']['title'],
+				'firstname' => $this->data['user']['firstname'],
+				'lastname' => $this->data['user']['lastname'],
+				'englishname' => $this->data['user']['englishname'],
+				'religion' => $this->data['user']['religion'],
+				'nationality' => $this->data['user']['nationality'],
+				'id_card' => $this->data['user']['id_card'],
+				'birthdate' => $this->data['user']['birthdate'],
+				'blood' => $this->data['user']['blood'],
+				'age' => $this->data['user']['age'],
+				'sex' => $this->data['user']['sex'],
+				'phone' => $this->data['user']['phone'],
+				'fax' => $this->data['user']['fax'],
+				'email' => $this->data['user']['email']
 			));
 			$data['address'] = serialize($this->data['address']);
 			$data['address_current'] = serialize($this->data['address_current']);
@@ -375,7 +392,7 @@ class Request extends Private_Controller {
 	{
 		$this->session->set_flashdata('warning','');
 
-		$this->data['requests'] = $this->request->get_all_id($this->id,'');
+		$this->data['requests'] = $this->request->get_all_id($this->id);
 
 		$this->data['menu'] = 'result';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
@@ -384,89 +401,35 @@ class Request extends Private_Controller {
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 
-	function calendar()
-	{
-		$date_reject = array();
-		$conf = array(
-			'show_next_prev' => TRUE,
-			'next_prev_url' => site_url(),
-			'template' => array(
-				'table_open' => '<table class="table table-bordered text-center">',
-				'heading_row_start' => '<tr>',
-				'heading_previous_cell' => '<th class="text-center"><a href="{previous_url}">&lt;&lt;</a></th>',
-				'heading_title_cell' => '<th colspan="{colspan}" class="text-center" id="title_year">{heading}+543</th>',
-				'heading_next_cell' => '<th class="text-center"><a href="{next_url}">&gt;&gt;</a></th>',
-				'week_row_start' => '<tr>',
-				'week_day_cell' => '<td>{week_day}</td>',
-				'cal_cell_start' => '<td class="">',
-				'cal_cell_start_today' => '<td class="bg-primary">',
-				'cal_cell_start_other' => '<td class="other-month">',
-				'cal_cell_content' => '<a href="{content}">{day}</a>',
-				'cal_cell_content_today' => '<div class="highlight"><a href="{content}">{day}</a></div>'
-			)
-		);
-		$this->load->library('calendar',$conf);
-
-		$this->data['calendar'] = $this->calendar->generate($this->uri->segment(5),$this->uri->segment(6));
-		$this->data['menu'] = 'calendar';
-		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
-		$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('request/calendar',$this->data,TRUE);
-		$this->load->view('_layouts/rightside',$this->data);
-	}
-
 	function calendars()
 	{
 		$this->session->set_flashdata('warning','');
 
-		$this->form_validation->set_rules('code','ประเภทการสอบ','required');
+		$this->form_validation->set_rules('type','รายการคำร้อง','required');
 		if ($this->form_validation->run() == FALSE) :
 			$this->session->set_flashdata('warning',validation_errors());
 		else:
-			$code = $this->input->post('code');
-			$approve_schedule = $this->input->post('approve_schedule');
-			$approve_time = $this->input->post('approve_time');
-			$record = $this->request->get_code($code);
+			$data = $this->input->post();
+
+			print_data($data);
+
+			$record = $this->request->get_code($this->id,$data['type']);
 			$type = (isset($record['category'])) ? 'standards' : 'skills';
 
-			if ($type == 'standards' && ! $this->input->post('approve_time')) :
-				$this->session->set_flashdata('info','กรุณาเลือกช่วงเวลาสอบ');
-				redirect('account/request/calendar');
-			endif;
-
-			$records = $this->request->get_date($approve_schedule);
-			$user_id = array_column($records,'user_id');
-			if (in_array($record['user_id'],$user_id)) :
+			$records = $this->request->get_date($data['approve_schedule']);
+			$exist_id = array_column($records,'user_id');
+			if (in_array($record['user_id'],$exist_id)) :
 				$this->session->set_flashdata('info','ขออภัย ท่านมีรายการสอบในวันนี้อยู่แล้ว');
-				redirect('account/request/calendar');
+				// redirect('account/request/calendars');
 			endif;
 
-			$times = array_column($records,'approve_time');
-			$morning = array_filter($times,function($v) { return strpos($v,'เช้า') == TRUE; });
-			$afternoon = array_filter($times,function($v) { return strpos($v,'บ่าย') == TRUE; });
-			$skill_times = count($records)-count($times);
+			// if ($this->request->save($data,$type)) :
+			// 	$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
+			// else:
+			// 	$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
+			// endif;
+			// redirect('account/request/result');
 
-			if ($type === 'standards' && strpos($approve_time,'เช้า') && count($morning) >= 13) :
-				$this->session->set_flashdata('info','ขออภัย ช่วงเวลาเช้าครบจำนวนคิวแล้ว');
-				redirect('account/request/calendar');
-			elseif ($type === 'standards' && strpos($approve_time,'บ่าย') && count($afternoon) >= 13) :
-				$this->session->set_flashdata('info','ขออภัย ช่วงเวลาบ่ายครบจำนวนคิวแล้ว');
-				redirect('account/request/calendar');
-			elseif ($type === 'skills' && $skill_times >= 15) :
-				$this->session->set_flashdata('info','ขออภัย จำนวนผู้เข้าสอบในวันนี้เต็มแล้ว');
-				redirect('account/request/calendar');
-			else:
-				if ($this->request->save(array(
-						'id'=>$record['id'],
-						'approve_schedule'=>strtotime($approve_schedule),
-						'approve_time'=>$approve_time
-					),$type)) :
-					$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
-				else:
-					$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
-				endif;
-				redirect('account/request/result');
-			endif;
 		endif;
 
 		$this->data['menu'] = 'calendar';
@@ -474,7 +437,7 @@ class Request extends Private_Controller {
 		$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
 
 		$schedule = array();
-		$schedules = $this->request->get_future('','accept');
+		$schedules = $this->request->get_future();
 		foreach ($schedules as $key => $value) :
 			// print_data($value);
 			$profile = $this->profile->get_id($value['user_id']);
@@ -483,12 +446,12 @@ class Request extends Private_Controller {
 		endforeach;
 		// die();
 
-		$request = $this->request->get_all_id($this->id,'accept');
-		foreach ($request as $key => $value) :
-			if ($value['approve_schedule'] != NULL) :
-				unset($request[$key]);
-			endif;
-		endforeach;
+		$request = $this->request->get_all_id($this->id);
+		// foreach ($request as $key => $value) :
+		// 	if ($value['approve_schedule'] !== '0000-00-00') :
+		// 		unset($request[$key]);
+		// 	endif;
+		// endforeach;
 
 		$this->data['schedule'] = $schedule;
 		$this->data['request'] = $request;
@@ -508,14 +471,10 @@ class Request extends Private_Controller {
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 
-	function queue($code='')
+	function queue($user_id,$type)
 	{
 		$this->session->set_flashdata('warning','');
-
-		if ( ! intval($code) && ! strlen($code) === '11')
-			show_404();
-
-		$record = $this->request->get_code($code);
+		$record = $this->request->get_code($user_id,$type);
 
 		$this->data['record'] = $record;
 		$this->load->view('_pdf/queue',$this->data);
@@ -578,29 +537,23 @@ class Request extends Private_Controller {
 		$events = $this->request->get_date($date);
 		$standard = count(array_column($events,'category'));
 		$skill = count($events)-$standard;
-		$times = array_column($events,'approve_time');
-		$morning = count(array_filter($times,function($v) { return strpos($v,'เช้า') == TRUE; }));
-		$afternoon = count(array_filter($times,function($v) { return strpos($v,'บ่าย') == TRUE; }));
+
 		foreach ($events as $key => $value) :
 			$profile = unserialize($value['profile']);
 			$event[$key]['name'] = $profile['title'].' '.$profile['firstname'].' '.$profile['lastname'];
-			$event[$key]['job'] = isset($value['category'])
-				? mb_substr($value['category'],0,25,'UTF-8').'..'
-				: mb_substr('สอบรับรองความรู้ความสามารถ',0,25,'UTF-8').'..';
-			$event[$key]['time'] = isset($value['approve_time']) ? $value['approve_time'] : '';
+			$event[$key]['englishname'] = $profile['englishname'];
+			$event[$key]['job'] = isset($value['category']) ? $value['category'] : 'สอบรับรองความรู้ความสามารถ';
 		endforeach;
 
-		$request = $this->request->get_all_id($this->id,'accept');
+		$request = $this->request->get_all_id($this->id);
 		foreach ($request as $key => $value) :
-			if ($value['approve_schedule']!=NULL) :
+			if ($value['approve_schedule'] !== '0000-00-00') :
 				unset($request[$key]);
 			endif;
 		endforeach;
 
 		$this->data['standard'] = $standard;
 		$this->data['skill'] = $skill;
-		$this->data['morning'] = $morning;
-		$this->data['afternoon'] = $afternoon;
 		$this->data['approve_schedule'] = $date;
 		$this->data['events'] = $event;
 		$this->data['requests'] = $request;

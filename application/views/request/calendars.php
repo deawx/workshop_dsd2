@@ -1,13 +1,13 @@
-<div class="" id="calendar"> </div> <br>
-<p>*การสอบมาตรฐานฝีมือแรงงานแห่งชาติ 26คน/วัน แบ่งเป็น เช้า13คน/บ่าย13คน</p>
+<div class="" id="calendar"> </div>
+<br>
+<p>*การสอบมาตรฐานฝีมือแรงงานแห่งชาติ 26คน/วัน</p>
 <p>*การสอบรับรองความรู้ความสามารถ 15คน/วัน</p>
 <p>*สามารถเข้าสอบได้เพียง 1 รายการต่อวันเท่านั้น</p>
 
 <div class="modal fade" id="dayClick" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
   <?=form_input(array('id'=>'dayTime','hidden'=>TRUE));?>
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-    </div>
+  <div class="modal-dialog modal-lg" id="modal_dialog">
+    <div class="modal-content"> </div>
   </div>
 </div>
 

@@ -3,6 +3,7 @@ $uri_get = $this->input->get();
 $uri_get = http_build_query($uri_get);
 $uri_string = uri_string().'?'.$uri_get;
 ?>
+<div class="clearfix"> </div>
 <?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-success">
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลวันที่ปิดรับคำร้อง <?=count($date_reject);?> รายการ</h3> </div>
@@ -10,7 +11,7 @@ $uri_string = uri_string().'?'.$uri_get;
     <?=form_open(uri_string(),array('method'=>'post','class'=>'form-inline pull-right'));?>
     <div class="form-group">
       <?=form_label('วันที่ปิดรับคำร้อง : ','',array('class'=>'label-control'));?>
-      <?=form_input(array('name'=>'date_reject','class'=>'form-control datereject','size'=>'40','placeholder'=>'วันที่ต้องการปิดรับคำร้อง'));?>
+      <?=form_input(array('name'=>'date_reject','class'=>'form-control datepicker','size'=>'40','placeholder'=>'วันที่ต้องการปิดรับคำร้อง'));?>
     </div>
     <div class="form-group"> <?=form_submit('','บันทึก',array('class'=>'btn btn-primary'));?> </div>
     <?=form_close();?>
@@ -43,16 +44,15 @@ $uri_string = uri_string().'?'.$uri_get;
   <table class="table table-condensed table-hover">
     <thead> <tr> <th>ประเภทรายการ</th> <th>ผลสอบ</th> <th>ผู้ยื่นคำร้อง</th> <th>วันที่ยื่นคำร้อง</th> <th>วันที่แก้ไข</th> <th>วันที่หมดอายุ</th> <th>วันที่เข้าสอบ</th> <th></th> </tr> </thead>
     <tbody>
-      <?php foreach ($requests as $value) : ?>
-        <?php $expired = strtotime('+30 days',strtotime($value['date_create']));
+      <?php foreach ($requests as $value) :
+          $profile = unserialize($value['profile']);
+          $expired = strtotime('+30 days',strtotime($value['date_create']));
           $type = (isset($value['category']) ? 'standards' : 'skills'); ?>
           <tr class="rows" style="display:none;">
             <td>
               <?=isset($value['category']) ? $value['category'] : 'หนังสือรับรองความรู้ความสามารถ';
               if ($value['approve_status'] == NULL) : ?>
                 <span class="btn btn-primary btn-sm">ใหม่</span>
-              <?php elseif ($value['approve_status'] === 'reject'): ?>
-                <span class="btn btn-info btn-sm">รอ</span>
               <?php endif; ?>
             </td>
             <td>
@@ -83,29 +83,33 @@ $uri_string = uri_string().'?'.$uri_get;
               </div>
             <?php endif; ?>
             </td>
-            <td><?=$value['email'];?></td>
-            <td><?=$value['date_create'];?></td>
-            <td><?=$value['date_update'];?></td>
-            <td><?=$value['date_create']; ?></td>
+            <td><?=$profile['id_card'];?></td>
+            <td><?=date('d-m-Y',strtotime($value['date_create']));?></td>
+            <td><?=date('d-m-Y',strtotime($value['date_update']));?></td>
+            <td><?=date('d-m-Y',strtotime('+30 days',strtotime($value['date_create'])));?></td>
             <td>
-              <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_date<?=$value['id'].$value['user_id'];?>"><?=$value['approve_schedule'];?></a>
-              <div class="modal fade" id="approve_date<?=$value['id'].$value['user_id'];?>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-                <div class="modal-dialog">
-                  <?=form_open('admin/approve/schedule',array('class'=>'form-horizontal'));?>
-                  <?=form_hidden('id',$value[rtrim($type,'s').'_id']);?>
-                  <?=form_hidden('type',$type);?>
-                  <div class="modal-content">
-                    <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title">ระบุสถานะผลการสอบ</h4> </div>
-                    <div class="modal-body">
-                      <div class="form-group"> <?=form_label('กำหนดวันที่เข้าสอบ','status',array('class'=>'control-label col-md-4'));?>
-                        <div class="col-md-8"> <?=form_input(array('name'=>'approve_schedule','class'=>'form-control datepicker'),set_value('approve_schedule',$value['approve_schedule']));?> </div>
+              <?php if ($value['approve_status'] === 'accept') : ?>
+                <?=date('d-m-Y',strtotime($value['approve_schedule']));?>
+              <?php else: ?>
+                <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_date<?=$value['id'].$value['user_id'];?>"><?=($value['approve_schedule']!=='0000-00-00') ? date('d-m-Y',strtotime($value['approve_schedule'])) : 'กำหนดวันสอบ';?></a>
+                <div class="modal fade" id="approve_date<?=$value['id'].$value['user_id'];?>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <?=form_open('admin/approve/schedule',array('class'=>'form-horizontal'));?>
+                    <?=form_hidden('id',$value[rtrim($type,'s').'_id']);?>
+                    <?=form_hidden('type',$type);?>
+                    <div class="modal-content">
+                      <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title">ระบุสถานะผลการสอบ</h4> </div>
+                      <div class="modal-body">
+                        <div class="form-group"> <?=form_label('กำหนดวันที่เข้าสอบ','status',array('class'=>'control-label col-md-4'));?>
+                          <div class="col-md-8"> <?=form_input(array('name'=>'approve_schedule','class'=>'form-control datepicker'),set_value('approve_schedule',$value['approve_schedule']));?> </div>
+                        </div>
                       </div>
+                      <div class="modal-footer"> <button type="submit" class="btn btn-primary btn-block">ยืนยัน</button> </div>
+                      <?=form_close();?>
                     </div>
-                    <div class="modal-footer"> <button type="submit" class="btn btn-primary btn-block">ยืนยัน</button> </div>
-                    <?=form_close();?>
                   </div>
                 </div>
-              </div>
+              <?php endif; ?>
             </td>
             <td><?=anchor('admin/approve/view/'.$value['user_id'].'/'.$type,'ดู',array('class'=>'btn btn-default btn-sm','target'=>'_blank'));?></td>
           </tr>
@@ -117,16 +121,12 @@ $uri_string = uri_string().'?'.$uri_get;
 
 <script type="text/javascript">
 $(function(){
-  $('.datereject').datepicker({
-    language: 'th',
-    format: 'dd-mm-yyyy',
-    daysOfWeekDisabled: '0,6',
-    startDate: '1d'
-  });
 
   $('.datepicker').datepicker({
     language: 'th',
-    format: 'dd-mm-yyyy'
+    format: 'dd-mm-yyyy',
+    daysOfWeekDisabled: '0,6',
+    startDate: '2d'
   });
 
   var rows = $('.rows');

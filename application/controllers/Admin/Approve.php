@@ -18,12 +18,11 @@ class Approve extends Admin_Controller {
 		$this->session->set_flashdata('warning','');
 		$date_reject = $this->input->post('date_reject');
 		if ($date_reject) :
-			$this->form_validation->set_rules('date_reject','วันที่ปิดรับคำร้อง','required|callback_date_check',array(
-				'date_check' => '%s ซ้ำกับข้อมูลในระบบ'
-			));
+			$this->form_validation->set_rules('date_reject','วันที่ปิดรับคำร้อง','required|callback_date_check',array('date_check'=>'%s ซ้ำกับข้อมูลในระบบ'));
 			if ($this->form_validation->run() == FALSE) :
 				$this->session->set_flashdata('warning',validation_errors());
 			else:
+				// print_data($date_reject); die();
 				$this->request->save(array(
 					'date' => date('Y-m-d',strtotime($date_reject))
 				),'date_reject');
@@ -38,7 +37,7 @@ class Approve extends Admin_Controller {
 				$approve_status['approve_schedule'] = NULL;
 			endif;
 
-			// print_data($data); die();
+			// print_data($approve_status); die();
 
 			if ($this->request->save($approve_status,$approve_status['type'])) :
 				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
@@ -52,7 +51,7 @@ class Approve extends Admin_Controller {
 		if ($approve_schedule) :
 			$approve_schedule['admin_id'] = $this->session->id;
 
-			// print_data($data); die();
+			// print_data($approve_schedule); die();
 
 			if ($this->request->save($approve_schedule,$approve_schedule['type'])) :
 				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
@@ -138,14 +137,45 @@ class Approve extends Admin_Controller {
 		$data = $this->input->post();
 		if ($data) :
 
+			$date_reject = $this->request->search(NULL,'date_reject');
+			$date_reject = array_column($date_reject,'date');
+
+			$data['admin_id'] = $this->session->user_id;
+			$data['approve_schedule'] = date('Y-m-d',strtotime($data['approve_schedule']));
+			$data['approve_date'] = date('Y-m-d');
+			$data['approve_status'] = 'accept';
+
 			// print_data($data); die();
 
-			if ($this->request->save($data,$data['type'])) :
-				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
+			if (in_array($data['approve_schedule'],$date_reject)) :
+				$this->session->set_flashdata('info','วันที่ไม่เปิดรับการสอบ');
 			else:
-				$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
+				switch ($data['type']):
+					case 'standards':
+						$standard_full = $this->request->search(array('date_schedule'=>$data['approve_schedule']),'standards');
+						if ($standard_full >= '26')
+						{
+							$this->session->set_flashdata('info','จำนวนรายการในวันนี้เต็มแล้ว');
+							redirect('admin/approve');
+						}
+						break;
+					case 'skills':
+						$skill_full = $this->request->search(array('date_schedule'=>$data['approve_schedule']),'skills');
+						if ($skill_full >= '15')
+						{
+							$this->session->set_flashdata('info','จำนวนรายการในวันนี้เต็มแล้ว');
+							redirect('admin/approve');
+						}
+						break;
+				endswitch;
+				if ($this->request->save($data,$data['type'])) :
+					$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
+				else:
+					$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
+				endif;
 			endif;
 			redirect('admin/approve');
+
 		endif;
 	}
 
