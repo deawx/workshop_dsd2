@@ -52,7 +52,7 @@ $uri_string = uri_string().'?'.$uri_get;
             <td>
               <?=isset($value['category']) ? $value['category'] : 'หนังสือรับรองความรู้ความสามารถ';
               if ($value['approve_status'] == NULL) : ?>
-                <span class="btn btn-primary btn-sm">ใหม่</span>
+                <span class="label label-primary">ใหม่</span>
               <?php endif; ?>
             </td>
             <td>

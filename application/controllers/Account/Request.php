@@ -95,7 +95,7 @@ class Request extends Private_Controller {
 				$this->session->set_flashdata('info','คำร้องผ่านการอนุมัติแล้ว ไม่สามารถแก้ไขข้อมูลย้อนหลัง');
 				redirect('account/request/index');
 			endif;
-			if ($data['id'] !== '') :
+			if ($id) :
 				$data['date_update'] = date('Y-m-d');
 			else:
 				$data['date_create'] = date('Y-m-d');
@@ -268,7 +268,7 @@ class Request extends Private_Controller {
 				$this->session->set_flashdata('info','คำร้องผ่านการอนุมัติแล้ว ไม่สามารถแก้ไขข้อมูลย้อนหลัง');
 				redirect('account/request/index');
 			endif;
-			if ($data['id'] !== '') :
+			if ($id) :
 				$data['date_update'] = date('Y-m-d');
 			else:
 				$data['date_create'] = date('Y-m-d');
@@ -411,7 +411,7 @@ class Request extends Private_Controller {
 		else:
 			$data = $this->input->post();
 
-			print_data($data);
+			// print_data($data);
 
 			$record = $this->request->get_code($this->id,$data['type']);
 			$type = (isset($record['category'])) ? 'standards' : 'skills';
@@ -423,12 +423,13 @@ class Request extends Private_Controller {
 				// redirect('account/request/calendars');
 			endif;
 
-			// if ($this->request->save($data,$type)) :
-			// 	$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
-			// else:
-			// 	$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
-			// endif;
-			// redirect('account/request/result');
+			$data['approve_schedule'] = date('Y-m-d',strtotime($data['approve_schedule']));
+			if ($this->request->save($data,$type)) :
+				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
+			else:
+				$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
+			endif;
+			redirect('account/request/result');
 
 		endif;
 

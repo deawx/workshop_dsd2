@@ -153,7 +153,7 @@ class Approve extends Admin_Controller {
 				switch ($data['type']):
 					case 'standards':
 						$standard_full = $this->request->search(array('date_schedule'=>$data['approve_schedule']),'standards');
-						if ($standard_full >= '26')
+						if (count($standard_full) >= '26')
 						{
 							$this->session->set_flashdata('info','จำนวนรายการในวันนี้เต็มแล้ว');
 							redirect('admin/approve');
@@ -161,7 +161,7 @@ class Approve extends Admin_Controller {
 						break;
 					case 'skills':
 						$skill_full = $this->request->search(array('date_schedule'=>$data['approve_schedule']),'skills');
-						if ($skill_full >= '15')
+						if (count($skill_full) >= '15')
 						{
 							$this->session->set_flashdata('info','จำนวนรายการในวันนี้เต็มแล้ว');
 							redirect('admin/approve');

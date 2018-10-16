@@ -7,6 +7,7 @@
         <?php foreach ($requests as $key => $value) :
           $category = isset($value['category']) ? $value['category'] : 'ใบรับรองความรู้ความสามารถ';
           $type = isset($value['category']) ? 'standards' : 'skills'; ?>
+          <?=form_hidden('id',$value['id']);?>
           <label><?=form_radio('type',$type,NULL,array('data-type'=>$type));?><?=$category;?></label>
         <?php endforeach; ?>
       </div>
