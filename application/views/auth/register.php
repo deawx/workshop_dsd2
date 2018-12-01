@@ -29,3 +29,9 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$(function(){
+  $('#identity').inputmask('9999999999999');
+});
+</script>

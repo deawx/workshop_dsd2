@@ -132,6 +132,12 @@ class Approve extends Admin_Controller {
 		$this->load->view('_pdf/'.$type,$this->data);
 	}
 
+	function view_file($filename=FALSE)
+	{
+		$this->load->helper('download');
+		force_download('uploads/'.$filename, NULL);
+	}
+
 	function schedule()
 	{
 		$data = $this->input->post();

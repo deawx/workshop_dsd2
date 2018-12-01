@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>แบบ คร.10</title>
   <?=link_tag('assets/css/bootstrap.min.css');?>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -28,9 +29,9 @@ $work = unserialize($profile['work']);
 // echo '</pre>';
 $reference = unserialize($record['reference']);
 ?>
-<body>
-  <div style="padding:0.5cm 1.5cm;">
-    <div class="container" style="padding:1cm;">
+<body class="A4" style="padding:1em;background:none;">
+  <div style="">
+    <div class="container" style="">
       <div class="row hidden-print">
         <button type="button" class="btn btn-default" onclick="window.close()">ปิดหน้านี้</button>
         <button type="button" class="btn btn-default" onclick="window.print()">สั่งพิมพ์หน้านี้</button>
@@ -150,6 +151,23 @@ $reference = unserialize($record['reference']);
             </td>
           </tr>
         </table>
+      </div>
+      <div class="row hidden-print">
+        <p>รายการไฟล์เอกสารแนบ</p>
+        <ul>
+          <?php if ($record['file_1']!='') { ?>
+            <li><a href="<?=site_url('admin/approve/view_file/'.$record['file_1']);?>" target="_blank">เอกสารแนบ1</a></li>
+          <?php } ?>
+          <?php if ($record['file_2']!='') { ?>
+            <li><a href="<?=site_url('admin/approve/view_file/'.$record['file_2']);?>" target="_blank">เอกสารแนบ2</a></li>
+          <?php } ?>
+          <?php if ($record['file_3']!='') { ?>
+            <li><a href="<?=site_url('admin/approve/view_file/'.$record['file_3']);?>" target="_blank">เอกสารแนบ3</a></li>
+          <?php } ?>
+          <?php if ($record['file_4']!='') { ?>
+            <li><a href="<?=site_url('admin/approve/view_file/'.$record['file_4']);?>" target="_blank">เอกสารแนบ4</a></li>
+          <?php } ?>
+        </ul>
       </div>
     </div>
   </div>

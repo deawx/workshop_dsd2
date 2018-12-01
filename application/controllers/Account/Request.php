@@ -46,6 +46,18 @@ class Request extends Private_Controller {
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 
+	function view($user_id,$types)
+	{
+		if ( ! intval($user_id) OR ! $types)
+			show_404();
+
+		$record = $this->request->get_code($user_id,$types);
+		$type = isset($record['department']) ? 'standard' : 'skill';
+
+		$this->data['record'] = $record;
+		$this->load->view('_pdf/'.$type,$this->data);
+	}
+
 	function standard($id='')
 	{
 		$this->session->set_flashdata('warning','');
