@@ -215,7 +215,7 @@ class Request extends Private_Controller {
 				($this->data['user']['id_card'] == '') OR
 				($this->data['user']['birthdate'] == '') OR
 				($this->data['user']['phone'] == '') OR
-				($this->data['user']['fax'] == '') OR
+				// ($this->data['user']['fax'] == '') OR
 				($this->data['user']['email'] == '')) :
 				$this->data['body'] = 'กรุณากรอกข้อมูลส่วนตัวให้ครบถ้วน';
 			elseif (($this->data['address_current']['address'] === '') OR
@@ -565,10 +565,13 @@ class Request extends Private_Controller {
 			endif;
 		endforeach;
 
+		$rejects = $this->request->get_reject($date);
+
 		$this->data['standard'] = $standard;
 		$this->data['skill'] = $skill;
 		$this->data['approve_schedule'] = $date;
 		$this->data['events'] = $event;
+		$this->data['rejects'] = $rejects;
 		$this->data['requests'] = $request;
 
 		$content = $this->load->view('request/_events',$this->data,TRUE);

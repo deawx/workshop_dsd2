@@ -161,4 +161,14 @@ class Request_model extends MY_Model {
       ->row_array();
   }
 
+  function get_reject($date)
+  {
+    $date = date('Y-m-d',strtotime($date));
+
+    return $this->db
+      ->where('date', $date)
+      ->get('date_reject')
+      ->result_array();
+  }
+
 }
