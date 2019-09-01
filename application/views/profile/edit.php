@@ -1,3 +1,4 @@
+<?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-success">
   <div class="panel-heading"> <h3 class="panel-title"> แก้ไขข้อมูลบัญชี <small><?php echo lang('edit_user_subheading');?></small> </h3> </div>
   <div class="panel-body">
@@ -27,7 +28,7 @@
     </div>
     <?php echo form_close();?>
   </div>
-  <div class="panel-footer"> <?php $this->load->view('_partials/messages'); ?> </div>
+  <div class="panel-footer"> </div>
 </div>
 
 <script type="text/javascript">

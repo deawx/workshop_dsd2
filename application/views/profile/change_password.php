@@ -1,3 +1,4 @@
+<?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-success">
   <div class="panel-heading"> <h3 class="panel-title"> <?=lang('edit_user_heading');?> <small><?=lang('edit_user_subheading');?></small> </h3> </div>
   <div class="panel-body">
@@ -22,5 +23,5 @@
     </div>
     <?=form_close();?>
   </div>
-  <div class="panel-footer"> <?php $this->load->view('_partials/messages'); ?> </div>
+  <div class="panel-footer"> </div>
 </div>

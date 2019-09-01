@@ -7,9 +7,9 @@
       <?php foreach ($requests as $key => $value) : ?>
         <tr class="rows" style="display:none;">
           <td><?=isset($value['category']) ? $value['category'] : 'หนังสือรับรองความรู้ความสามารถ';?></td>
-          <td><?=($value['approve_schedule']!='0000-00-00') ? date('d-m-Y',strtotime($value['approve_schedule'])) : 'N/A';?></td>
-          <td><?=($value['approve_schedule']!='0000-00-00') ? anchor_popup('account/request/queue/'.$value['user_id'].'/'.(isset($value['category']) ? 'standards' : 'skills'),'ดู',array('class'=>'btn btn-info btn-sm')) : 'N/A';?></td>
-          <td><?=($value['approve_schedule']!='0000-00-00') ? $value['status'] : 'N/A';?></td>
+          <td><?=($value['approve_schedule']!='0000-00-00') ? date('d-m-Y',strtotime($value['approve_schedule'])) : 'รอ';?></td>
+          <td><?=($value['approve_schedule']!='0000-00-00') ? anchor_popup('account/request/queue/'.$value['user_id'].'/'.(isset($value['category']) ? 'standards' : 'skills'),'ดู',array('class'=>'btn btn-info btn-sm')) : 'รอ';?></td>
+          <td><?=($value['approve_schedule']!='0000-00-00') ? $value['status'] : 'รอ';?></td>
         </tr>
       <?php endforeach; ?>
     </tbody>

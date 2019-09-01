@@ -1,6 +1,7 @@
 <?php
 $education = unserialize($user['education']);
 ?>
+<?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-success">
   <div class="panel-heading"> <h3 class="panel-title"> แก้ไขข้อมูลการศึกษา <small><?=lang('edit_user_subheading');?></small> </h3> </div>
   <div class="panel-body">
@@ -47,7 +48,6 @@ $education = unserialize($user['education']);
     </div>
     <?=form_close();?>
   </div>
-  <div class="panel-footer"> <?php $this->load->view('_partials/messages'); ?> </div>
 </div>
 
 <script type="text/javascript">

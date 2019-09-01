@@ -24,9 +24,13 @@ class Profile extends Private_Controller {
 	    $this->form_validation->set_rules('title','คำนำหน้าชื่อ','required');
 	    $this->form_validation->set_rules('firstname','ชื่อ','required|max_length[100]');
 			$this->form_validation->set_rules('lastname','นามสกุล','required|max_length[100]');
-	    $this->form_validation->set_rules('englishname','ชื่อ-นามสกุล(ภาษาอังกฤษ)','required|max_length[255]');
+	    $this->form_validation->set_rules('englishname','ชื่อ-นามสกุล(ภาษาอังกฤษ)','required|alpha_numeric_spaces|max_length[255]');
 			$this->form_validation->set_rules('nationality','สัญชาติ','required|max_length[100]');
 	    $this->form_validation->set_rules('religion','ศาสนา','required|max_length[100]');
+
+			if ($this->input->post('id_card') && $this->input->post('id_card') != $this->data['user']['id_card'])
+		    $this->form_validation->set_rules('id_card','หมายเลขบัตรประชาชน','required|exact_length[13]|is_unique[users.id_card]');
+
 	    $this->form_validation->set_rules('blood','หมู่โลหิต','required');
 			if ($this->form_validation->run() === FALSE) :
 				$this->session->set_flashdata('warning',validation_errors());
@@ -93,7 +97,7 @@ class Profile extends Private_Controller {
 			else:
 				$this->form_validation->set_rules('email','อีเมล์','required|valid_email|max_length[100]');
 			endif;
-			$this->form_validation->set_rules('phone','เบอร์โทรศัพท์','required|is_numeric|max_length[10]');
+			$this->form_validation->set_rules('phone','เบอร์โทรศัพท์','required|is_numeric|max_length[10]',array('is_numeric'=>'กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก'));
 			$this->form_validation->set_rules('fax','แฟกซ์','is_numeric|max_length[10]');
 
 			if ($this->form_validation->run() === FALSE) :

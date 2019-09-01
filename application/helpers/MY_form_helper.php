@@ -72,7 +72,7 @@ if ( ! function_exists('dropdown_province'))
 	{
 		$_ci = &get_instance();
 		$_ci->load->database();
-		$provinces = $_ci->db->get('province')->result_array();
+		$provinces = $_ci->db->order_by('CONVERT (name USING tis620) ASC')->get('province')->result_array();
 		$province = array(''=>'เลือกจังหวัด');
 		foreach ($provinces as $_p => $p)
 		{
@@ -94,7 +94,7 @@ if ( ! function_exists('dropdown_amphur'))
 	{
 		$_ci = &get_instance();
 		$_ci->load->database();
-		$amphurs = $_ci->db->get('amphur')->result_array();
+		$amphurs = $_ci->db->order_by('CONVERT (name USING tis620) ASC')->get('amphur')->result_array();
 		$amphur = array(''=>'เลือกอำเภอ');
 		foreach ($amphurs as $_a => $a)
 		{
@@ -116,7 +116,7 @@ if ( ! function_exists('dropdown_district'))
 	{
 		$_ci = &get_instance();
 		$_ci->load->database();
-		$districts = $_ci->db->get('district')->result_array();
+		$districts = $_ci->db->order_by('CONVERT (name USING tis620) ASC')->get('district')->result_array();
 		$district = array(''=>'เลือกตำบล');
 		foreach ($districts as $_a => $a)
 		{
