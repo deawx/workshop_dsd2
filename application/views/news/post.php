@@ -1,3 +1,4 @@
+<?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-default">
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลการโพสต์ข่าวสาร</h3> </div>
   <div class="panel-body">
@@ -29,7 +30,7 @@
     </div>
     <?=form_close();?>
   </div>
-  <div class="panel-footer"> <?php $this->load->view('_partials/messages'); ?> </div>
+  <div class="panel-footer"> </div>
 </div>
 
 <div class="modal fade" id="attachment" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">

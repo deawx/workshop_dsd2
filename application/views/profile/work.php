@@ -1,6 +1,7 @@
 <?php
 $work = unserialize($user['work']);
 ?>
+<?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-success">
   <div class="panel-heading"> <h3 class="panel-title"> แก้ไขข้อมูลการทำงาน <small><?=lang('edit_user_subheading');?></small> </h3> </div>
   <div class="panel-body">
@@ -122,7 +123,7 @@ $work = unserialize($user['work']);
     </div>
     <?=form_close();?>
   </div>
-  <div class="panel-footer"> <?php $this->load->view('_partials/messages'); ?> </div>
+  <div class="panel-footer"> </div>
 </div>
 
 <script type="text/javascript">

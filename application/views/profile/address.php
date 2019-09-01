@@ -2,6 +2,7 @@
 $address = unserialize($user['address']);
 $address_current = unserialize($user['address_current']);
 ?>
+<?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-success">
   <div class="panel-heading"> <h3 class="panel-title"> แก้ไขข้อมูลที่อยู่ <small><?=lang('edit_user_subheading');?></small> </h3> </div>
   <div class="panel-body">
@@ -59,7 +60,7 @@ $address_current = unserialize($user['address_current']);
     </div>
     <?=form_close();?>
   </div>
-  <div class="panel-footer"> <?php $this->load->view('_partials/messages'); ?> </div>
+  <div class="panel-footer"> </div>
 </div>
 
 <script type="text/javascript">

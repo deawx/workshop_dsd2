@@ -1,4 +1,5 @@
-<?=$this->pagination->create_links();?> <?php $this->load->view('_partials/messages'); ?>
+<?=$this->pagination->create_links();?>
+<?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-default">
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลสมาชิกทั้งหมด <?=count($users);?> รายการ</h3> </div>
   <div class="panel-body">

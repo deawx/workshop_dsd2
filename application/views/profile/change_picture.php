@@ -1,3 +1,4 @@
+<?php $this->load->view('_partials/messages'); ?>
 <div class="panel panel-success">
   <div class="panel-heading">
     <h3 class="panel-title">
@@ -30,7 +31,5 @@
       </div>
     </div>
   </div>
-  <div class="panel-footer">
-    <?php $this->load->view('_partials/messages'); ?>
-  </div>
+  <div class="panel-footer"> </div>
 </div>
