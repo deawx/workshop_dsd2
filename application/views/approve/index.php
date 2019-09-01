@@ -88,28 +88,29 @@ $uri_string = uri_string().'?'.$uri_get;
             <td><?=date('d-m-Y',strtotime($value['date_update']));?></td>
             <td><?=date('d-m-Y',strtotime('+30 days',strtotime($value['date_create'])));?></td>
             <td>
-              <?php if ($value['approve_status'] === 'accept') : ?>
-                <?=date('d-m-Y',strtotime($value['approve_schedule']));?>
-              <?php else: ?>
-                <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_date<?=$value['id'].$value['user_id'];?>"><?=($value['approve_schedule']!=='0000-00-00') ? date('d-m-Y',strtotime($value['approve_schedule'])) : 'กำหนดวันสอบ';?></a>
-                <div class="modal fade" id="approve_date<?=$value['id'].$value['user_id'];?>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <?=form_open('admin/approve/schedule',array('class'=>'form-horizontal'));?>
-                    <?=form_hidden('id',$value[rtrim($type,'s').'_id']);?>
-                    <?=form_hidden('type',$type);?>
-                    <div class="modal-content">
-                      <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title">ระบุสถานะผลการสอบ</h4> </div>
-                      <div class="modal-body">
-                        <div class="form-group"> <?=form_label('กำหนดวันที่เข้าสอบ','status',array('class'=>'control-label col-md-4'));?>
-                          <div class="col-md-8"> <?=form_input(array('name'=>'approve_schedule','class'=>'form-control datepicker'),set_value('approve_schedule',$value['approve_schedule']));?> </div>
-                        </div>
+              <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_date<?=$value['id'].$value['user_id'];?>">
+                <?=($value['approve_schedule']!=='0000-00-00') ? date('d-m-Y',strtotime($value['approve_schedule'])) : 'กำหนดวันสอบ';?>
+              </a>
+              <div class="modal fade" id="approve_date<?=$value['id'].$value['user_id'];?>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                <div class="modal-dialog">
+                  <?=form_open('admin/approve/schedule',array('class'=>'form-horizontal'));?>
+                  <?=form_hidden('id',$value[rtrim($type,'s').'_id']);?>
+                  <?=form_hidden('type',$type);?>
+                  <div class="modal-content">
+                    <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title">ระบุสถานะผลการสอบ</h4> </div>
+                    <div class="modal-body">
+                      <div class="form-group"> <?=form_label('กำหนดวันที่เข้าสอบ','status',array('class'=>'control-label col-md-4'));?>
+                        <div class="col-md-8"> <?=form_input(array('name'=>'approve_schedule','class'=>'form-control datepicker'),set_value('approve_schedule',$value['approve_schedule']));?> </div>
                       </div>
-                      <div class="modal-footer"> <button type="submit" class="btn btn-primary btn-block">ยืนยัน</button> </div>
-                      <?=form_close();?>
                     </div>
+                    <div class="modal-footer"> <button type="submit" class="btn btn-primary btn-block">ยืนยัน</button> </div>
+                    <?=form_close();?>
                   </div>
                 </div>
-              <?php endif; ?>
+              </div>
+              <?php // if ($value['approve_status'] === 'accept') : ?>
+              <?php // else: ?>
+              <?php // endif; ?>
             </td>
             <td><?=anchor('admin/approve/view/'.$value['user_id'].'/'.$type,'ดู',array('class'=>'btn btn-default btn-sm','target'=>'_blank'));?></td>
           </tr>

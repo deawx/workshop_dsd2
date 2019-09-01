@@ -19,7 +19,7 @@
             <?php if ($standard['approve_status'] == 'accept') { ?>
               <?=anchor_popup('account/request/view/'.$standard['user_id'].'/standards','พิมพ์',array('class'=>'btn btn-default btn-sm'));?></td>
             <?php } else { ?>
-              <?=anchor_popup('account/request/standard/'.$standard['แก้ไข'],'',array('class'=>'btn btn-default btn-sm'));?></td>
+              <?=anchor_popup('account/request/standard/'.$standard['id'],'แก้ไข',array('class'=>'btn btn-default btn-sm'));?></td>
             <?php } ?>
         </tr>
       <?php endif; ?>

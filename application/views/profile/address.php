@@ -89,8 +89,9 @@ $(function(){
   zip.inputmask('99999');
 
   province.on('change',function(){
+    amphur.empty();
+    district.empty();
     $.post('get_address/amphur/'+this.value,function(data){
-      amphur.empty();
       $.each(data,function(key,value) {
         amphur.append('<option value="'+value.id+'">'+value.name+'</option>');
       });
@@ -98,8 +99,8 @@ $(function(){
   });
 
   amphur.on('change',function(){
+    district.empty();
     $.post('get_address/district/'+this.value,function(data){
-      district.empty();
       $.each(data,function(key,value) {
         district.append('<option value="'+value.id+'">'+value.name+'</option>');
       });
@@ -107,8 +108,9 @@ $(function(){
   });
 
   province_current.on('change',function(){
+    amphur_current.empty();
+    district_current.empty();
     $.post('get_address/amphur/'+this.value,function(data){
-      amphur_current.empty();
       $.each(data,function(key,value) {
         amphur_current.append('<option value="'+value.id+'">'+value.name+'</option>');
       });
@@ -116,8 +118,8 @@ $(function(){
   });
 
   amphur_current.on('change',function(){
+    district_current.empty();
     $.post('get_address/district/'+this.value,function(data){
-      district_current.empty();
       $.each(data,function(key,value) {
         district_current.append('<option value="'+value.id+'">'+value.name+'</option>');
       });
