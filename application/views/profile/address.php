@@ -12,7 +12,7 @@ $address_current = unserialize($user['address_current']);
       <div class="col-md-8"> <?=form_input(array('name'=>'address[address]','class'=>'form-control'),set_value('address[address]',$address['address']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('ถนน','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'address[street]','class'=>'form-control'),set_value('address[street]',$address['street']));?> </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'address[street]','class'=>'form-control'),set_value('address[street]',($address['street'] != '' ? $address['street'] : '-')));?> </div>
     </div>
     <div class="form-group"> <?=form_label('จังหวัด*','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8"> <?=form_dropdown(array('name'=>'address[province]','class'=>'form-control','id'=>'province'),dropdown_province(),set_value('address[province]',$address['province']));?> </div>
@@ -60,7 +60,6 @@ $address_current = unserialize($user['address_current']);
     </div>
     <?=form_close();?>
   </div>
-  <div class="panel-footer"> </div>
 </div>
 
 <script type="text/javascript">

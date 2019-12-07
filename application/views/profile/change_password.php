@@ -5,15 +5,15 @@
     <?=form_open(uri_string(),array('class'=>'form-horizontal'));?>
     <?=form_hidden('id', $user['id']);?>
     <div class="form-group"> <?=form_label('รหัสผ่านเก่า','old_password',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_password(array('name'=>'old_password','class'=>'form-control'));?> </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'old_password','class'=>'form-control'));?> </div>
     </div>
     <div class="form-group">
       <label for="new_password"> </label>
       <?=form_label('รหัสผ่านใหม่','password',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_password(array('name'=>'password','class'=>'form-control'));?> </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'password','class'=>'form-control'));?> </div>
     </div>
     <div class="form-group"> <?=form_label('รหัสผ่านใหม่(ยืนยัน)','password_confirm',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_password(array('name'=>'password_confirm','class'=>'form-control'));?> </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'password_confirm','class'=>'form-control'));?> </div>
     </div>
     <div class="form-group"> <?=form_label('','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
