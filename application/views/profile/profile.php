@@ -24,7 +24,11 @@
       <div class="col-md-8"> <?=form_input(array('name'=>'religion','class'=>'form-control'),set_value('religion',$user['religion']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('หมายเลขบัตรประชาชน*','id_card',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'id_card','class'=>'form-control','id'=>'id_card','maxlength'=>'13','required'=>TRUE,'digits'=TRUE),set_value('id_card',$user['id_card']));?> </div>
+      <div class="col-md-8"> <?=
+      form_input(
+        array('name'=>'id_card','class'=>'form-control','id'=>'id_card','maxlength'=>'13','required'=>TRUE,'digits'=>TRUE),
+        set_value('id_card',$user['id_card'])
+      );?> </div>
     </div>
     <div class="form-group"> <?=form_label('ว/ด/ป เกิด*','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-2">
