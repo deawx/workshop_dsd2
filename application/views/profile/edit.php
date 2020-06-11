@@ -28,7 +28,6 @@
     </div>
     <?php echo form_close();?>
   </div>
-  <div class="panel-footer"> </div>
 </div>
 
 <script type="text/javascript">

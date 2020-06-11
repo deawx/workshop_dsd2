@@ -5,7 +5,7 @@
     <thead> <tr> <th>ประเภทรายการ</th> <th>วันที่เข้าสอบ</th> <th>บัตรคิว</th> <th>ผลการสอบ</th> </tr> </thead>
     <tbody>
       <?php foreach ($requests as $key => $value) : ?>
-        <tr class="rows" style="display:none;">
+        <tr class="rows">
           <td><?=isset($value['category']) ? $value['category'] : 'หนังสือรับรองความรู้ความสามารถ';?></td>
           <td><?=($value['approve_schedule']!='0000-00-00') ? date('d-m-Y',strtotime($value['approve_schedule'])) : 'รอ';?></td>
           <td><?=($value['approve_schedule']!='0000-00-00') ? anchor_popup('account/request/queue/'.$value['user_id'].'/'.(isset($value['category']) ? 'standards' : 'skills'),'ดู',array('class'=>'btn btn-info btn-sm')) : 'รอ';?></td>
@@ -14,26 +14,5 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <div class="panel-footer"> <?=anchor('#','ก่อนหน้า',array('class'=>'btn btn-default btn-sm','id'=>'more'));?> </div>
 </div>
-
-<script type="text/javascript">
-$(function(){
-  var rows = $('.rows');
-  var more = $('#more');
-
-  rows.slice(0,10).show();
-
-  if ($('.rows:hidden').length < 10) {
-    more.hide();
-  }
-
-  more.on('click',function(e){
-    e.preventDefault();
-    $('.rows:hidden').slice(0,5).fadeIn('slow');
-    if ($('.rows:hidden').length == 0) {
-      more.fadeOut('slow');
-    }
-  });
-});
-</script>
+<p>* เมื่อสอบผ่านแล้วกรุณามารับเอกสารภายใน 15 วัน</p>

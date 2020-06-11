@@ -1,9 +1,12 @@
 <?php $this->load->view('_partials/messages'); ?>
+<?php
+$news_id = isset($news['id']) ? $news['id'] : [];
+?>
 <div class="panel panel-default">
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลการโพสต์ข่าวสาร</h3> </div>
   <div class="panel-body">
     <?=form_open(uri_string(),array('class'=>'form-horizontal'));?>
-    <?=form_hidden('id',$news['id']);?>
+    <?=form_hidden('id',$news_id);?>
     <div class="form-group"> <?=form_label('หัวข้อข่าวสาร','',array('class'=>'control-label col-md-3'));?>
       <div class="col-md-9"> <?=form_input(array('name'=>'title','class'=>'form-control','maxlength'=>'100'),set_value('title',$news['title']));?> </div>
     </div>
@@ -23,20 +26,19 @@
       <div class="col-md-9">
         <?=form_submit('','ยืนยัน',array('class'=>'btn btn-primary'));?>
         <?=anchor('admin/news','ย้อนกลับ',array('class'=>'btn btn-default'));?>
-        <?php if (count($news['id']) > 0) : ?>
+        <?php if (count($news_id) > 0) : ?>
           <?=anchor('#','แนบไฟล์เอกสาร',array('class'=>'btn btn-link pull-right','data-toggle'=>'modal','data-target'=>'#attachment'));?>
         <?php endif; ?>
       </div>
     </div>
     <?=form_close();?>
   </div>
-  <div class="panel-footer"> </div>
 </div>
 
 <div class="modal fade" id="attachment" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <?=form_open('admin/news/attachment/').form_hidden('id',$news['id']);?>
+      <?=form_open('admin/news/attachment/').form_hidden('id',$news_id);?>
       <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title">รายการแนบไฟล์เอกสาร</h4> </div>
       <div class="modal-body" style="padding:0px;">
         <table class="table table-hover">

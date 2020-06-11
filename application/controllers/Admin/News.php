@@ -24,7 +24,7 @@ class News extends Admin_Controller {
 	function post($id='')
 	{
 		$this->form_validation->set_rules('title','หัวข้อข่าวสาร','required|max_length[100]');
-		$this->form_validation->set_rules('category','หมวดหมู่ข่าวสาร','required');
+		$this->form_validation->set_rules('category','หมวดหมู่ข่าวสาร','required',array('required'=>'โปรดเลือกหมวดหมู่ข่าวสาร'));
 		$this->form_validation->set_rules('detail','เนื้อหาข่าวสาร','required');
 		if ($this->form_validation->run() == FALSE) :
 			$this->session->set_flashdata('warning',validation_errors());

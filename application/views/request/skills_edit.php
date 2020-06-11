@@ -55,7 +55,6 @@
     <?php endif; ?>
 
   </div>
-  <div class="panel-footer"> </div>
   <?=form_close();?>
 </div>
 

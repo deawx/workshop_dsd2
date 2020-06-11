@@ -89,9 +89,10 @@ $(function(){
   zip.inputmask('99999');
 
   province.on('change',function(){
-    amphur.empty();
-    district.empty();
+    amphur.empty().prop('disabled', true);
+    district.empty().prop('disabled', true);
     $.post('get_address/amphur/'+this.value,function(data){
+      amphur.prop('disabled', false);
       $.each(data,function(key,value) {
         amphur.append('<option value="'+value.id+'">'+value.name+'</option>');
       });
@@ -99,8 +100,9 @@ $(function(){
   });
 
   amphur.on('change',function(){
-    district.empty();
+    district.empty().prop('disabled', true);
     $.post('get_address/district/'+this.value,function(data){
+      district.prop('disabled', false);
       $.each(data,function(key,value) {
         district.append('<option value="'+value.id+'">'+value.name+'</option>');
       });
@@ -108,9 +110,10 @@ $(function(){
   });
 
   province_current.on('change',function(){
-    amphur_current.empty();
-    district_current.empty();
+    amphur_current.empty().prop('disabled', true);
+    district_current.empty().prop('disabled', true);
     $.post('get_address/amphur/'+this.value,function(data){
+      amphur_current.prop('disabled', false);
       $.each(data,function(key,value) {
         amphur_current.append('<option value="'+value.id+'">'+value.name+'</option>');
       });
@@ -120,6 +123,7 @@ $(function(){
   amphur_current.on('change',function(){
     district_current.empty();
     $.post('get_address/district/'+this.value,function(data){
+      district_current.prop('disabled', false);
       $.each(data,function(key,value) {
         district_current.append('<option value="'+value.id+'">'+value.name+'</option>');
       });

@@ -5,7 +5,7 @@ $uri_string = uri_string().'?'.$uri_get;
 ?>
 <div class="clearfix"> </div>
 <?php $this->load->view('_partials/messages'); ?>
-<div class="panel panel-success">
+<!-- <div class="panel panel-success">
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลวันที่ปิดรับคำร้อง <?=count($date_reject);?> รายการ</h3> </div>
   <div class="panel-body">
     <?=form_open(uri_string(),array('method'=>'post','class'=>'form-inline pull-right'));?>
@@ -28,7 +28,7 @@ $uri_string = uri_string().'?'.$uri_get;
       <?php endforeach; ?>
     </tbody>
   </table>
-</div>
+</div> -->
 
 <div class="panel panel-default">
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลคำร้องทั้งหมด <?=count($requests);?> รายการ</h3> </div>

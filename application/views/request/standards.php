@@ -185,7 +185,6 @@
 
   </div>
   <?=form_close();?>
-  <div class="panel-footer"> </div>
 </div>
 
 <script type="text/javascript">

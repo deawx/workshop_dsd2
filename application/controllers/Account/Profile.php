@@ -24,12 +24,14 @@ class Profile extends Private_Controller {
 	    $this->form_validation->set_rules('title','คำนำหน้าชื่อ','required');
 	    $this->form_validation->set_rules('firstname','ชื่อ','required|max_length[100]');
 			$this->form_validation->set_rules('lastname','นามสกุล','required|max_length[100]');
-	    $this->form_validation->set_rules('englishname','ชื่อ-นามสกุล(ภาษาอังกฤษ)','required|alpha_numeric_spaces|max_length[255]');
+	    $this->form_validation->set_rules('englishname','ชื่อ-นามสกุล(ภาษาอังกฤษ)','required|alpha_numeric_spaces|max_length[255]',
+				array('alpha_numeric_spaces' => 'ข้อมูล ชื่อ-นามสกุล(ภาษาอังกฤษ)จะต้องประกอบด้วยตัวอักษรภาษาอังกฤษ')
+			);
 			$this->form_validation->set_rules('nationality','สัญชาติ','required|max_length[100]');
 	    $this->form_validation->set_rules('religion','ศาสนา','required|max_length[100]');
 
 			if ($this->input->post('id_card') && $this->input->post('id_card') != $this->data['user']['id_card'])
-		    $this->form_validation->set_rules('id_card','หมายเลขบัตรประชาชน','required|exact_length[13]|is_unique[users.id_card]');
+		    $this->form_validation->set_rules('id_card','หมายเลขบัตรประชาชน','required|integer|exact_length[13]|is_unique[users.id_card]');
 
 	    $this->form_validation->set_rules('blood','หมู่โลหิต','required');
 			if ($this->form_validation->run() === FALSE) :
@@ -156,6 +158,10 @@ class Profile extends Private_Controller {
   function work()
   {
 		$this->form_validation->set_rules('work_status','สถานภาพการทำงาน','required');
+		$this->form_validation->set_rules('work_yes[zip]','รหัสไปรษณีย์','integer|exact_length[5]',array('integer'=>'กรุณากรอกรหัสไปรษณีย์ให้ครบ 5 หลัก'));
+		$this->form_validation->set_rules('work_yes[phone]','เบอร์โทรศัพท์','integer|exact_length[10]',array('integer'=>'กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก'));
+		$this->form_validation->set_rules('work_yes[fax]','แฟกซ์','integer|max_length[10]',array('integer'=>'กรุณากรอกเบอร์โทรสารให้ครบ 10 หลัก'));
+
 		if ($this->form_validation->run() === FALSE) :
 			$this->session->set_flashdata('warning',validation_errors());
 		else:
@@ -318,11 +324,11 @@ class Profile extends Private_Controller {
 		$result = array();
 		if ($address_type == 'amphur')
 		{
-			$result = $this->db->where('province_id',$needed_id)->get('amphur')->result_array();
+			$result = $this->db->where('province_id',$needed_id)->order_by('CONVERT(name USING tis620) ASC')->get('amphur')->result_array();
 		}
 		elseif ($address_type == 'district')
 		{
-			$result = $this->db->where('amphur_id',$needed_id)->get('district')->result_array();
+			$result = $this->db->where('amphur_id',$needed_id)->order_by('CONVERT(name USING tis620) ASC')->get('district')->result_array();
 		}
 		$this->output
 			->set_content_type('application/json','utf-8')

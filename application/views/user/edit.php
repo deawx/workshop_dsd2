@@ -53,7 +53,7 @@ $work = unserialize($user['work']);
         <div class="col-md-9"> <?=form_input(array('name'=>'religion','class'=>'form-control'),set_value('religion',$user['religion']));?> </div>
       </div>
       <div class="form-group"> <?=form_label('หมายเลขบัตรประชาชน*','id_card',array('class'=>'control-label col-md-3'));?>
-        <div class="col-md-9"> <?=form_input(array('name'=>'id_card','class'=>'form-control','id'=>'id_card','maxlength'=>'13','readonly'=>TRUE),set_value('id_card',$user['id_card']));?> </div>
+        <div class="col-md-9"> <?=form_input(array('name'=>'id_card','class'=>'form-control','id'=>'id_card','maxlength'=>'13'),set_value('id_card',$user['id_card']));?> </div>
       </div>
       <div class="form-group"> <?=form_label('ว/ด/ป เกิด*','',array('class'=>'control-label col-md-3'));?>
         <div class="col-md-3">

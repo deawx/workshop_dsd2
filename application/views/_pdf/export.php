@@ -45,7 +45,7 @@
                 <td><?=$type;?></td>
                 <td><?=$profile['title'].nbs(2).$profile['firstname'].nbs(2).$profile['lastname'];?></td>
                 <td class="text-center"><?=date('d-m-Y',strtotime($value['date_create']));?></td>
-                <td class="text-center"><?=($value['date_update']!=NULL)?date('d-m-Y',strtotime($value['date_update'])):'N/A';?></td>
+                <td class="text-center"><?=($value['date_update']!=NULL)?date('d-m-Y',strtotime($value['date_update'])):'รออนุมัติใบคำร้อง';?></td>
                 <td class="text-center"><?=date('d-m-Y',strtotime($expired));?></td>
               </tr>
             <?php endforeach; ?>

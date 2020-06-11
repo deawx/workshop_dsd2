@@ -39,5 +39,4 @@
       <?php endif; ?>
     </tbody>
   </table>
-  <div class="panel-footer"> </div>
 </div>

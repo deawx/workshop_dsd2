@@ -87,8 +87,11 @@ $work = unserialize($user['work']);
       <div class="form-group"> <?=form_label('ชื่อสถานที่ทำงาน*','',array('class'=>'control-label col-md-4'));?>
         <div class="col-md-8"> <?=form_input(array('name'=>'work_yes[place]','class'=>'form-control'),set_value('work_yes[place]',isset($work['work_yes']['place'])?$work['work_yes']['place']:NULL));?> </div>
       </div>
-      <div class="form-group"> <?=form_label('ถนน','',array('class'=>'control-label col-md-4'));?>
-        <div class="col-md-8"> <?=form_input(array('name'=>'work_yes[street]','class'=>'form-control'),set_value('work_yes[street]',isset($work['work_yes']['street'])?$work['work_yes']['street']:NULL));?> </div>
+      <div class="form-group"> <?=form_label('ถนน*','',array('class'=>'control-label col-md-4'));?>
+        <div class="col-md-8">
+          <?=form_input(array('name'=>'work_yes[street]','class'=>'form-control'),set_value('work_yes[street]',isset($work['work_yes']['street'])?$work['work_yes']['street']:NULL));?>
+          <p class="help-block">*ถ้าไม่มีข้อมูลให้ใส่เครื่องหมาย -</p>
+        </div>
       </div>
       <div class="form-group"> <?=form_label('จังหวัด*','',array('class'=>'control-label col-md-4'));?>
         <div class="col-md-8"> <?=form_dropdown(array('name'=>'work_yes[province]','class'=>'form-control','id'=>'province'),dropdown_province(),set_value('work_yes[province]',isset($work['work_yes']['province'])?$work['work_yes']['province']:NULL));?> </div>
@@ -105,7 +108,7 @@ $work = unserialize($user['work']);
       <div class="form-group"> <?=form_label('โทรศัพท์*','phone',array('class'=>'control-label col-md-4'));?>
         <div class="col-md-8"> <?=form_input(array('name'=>'work_yes[phone]','class'=>'form-control tel','max_length'=>'10'),set_value('work_yes[phone]',isset($work['work_yes']['phone'])?$work['work_yes']['phone']:NULL));?> </div>
       </div>
-      <div class="form-group"> <?=form_label('โทรสาร','fax',array('class'=>'control-label col-md-4'));?>
+      <div class="form-group"> <?=form_label('โทรสาร*','fax',array('class'=>'control-label col-md-4'));?>
         <div class="col-md-8"> <?=form_input(array('name'=>'work_yes[fax]','class'=>'form-control tel','max_length'=>'10'),set_value('work_yes[fax]',isset($work['work_yes']['fax'])?$work['work_yes']['fax']:NULL));?> </div>
       </div>
       <div class="form-group"> <?=form_label('จำนวนลูกจ้างทั้งหมด*','',array('class'=>'control-label col-md-4'));?>
@@ -123,7 +126,6 @@ $work = unserialize($user['work']);
     </div>
     <?=form_close();?>
   </div>
-  <div class="panel-footer"> </div>
 </div>
 
 <script type="text/javascript">
@@ -135,6 +137,8 @@ $(function() {
   var province = $('#province');
   var amphur = $('#amphur');
   var district = $('#district');
+
+  console.log(work_status.val());
 
   work_category.on('change',function(){
     $.post('get_work_type/'+this.value,function(data) {
@@ -150,14 +154,22 @@ $(function() {
     }
   });
 
-  <?php if (isset($work['work_status']) && $work['work_status']=='ผู้มีงานทำ') : ?>
+  if (work_status.val() == 'ผู้มีงานทำ')
+  {
+    work_yes.prop('disabled',false);
     $('#work_no').prop('disabled',true);
-  <?php else: ?>
+  }
+  else if (work_status.val() == 'ผู้ไม่มีงานทำ')
+  {
     work_yes.prop('disabled',true);
-  <?php endif; ?>
+    $('#work_no').prop('disabled',false);
+  }
+  else
+  {
+    work_yes.prop('disabled',true);
+    $('#work_no').prop('disabled',true);
+  }
 
-  work_yes.prop('disabled',true);
-  $('#work_no').prop('disabled',true);
   $('#work_group').prop('disabled',true);
   work_status.on('change',function(){
     if (this.value === 'ผู้มีงานทำ') {
