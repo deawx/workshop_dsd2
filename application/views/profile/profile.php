@@ -15,7 +15,7 @@
       <div class="col-md-8"> <?=form_input(array('name'=>'lastname','class'=>'form-control'),set_value('lastname',$user['lastname']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('ชื่อ-นามสกุล(ภาษาอังกฤษ)*','lastname',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8"> <?=form_input(array('name'=>'englishname','class'=>'form-control'),set_value('englishname',$user['englishname']));?> </div>
+      <div class="col-md-8"> <?=form_input(array('name'=>'englishname','class'=>'form-control','oninput'=>"this.value = this.value.replace(/[^A-aZ-z .]/g, '').replace(/(\..*)\./g, '$1');"),set_value('englishname',$user['englishname']));?> </div>
     </div>
     <div class="form-group"> <?=form_label('สัญชาติ*','nationality',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8"> <?=form_input(array('name'=>'nationality','class'=>'form-control'),set_value('nationality',$user['nationality']));?> </div>

@@ -36,7 +36,7 @@ $uri_string = uri_string().'?'.$uri_get;
     <?=form_open(uri_string(),array('method'=>'get','class'=>'form-inline pull-right'));?>
     <div class="form-group"> <?=form_dropdown(array('name'=>'approve_status','class'=>'form-control'),array(''=>'เลือกทั้งหมด','accept'=>'ตอบรับ','reject'=>'ปฏิเสธ'),set_value('approve_status',$this->input->get('approve_status')));?> </div>
     <div class="form-group"> <?=form_input(array('name'=>'date_create','class'=>'form-control datepicker','placeholder'=>'วันที่ยื่นคำร้อง'),set_value('date_create',$this->input->get('date_create')));?> </div>
-    <div class="form-group"> <?=form_input(array('name'=>'id_card','class'=>'form-control','placeholder'=>'ค้นหาหมายเลขบัตร','digits'=>TRUE,'maxlength'=>'13'),set_value('id_card',$this->input->get('id_card')));?> </div>
+    <div class="form-group"> <?=form_input(array('name'=>'id_card','class'=>'form-control','placeholder'=>'ค้นหาหมายเลขบัตร','maxlength'=>'13','oninput'=>"this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"),set_value('id_card',$this->input->get('id_card')));?> </div>
     <div class="form-group"> <?=form_submit('','ค้นหา',array('class'=>'btn btn-primary pull-right'));?> </div>
     <?=anchor_popup($uri_string.'&export=1','ส่งออก',array('class'=>'btn btn-default'));?>
     <?=form_close();?>
