@@ -304,13 +304,13 @@ class Profile extends Private_Controller {
 		if ($this->form_validation->run() == FALSE) :
 			$this->session->set_flashdata('warning',validation_errors());
 		else:
-			$identity = $this->session->userdata('identity');
-			$success = $this->ion_auth->change_password($identity,$this->input->post('old_password'),$this->input->post('password'));
-			if ($success) :
-				$this->session->set_flashdata('success',$this->ion_auth->messages());
+			$data['id'] = $this->data['user']['id'];
+			$data['password'] = $this->input->post('password');
+			if ($this->profile->save($data,'users')) :
+				$this->session->set_flashdata('success','แก้ไขรหัสผ่านเสร็จสิ้น');
 				redirect('auth/logout');
 			else:
-				$this->session->set_flashdata('warning',$this->ion_auth->errors());
+				$this->session->set_flashdata('warning','ไม่สามารถแก้ไขรหัสผ่านได้');
 				redirect('account/profile/change_password','refresh');
 			endif;
 		endif;
