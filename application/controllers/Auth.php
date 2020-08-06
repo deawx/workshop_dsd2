@@ -655,7 +655,7 @@ class Auth extends Public_Controller {
 		$this->data['title'] = $this->lang->line('create_user_heading');
 
 		$this->data['identity_column'] = $this->config->item('identity','ion_auth');
-		$this->form_validation->set_rules('identity','หมายเลขบัตรประชาชน','required|is_unique[users.username]|integer|exact_length[13]');
+		$this->form_validation->set_rules('identity','หมายเลขบัตรประชาชน','required|is_unique[users.username]|integer|exact_length[13]', array('is_unique' => 'เลขบัตรประชาชนนี้ มีในระบบแล้ว ไม่สามารถสมัครซ้ำได้อีก'));
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 

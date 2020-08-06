@@ -1,4 +1,5 @@
 <div class="container">
+  <?php $this->load->view('_partials/messages'); ?>
   <div class="row" style="padding-top:10em;">
     <div class="col-sm-6 col-sm-offset-3">
       <div class="panel panel-success">
@@ -24,7 +25,6 @@
       </div>
     </div>
   </div>
-  <?php $this->load->view('_partials/messages'); ?>
 </div>
 
 <script type="text/javascript">

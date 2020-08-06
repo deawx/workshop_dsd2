@@ -31,16 +31,17 @@ class Profile extends Private_Controller {
 	    $this->form_validation->set_rules('religion','ศาสนา','required|max_length[100]');
 
 			if ($this->input->post('id_card') && $this->input->post('id_card') != $this->data['user']['id_card'])
-		    $this->form_validation->set_rules('id_card','หมายเลขบัตรประชาชน','required|integer|exact_length[13]|is_unique[users.id_card]');
+			{
+		    $this->form_validation->set_rules('id_card','หมายเลขบัตรประชาชน','required|exact_length[13]|is_unique[users.id_card]', array('is_unique' => 'เลขบัตรประชาชนนี้ มีในระบบแล้ว ไม่สามารถสมัครซ้ำได้อีก'));
+			}
 
 	    $this->form_validation->set_rules('blood','หมู่โลหิต','required');
 			if ($this->form_validation->run() === FALSE) :
 				$this->session->set_flashdata('warning',validation_errors());
 			else:
 				$data = $this->input->post();
+				$data['username'] = $this->input->post('id_card');
 				$data['birthdate'] = $this->input->post('y').'-'.$this->input->post('m').'-'.$this->input->post('d');
-
-				// print_data($data); die();
 
 				if ($this->profile->save($data,'users')) :
 					$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');
