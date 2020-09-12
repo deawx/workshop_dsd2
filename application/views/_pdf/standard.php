@@ -1,48 +1,283 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>แบบ กพร.201</title>
-  <?=link_tag('assets/css/bootstrap.min.css');?>
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-  <style media="screen">
-    .table > tbody > tr,
-    .table > tbody > tr > td {
-      padding: 2px 8px !important;
-    }
-  </style>
-</head>
 <?php
+// แบบ กพร.201
+require_once FCPATH.'/vendor/autoload.php';
+
 $profile = $this->profile->get_id($record['user_id']);
 $address = unserialize($profile['address']);
 $education = unserialize($profile['education']);
 $work = unserialize($profile['work']);
-// echo '<pre>';
-// print_r($profile);
-// print_r($address);
-// print_r($education);
-// print_r($work);
-// print_r($record);
-// echo '</pre>';
 $work_yes = unserialize($record['work_yes']);
 $work_abroad = unserialize($record['work_abroad']);
 $reference = unserialize($record['reference']);
+
+try {
+  $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+  $fontData = $defaultFontConfig['fontdata'];
+
+  $mpdf = new \Mpdf\Mpdf(array(
+
+    'mode' => 'UTF-8',
+    'enableImports' => true,
+    'default_font_size' => 12,
+    'fontdata' => $fontData + [
+      "sarabun" => [
+        'R' => "TH-Sarabun-New-Regular.ttf",
+        'B' => "TH-Sarabun-New-Bold.ttf",
+        'I' => "TH-Sarabun-New-Italic.ttf",
+        'BI' => "TH-Sarabun-New-BoldItalic.ttf",
+        'useOTL' => 0x00,
+        'useKashida' => 75,
+      ]
+    ],
+    'default_font' => 'sarabun'
+  ));
+} catch (Exception $e) {
+  echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
+
+$file = $mpdf->SetSourceFile(APPPATH.'/views/_pdf/standard.pdf');
+
+$import_page = $mpdf->ImportPage(1);
+$mpdf->UseTemplate($import_page);
+
+// Profile & Education
+$mpdf->WriteHTML('
+  <div style="position: absolute; top: 55px; left:420px;">'.(isset($record['department'])?$record['department']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 72px; left:420px;">'.(isset($record['branch'])?$record['branch']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 90px; left:400px;">'.(isset($record['level'])?$record['level']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 140px; left:300px;">'.(isset($profile['firstname'])?$profile['firstname']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 140px; left:480px;">'.(isset($profile['lastname'])?$profile['lastname']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 145px; left:625px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 145px; left:680px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 158px; left:300px;">'.(isset($profile['englishname'])?$profile['englishname']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 158px; left:535px;">'.(isset($profile['nationality'])?$profile['nationality']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 158px; left:665px;">'.(isset($profile['religion'])?$profile['religion']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 175px; left:575px;">'.date('d',strtotime($profile['birthdate'])).'&nbsp;</div>
+  <div style="position: absolute; top: 175px; left:605px;">'.date('m',strtotime($profile['birthdate'])).'&nbsp;</div>
+  <div style="position: absolute; top: 175px; left:640px;">'.date('Y',strtotime($profile['birthdate'])).'&nbsp;</div>
+  <div style="position: absolute; top: 175px; left:695px;">'.age_calculate($profile['birthdate']).'&nbsp;</div>
+  <div style="position: absolute; top: 200px; left:355px;">'.(isset($address['address'])?$address['address']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:170px;">'.(isset($address['street'])?$address['street']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:370px;">'.(isset($address['tambon'])?$address['tambon']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:500px;">'.(isset($address['amphur'])?$address['amphur']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($address['province'])?$address['province']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 235px; left:160px;">'.(isset($address['zip'])?$address['zip']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 235px; left:260px;">'.(isset($address['phone'])?$address['phone']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 235px; left:430px;">'.(isset($address['fax'])?$address['fax']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 235px; left:590px;">'.(isset($address['email'])?$address['email']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 255px; left:215px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 255px; left:340px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 255px; left:435px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 255px; left:515px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 255px; left:615px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 270px; left:213px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 270px; left:260px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 270px; left:375px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 270px; left:450px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 270px; left:525px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 270px; left:675px;">'.(isset($record['health_status'])?$record['health_status']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($education['education'])?$education['education']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($education['place'])?$education['place']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($education['province'])?$education['province']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($education['year'])?$education['year']:'').'&nbsp;</div>
+');
+
+// ID Card
+$split = str_split($profile['id_card'],1);
+$mpdf->WriteHTML('
+  <div style="position: absolute; top: 180px; left:220px;">'.$split[0].'</div>
+  <div style="position: absolute; top: 180px; left:250px;">'.$split[1].'</div>
+  <div style="position: absolute; top: 180px; left:270px;">'.$split[2].'</div>
+  <div style="position: absolute; top: 180px; left:285px;">'.$split[3].'</div>
+  <div style="position: absolute; top: 180px; left:305px;">'.$split[4].'</div>
+  <div style="position: absolute; top: 180px; left:335px;">'.$split[5].'</div>
+  <div style="position: absolute; top: 180px; left:350px;">'.$split[6].'</div>
+  <div style="position: absolute; top: 180px; left:370px;">'.$split[7].'</div>
+  <div style="position: absolute; top: 180px; left:390px;">'.$split[8].'</div>
+  <div style="position: absolute; top: 180px; left:405px;">'.$split[9].'</div>
+  <div style="position: absolute; top: 180px; left:435px;">'.$split[10].'</div>
+  <div style="position: absolute; top: 180px; left:450px;">'.$split[11].'</div>
+  <div style="position: absolute; top: 180px; left:480px;">'.$split[12].'</div>
+');
+
+// Work YES
+$wy = array('ยานยนต์และชิ้นส่วน','เหล็กและเหล็กกล้า','เฟอร์นิเจอร์','อาหาร','ซอฟต์แวร์','ปิโตรเคมี','ไฟฟ้าและอิเล็กทรอนิกส์','สิ่งทอและแฟชั่น','เซรามิกส์','แม่พิมพ์','ก่อสร้าง','โลจิสติกส์','ท่องเที่ยวและบริการ','ผลิตภัณฑ์ยาง');
+$work_yes_etc = '';
+if ($work_yes['group'] != '' && ! in_array($work_yes['group'],$wy))
+{
+  $work_yes_etc = $work_yes['group'];
+}
+$mpdf->WriteHTML('
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['position'])?$work_yes['position']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['age'])?$work_yes['age']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['place'])?$work_yes['place']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['street'])?$work_yes['street']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['tambon'])?$work_yes['tambon']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['amphur'])?$work_yes['amphur']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['province'])?$work_yes['province']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['zip'])?$work_yes['zip']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['phone'])?$work_yes['phone']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['fax'])?$work_yes['fax']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 215px; left:620px;">'.$work_yes_etc.'&nbsp;</div>
+');
+
+// Work NO
+$wn = array('อยู่ระหว่างหางาน','นักเรียน/นักศึกษา','ทหารก่อนปลดประจำการ','ผู้อยู่ในสถานพินิจ','ผู้ต้องขัง','ผู้ประกันตนที่ถูกเลิกจ้าง');
+$work_no_etc = '';
+if ($record['work_no'] != '' && ! in_array($record['work_no'],$wn))
+{
+  $work_no_etc = $record['work_no'];
+}
+$mpdf->WriteHTML('
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 215px; left:620px;">'.$work_yes_etc.'&nbsp;</div>
+');
+
+// Used
+$mpdf->WriteHTML('
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
+');
+
+// Work NEED
+$mpdf->WriteHTML('
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($record['need_work_position'])?$record['need_work_position']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($record['need_work_group'])?$record['need_work_group']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($record['need_work_country'])?$record['need_work_country']:'').'&nbsp;</div>
+');
+
+// Work ABROAD
+$mpdf->WriteHTML('
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['agent'])?$work_abroad['agent']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['address'])?$work_abroad['address']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['street'])?$work_abroad['street']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['tambon'])?$work_abroad['tambon']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['amphur'])?$work_abroad['amphur']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['province'])?$work_abroad['province']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['zip'])?$work_abroad['zip']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['phone'])?$work_abroad['phone']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['company'])?$work_abroad['company']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['country'])?$work_abroad['country']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['duration'])?$work_abroad['duration']:'').'&nbsp;</div>
+');
+
+// exit();
+$mpdf->Output();
 ?>
-<body class="" style="padding:0.25em 1em;background:none;">
+
+<?php
+print_data($record);
+print_data($profile);
+print_data($address);
+print_data($education);
+print_data($work);
+print_data($work_yes);
+print_data($work_abroad);
+print_data($reference);
+exit();
+?>
   <div class="">
     <div class="container" style="font-size: 4px !important;">
-      <div class="row hidden-print">
-        <button type="button" class="btn btn-default" onclick="window.close()">ปิดหน้านี้</button>
-        <button type="button" class="btn btn-default" onclick="window.print()">สั่งพิมพ์หน้านี้</button>
-        <hr>
-      </div>
       <div class="row" style="padding: 0px; line-height: 25% !important;">
         <p class="text-right">แบบ กพร.201</p>
         <table class="table table-bordered">
@@ -362,7 +597,3 @@ $reference = unserialize($record['reference']);
       </div>
     </div>
   </div>
-  <?=script_tag('assets/js/jquery.min.js');?>
-  <?=script_tag('assets/js/bootstrap.min.js');?>
-</body>
-</html>

@@ -3,7 +3,7 @@
 </div>
 <div class="row">
   <div class="col-md-4">
-    <ul class="list-group" role="tablist">
+    <ul class="list-group" id="myTab" role="tablist">
       <li class="list-group-item active" href="#1" aria-controls="1" role="tab" data-toggle="tab">วิธีการสมัครสมาชิก</li>
       <li class="list-group-item" href="#2" aria-controls="2" role="tab" data-toggle="tab">วิธีการเข้าสู่ระบบ</li>
       <li class="list-group-item" href="#3" aria-controls="3" role="tab" data-toggle="tab">วิธีการแก้ไขข้อมูลส่วนตัว</li>
@@ -16,7 +16,13 @@
   </div>
   <div class="col-md-8">
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="1">
+
+      <?php foreach ($sites as $key => $value) { ?>
+        <div role="tabpanel" class="tab-pane active" id="<?=++$key;?>">
+          <?=$value['body'];?>
+        </div>
+      <?php } ?>
+<!--       <div role="tabpanel" class="tab-pane active" id="1">
         <h4>วิธีการสมัครสมาชิก</h4>
         <ul>
           <li>ไปที่เมนูเข้าสู่ระบบ/สมัครสมาชิก</li>
@@ -152,7 +158,13 @@
           <li>สามารถกดดูและสั่งพิมพ์บัตรคิวได้หลังจากเลือกวันสอบแล้วเท่านั้น</li>
           <li>บัตรคิวมีอายุ 1 วันตลอดช่วงเวลาสอบเช้าและบ่าย</li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
+
+<script>
+  $(function () {
+    $('#myTab li:first-child').tab('show')
+  })
+</script>

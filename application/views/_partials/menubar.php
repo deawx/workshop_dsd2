@@ -12,13 +12,13 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+        <li class="<?=($parent === 'sites') ? 'active' : '';?>"> <a href="<?=site_url('admin/sites');?>">ข้อมูลเว็บไซต์</a> </li>
         <li class="<?=($parent === 'news') ? 'active' : '';?>"> <a href="<?=site_url('admin/news');?>">ข้อมูลข่าวสาร</a> </li>
         <li class="<?=($parent === 'approve') ? 'active' : '';?>"> <a href="<?=site_url('admin/approve');?>">ข้อมูลคำร้อง</a> </li>
         <li class="<?=($parent === 'user') ? 'active' : '';?>"> <a href="<?=site_url('admin/user');?>">ข้อมูลสมาชิก</a> </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle <?=($parent === 'account') ? 'active' : '';?>" data-toggle="dropdown">บัญชีของคุณ <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li> <a href="<?=site_url('admin/news');?>">เข้าระบบผู้ดูแล</a> </li>
             <li class="divider"></li>
             <li> <a href="<?=site_url('auth/logout');?>">ออกจากระบบ</a> </li>
           </ul>

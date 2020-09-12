@@ -26,7 +26,7 @@ $news_id = isset($news['id']) ? $news['id'] : [];
       <div class="col-md-9">
         <?=form_submit('','ยืนยัน',array('class'=>'btn btn-primary'));?>
         <?=anchor('admin/news','ย้อนกลับ',array('class'=>'btn btn-default'));?>
-        <?php if (count($news_id) > 0) : ?>
+        <?php if ( ! empty($news_id)) : ?>
           <?=anchor('#','แนบไฟล์เอกสาร',array('class'=>'btn btn-link pull-right','data-toggle'=>'modal','data-target'=>'#attachment'));?>
         <?php endif; ?>
       </div>

@@ -7,6 +7,7 @@ class Welcome extends Public_Controller {
 	{
 		parent::__construct();
 		$this->load->model('News_model','news');
+		$this->load->model('Sites_model','sites');
 	}
 
 	public function index()
@@ -18,7 +19,8 @@ class Welcome extends Public_Controller {
 		);
 		$this->data['parent'] = 'home';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('welcome/index',NULL,TRUE);
+		$this->data['sites'] = $this->sites->read(['register', 'login', 'profile', 'upload', 'standard', 'skill', 'test', 'score']);
+		$this->data['body'] = $this->load->view('welcome/index',$this->data,TRUE);
 		$this->load->view('_layouts/boxed',$this->data);
 	}
 
@@ -31,7 +33,8 @@ class Welcome extends Public_Controller {
 		);
 		$this->data['parent'] = 'about';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('welcome/about',NULL,TRUE);
+		$this->data['sites'] = $this->sites->read(['about']);
+		$this->data['body'] = $this->load->view('welcome/about',$this->data,TRUE);
 		$this->load->view('_layouts/boxed',$this->data);
 	}
 
@@ -44,7 +47,8 @@ class Welcome extends Public_Controller {
 		);
 		$this->data['parent'] = 'contact';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('welcome/contact',NULL,TRUE);
+		$this->data['sites'] = $this->sites->read(['contact']);
+		$this->data['body'] = $this->load->view('welcome/contact',$this->data,TRUE);
 		$this->load->view('_layouts/boxed',$this->data);
 	}
 
