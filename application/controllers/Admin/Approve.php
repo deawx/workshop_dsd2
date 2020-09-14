@@ -120,16 +120,22 @@ class Approve extends Admin_Controller {
 		$this->load->view('_layouts/boxed',$this->data);
 	}
 
-	function view($user_id,$types)
+	function view($user_id,$type)
 	{
-		if ( ! intval($user_id) OR ! $types)
+		if ( ! intval($user_id) OR ! $type)
 			show_404();
 
-		$record = $this->request->get_code($user_id,$types);
-		$type = isset($record['department']) ? 'standard' : 'skill';
+		if ( ! in_array($type, ['standards', 'skills']))
+			show_404();
 
+		$record = $this->request->get_code($user_id,$type);
+
+		if (is_null($record))
+			show_404();
+
+		$this->load->helper('inflector');
 		$this->data['record'] = $record;
-		$this->load->view('_pdf/'.$type,$this->data);
+		$this->load->view('_pdf/'.singular($type),$this->data);
 	}
 
 	function view_file($filename=FALSE)

@@ -92,21 +92,24 @@ $mpdf->WriteHTML('
 
 // ID Card
 $split = str_split($profile['id_card'],1);
-$mpdf->WriteHTML('
-  <div style="position: absolute; top: 180px; left:220px;">'.$split[0].'</div>
-  <div style="position: absolute; top: 180px; left:250px;">'.$split[1].'</div>
-  <div style="position: absolute; top: 180px; left:270px;">'.$split[2].'</div>
-  <div style="position: absolute; top: 180px; left:285px;">'.$split[3].'</div>
-  <div style="position: absolute; top: 180px; left:305px;">'.$split[4].'</div>
-  <div style="position: absolute; top: 180px; left:335px;">'.$split[5].'</div>
-  <div style="position: absolute; top: 180px; left:350px;">'.$split[6].'</div>
-  <div style="position: absolute; top: 180px; left:370px;">'.$split[7].'</div>
-  <div style="position: absolute; top: 180px; left:390px;">'.$split[8].'</div>
-  <div style="position: absolute; top: 180px; left:405px;">'.$split[9].'</div>
-  <div style="position: absolute; top: 180px; left:435px;">'.$split[10].'</div>
-  <div style="position: absolute; top: 180px; left:450px;">'.$split[11].'</div>
-  <div style="position: absolute; top: 180px; left:480px;">'.$split[12].'</div>
-');
+if (count($split) == 13)
+{
+  $mpdf->WriteHTML('
+    <div style="position: absolute; top: 180px; left:220px;">'.$split[0].'</div>
+    <div style="position: absolute; top: 180px; left:250px;">'.$split[1].'</div>
+    <div style="position: absolute; top: 180px; left:270px;">'.$split[2].'</div>
+    <div style="position: absolute; top: 180px; left:285px;">'.$split[3].'</div>
+    <div style="position: absolute; top: 180px; left:305px;">'.$split[4].'</div>
+    <div style="position: absolute; top: 180px; left:335px;">'.$split[5].'</div>
+    <div style="position: absolute; top: 180px; left:350px;">'.$split[6].'</div>
+    <div style="position: absolute; top: 180px; left:370px;">'.$split[7].'</div>
+    <div style="position: absolute; top: 180px; left:390px;">'.$split[8].'</div>
+    <div style="position: absolute; top: 180px; left:405px;">'.$split[9].'</div>
+    <div style="position: absolute; top: 180px; left:435px;">'.$split[10].'</div>
+    <div style="position: absolute; top: 180px; left:450px;">'.$split[11].'</div>
+    <div style="position: absolute; top: 180px; left:480px;">'.$split[12].'</div>
+  ');
+}
 
 // Sex
 $sex = ! empty($profile['sex']) ? $profile['sex'] : '';
@@ -235,227 +238,230 @@ $mpdf->WriteHTML('
 ');
 
 // Workplace
-$work_category = isset($work['work_yes']['category']) ? $work['work_yes']['category'] : '';
-if ($work_category == 'ทำงานภาครัฐ')
+if ( ! empty($work['work_yes']))
 {
-  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:214px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_category == 'ทำงานภาคเอกชน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_category == 'ทำงานรัฐวิสาหกิจ')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:470px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_category == 'ประกอบธุรกิจส่วนตัว/ประกอบอาชีพอิสระ')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 410px; left:218px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_category == 'ช่วยธุรกิจครัวเรือน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 443px; left:215px; height: 13px; width: 13px; background-color: black;"></div>');
-}
+  $work_category = isset($work['work_yes']['category']) ? $work['work_yes']['category'] : '';
+  if ($work_category == 'ทำงานภาครัฐ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:214px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_category == 'ทำงานภาคเอกชน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_category == 'ทำงานรัฐวิสาหกิจ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:470px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_category == 'ประกอบธุรกิจส่วนตัว/ประกอบอาชีพอิสระ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 410px; left:218px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_category == 'ช่วยธุรกิจครัวเรือน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 443px; left:215px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
 
-$work_type = isset($work['work_yes']['type']) ? $work['work_yes']['type'] : '';
-if ($work_type == 'ข้าราชการพลเรือน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:300px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'ข้าราชการตำรวจ')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:408px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'ข้าราชการทหาร')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:508px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'ข้าราชการครู')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:604px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'ข้าราชการอัยการ')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:299px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'ลูกจ้างประจำ')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:408px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'พนักงานราชการ')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:506px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'พนักงานจ้างเหมา')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:604px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'พนักงาน/ลูกจ้างภาคเอกชน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:322px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'พนักงาน/ลูกจ้างรัฐวิสาหกิจ')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:575px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'ผู้รวมกลุ่มอาชีพ/วิสาหกิจชุมชน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 410px; left:440px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'ผู้รับจ้างทั่วไปโดยไม่มีนายจ้าง')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 430px; left:260px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'เกษตรกร(ทำไร่/ทำนา/ทำสวน/เลี้ยงสัตว์)')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 430px; left:442px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-elseif ($work_type == 'ลูกจ้างธุรกิจในครัวเรือน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 443px; left:326px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
-}
-  
-// Income
-$income = isset($work['work_yes']['income']) ? $work['work_yes']['income'] : '';
-if ($income == 'รายเดือน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income == 'รายสัปดาห์')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:288px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income == 'รายวัน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:373px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income == 'รายชั่วโมง')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:434px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income == 'งานเหมา/รายชิ้น')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:507px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-  
-// Income Amount
-$income_amount = isset($work['work_yes']['income_amount']) ? $work['work_yes']['income_amount'] : '';
-if ($income_amount == '1-5,000 บาท')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income_amount == '5,001-9,000 บาท')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:331px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income_amount == '9,001-15,000 บาท')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:444px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income_amount == '15,001-20,000 บาท')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:559px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income_amount == '20,001-30,000 บาท')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income_amount == '30,001-40,000 บาท')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:333px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($income_amount == '40,001 บาทขึ้นไป')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:444px; height: 13px; width: 13px; background-color: black;"></div>');
-}
+  $work_type = isset($work['work_yes']['type']) ? $work['work_yes']['type'] : '';
+  if ($work_type == 'ข้าราชการพลเรือน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:300px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'ข้าราชการตำรวจ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:408px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'ข้าราชการทหาร')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:508px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'ข้าราชการครู')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:604px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'ข้าราชการอัยการ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:299px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'ลูกจ้างประจำ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:408px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'พนักงานราชการ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:506px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'พนักงานจ้างเหมา')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:604px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'พนักงาน/ลูกจ้างภาคเอกชน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:322px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'พนักงาน/ลูกจ้างรัฐวิสาหกิจ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:575px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'ผู้รวมกลุ่มอาชีพ/วิสาหกิจชุมชน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 410px; left:440px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'ผู้รับจ้างทั่วไปโดยไม่มีนายจ้าง')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 430px; left:260px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'เกษตรกร(ทำไร่/ทำนา/ทำสวน/เลี้ยงสัตว์)')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 430px; left:442px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($work_type == 'ลูกจ้างธุรกิจในครัวเรือน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 443px; left:326px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+    
+  // Income
+  $income = isset($work['work_yes']['income']) ? $work['work_yes']['income'] : '';
+  if ($income == 'รายเดือน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income == 'รายสัปดาห์')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:288px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income == 'รายวัน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:373px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income == 'รายชั่วโมง')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:434px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income == 'งานเหมา/รายชิ้น')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:507px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+    
+  // Income Amount
+  $income_amount = isset($work['work_yes']['income_amount']) ? $work['work_yes']['income_amount'] : '';
+  if ($income_amount == '1-5,000 บาท')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income_amount == '5,001-9,000 บาท')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:331px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income_amount == '9,001-15,000 บาท')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:444px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income_amount == '15,001-20,000 บาท')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:559px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income_amount == '20,001-30,000 บาท')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income_amount == '30,001-40,000 บาท')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:333px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($income_amount == '40,001 บาทขึ้นไป')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:444px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
 
-// Employee Amount
-$employee_amount = isset($work['work_yes']['employee_amount']) ? $work['work_yes']['employee_amount'] : '';
-if ($employee_amount == '1-100 คน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:308px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($employee_amount == '101-200 คน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:382px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($employee_amount == '201-300 คน')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:468px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($employee_amount == '301 คนขึ้นไป')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:565px; height: 13px; width: 13px; background-color: black;"></div>');
-}
+  // Employee Amount
+  $employee_amount = isset($work['work_yes']['employee_amount']) ? $work['work_yes']['employee_amount'] : '';
+  if ($employee_amount == '1-100 คน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:308px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($employee_amount == '101-200 คน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:382px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($employee_amount == '201-300 คน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:468px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($employee_amount == '301 คนขึ้นไป')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:565px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
 
-// Work Group
-$wy = array('ยานยนต์และชิ้นส่วน','เหล็กและเหล็กกล้า','เฟอร์นิเจอร์','อาหาร','ซอฟต์แวร์','ปิโตรเคมี','ไฟฟ้าและอิเล็กทรอนิกส์','สิ่งทอและแฟชั่น','เซรามิกส์','แม่พิมพ์','ก่อสร้าง','โลจิสติกส์','ท่องเที่ยวและบริการ','ผลิตภัณฑ์ยาง');
-$work_yes_etc = '';
-if ($work['work_yes']['group'] != '' && ! in_array($work['work_yes']['group'],$wy))
-{
-  $work_yes_etc = $work['work_yes']['group'];
-}
-$work_group = isset($work['work_yes']['group']) ? $work['work_yes']['group'] : '';
-if ($work_group == $wy[0])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:217px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[1])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:350px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[2])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:456px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[3])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:531px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[4])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:590px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[5])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:657px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[6])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[7])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:352px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[8])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:455px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[9])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:533px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[10])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:592px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[11])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:657px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[12])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:217px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_group == $wy[13])
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:351px; height: 13px; width: 13px; background-color: black;"></div>');
-}
-elseif ($work_yes_etc != '')
-{
-  $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:454px; height: 13px; width: 13px; background-color: black;"></div>');
-  $mpdf->WriteHTML('<div style="position: absolute; top: 635px; left:525px;">'.$work_yes_etc.'&nbsp;</div>');
+  // Work Group
+  $wy = array('ยานยนต์และชิ้นส่วน','เหล็กและเหล็กกล้า','เฟอร์นิเจอร์','อาหาร','ซอฟต์แวร์','ปิโตรเคมี','ไฟฟ้าและอิเล็กทรอนิกส์','สิ่งทอและแฟชั่น','เซรามิกส์','แม่พิมพ์','ก่อสร้าง','โลจิสติกส์','ท่องเที่ยวและบริการ','ผลิตภัณฑ์ยาง');
+  $work_yes_etc = '';
+  if ($work['work_yes']['group'] != '' && ! in_array($work['work_yes']['group'],$wy))
+  {
+    $work_yes_etc = $work['work_yes']['group'];
+  }
+  $work_group = isset($work['work_yes']['group']) ? $work['work_yes']['group'] : '';
+  if ($work_group == $wy[0])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:217px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[1])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:350px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[2])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:456px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[3])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:531px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[4])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:590px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[5])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:657px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[6])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[7])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:352px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[8])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:455px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[9])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:533px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[10])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:592px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[11])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:657px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[12])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:217px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_group == $wy[13])
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:351px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($work_yes_etc != '')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:454px; height: 13px; width: 13px; background-color: black;"></div>');
+    $mpdf->WriteHTML('<div style="position: absolute; top: 635px; left:525px;">'.$work_yes_etc.'&nbsp;</div>');
+  }
 }
 
 // Work NO
@@ -657,21 +663,18 @@ if ( ! empty($reference['etc']))
   $mpdf->WriteHTML('<div style="position: absolute; top: 1029px; left:677px;">'.(isset($reference['etc'])?$reference['etc']:'').'&nbsp;</div>');
 }
 
+// print_data($record);
+// print_data($profile);
+// print_data($address);
+// print_data($education);
+// print_data($work);
+// print_data($work_yes);
+// print_data($work_abroad);
+// print_data($reference);
 // exit();
 $mpdf->Output();
 ?>
 
-<?php
-print_data($record);
-print_data($profile);
-print_data($address);
-print_data($education);
-print_data($work);
-print_data($work_yes);
-print_data($work_abroad);
-print_data($reference);
-exit();
-?>
   <div class="">
     <div class="container" style="font-size: 4px !important;">
       <div class="row" style="padding: 0px; line-height: 25% !important;">
