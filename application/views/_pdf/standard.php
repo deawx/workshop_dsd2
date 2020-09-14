@@ -40,6 +40,25 @@ $file = $mpdf->SetSourceFile(APPPATH.'/views/_pdf/standard.pdf');
 $import_page = $mpdf->ImportPage(1);
 $mpdf->UseTemplate($import_page);
 
+
+// Category
+$category = isset($record['category']) ? $record['category'] : 'ไม่พบข้อมูล';
+switch ($category)
+{
+  case 'ทดสอบมาตรฐานฝีมือแรงงานแห่งชาติ':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 80px; left:95px;height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+  case 'ทดสอบฝีมือคนหางานเพื่อไปทำงานในต่างประเทศ':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 95px; left:95px;height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+  case 'ทดสอบฝีมือแรงงานตามความต้องการของสถานประกอบกิจการ':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 110px; left:95px;height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+  case 'ทดสอบ/รับรองฝีมือแรงงานนานาชาติ(ช่างเชื่อมมาตรฐานสากล)':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 125px; left:95px;height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+}
+
 // Profile & Education
 $mpdf->WriteHTML('
   <div style="position: absolute; top: 55px; left:420px;">'.(isset($record['department'])?$record['department']:'').'&nbsp;</div>
@@ -47,8 +66,6 @@ $mpdf->WriteHTML('
   <div style="position: absolute; top: 90px; left:400px;">'.(isset($record['level'])?$record['level']:'').'&nbsp;</div>
   <div style="position: absolute; top: 140px; left:300px;">'.(isset($profile['firstname'])?$profile['firstname']:'').'&nbsp;</div>
   <div style="position: absolute; top: 140px; left:480px;">'.(isset($profile['lastname'])?$profile['lastname']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 145px; left:625px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 145px; left:680px; height: 13px; width: 13px; background-color: black;"></div>
   <div style="position: absolute; top: 158px; left:300px;">'.(isset($profile['englishname'])?$profile['englishname']:'').'&nbsp;</div>
   <div style="position: absolute; top: 158px; left:535px;">'.(isset($profile['nationality'])?$profile['nationality']:'').'&nbsp;</div>
   <div style="position: absolute; top: 158px; left:665px;">'.(isset($profile['religion'])?$profile['religion']:'').'&nbsp;</div>
@@ -62,41 +79,15 @@ $mpdf->WriteHTML('
   <div style="position: absolute; top: 215px; left:500px;">'.(isset($address['amphur'])?$address['amphur']:'').'&nbsp;</div>
   <div style="position: absolute; top: 215px; left:620px;">'.(isset($address['province'])?$address['province']:'').'&nbsp;</div>
 
-  <div style="position: absolute; top: 235px; left:160px;">'.(isset($address['zip'])?$address['zip']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 235px; left:260px;">'.(isset($address['phone'])?$address['phone']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 235px; left:430px;">'.(isset($address['fax'])?$address['fax']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 235px; left:590px;">'.(isset($address['email'])?$address['email']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 230px; left:160px;">'.(isset($address['zip'])?$address['zip']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 265px; left:260px;">'.(isset($address['phone'])?$address['phone']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 430px; left:430px;">'.(isset($address['fax'])?$address['fax']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 590px; left:590px;">'.(isset($address['email'])?$address['email']:'').'&nbsp;</div>
 
-  <div style="position: absolute; top: 255px; left:215px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 255px; left:340px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 255px; left:435px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 255px; left:515px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 255px; left:615px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 270px; left:213px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 270px; left:260px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 270px; left:375px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 270px; left:450px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 270px; left:525px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 270px; left:675px;">'.(isset($record['health_status'])?$record['health_status']:'').'&nbsp;</div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($education['education'])?$education['education']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($education['place'])?$education['place']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($education['province'])?$education['province']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($education['year'])?$education['year']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 320px; left:145px;">'.(isset($education['department'])?$education['department']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 320px; left:330px;">'.(isset($education['place'])?$education['place']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 320px; left:485px;">'.(isset($education['province'])?$education['province']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 320px; left:688px;">'.(isset($education['year'])?$education['year']:'').'&nbsp;</div>
 ');
 
 // ID Card
@@ -117,149 +108,554 @@ $mpdf->WriteHTML('
   <div style="position: absolute; top: 180px; left:480px;">'.$split[12].'</div>
 ');
 
+// Sex
+$sex = ! empty($profile['sex']) ? $profile['sex'] : '';
+if ($sex == 'ชาย')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 145px; left:627px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+else
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 145px; left:680px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+
+// Type
+$type = isset($record['type']) ? $record['type'] : '';
+switch ($type)
+{
+  case 'ผู้รับการฝึกจาก กพร.':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 253px; left:215px; height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+  case 'จากสถานศึกษา':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 253px; left:336px; height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+  case 'จากภาครัฐ':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 253px; left:434px; height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+  case 'จากภาคเอกชน':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 253px; left:515px; height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+  case 'บุคคลทั่วไป':
+    $mpdf->WriteHTML('<div style="position: absolute; top: 253px; left:615px; height: 13px; width: 13px; background-color: black;"></div>');
+    break;
+}
+
+// Health
+$health = isset($record['health']) ? $record['health'] : '';
+if ($health == 'ปกติ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 272px; left:213px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+else
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 272px; left:259px; height: 13px; width: 13px; background-color: black;"></div>');
+
+  // Health Status
+  $health_status = isset($record['health_status']) ? $record['health_status'] : '';
+  if ($health_status == 'การมองเห็น')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 272px; left:373px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($health_status == 'การได้ยิน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 272px; left:451px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  elseif ($health_status == 'การเคลื่อนไหว')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 272px; left:524px; height: 13px; width: 13px; background-color: black;"></div>');
+  }
+  else
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 266px; left:675px;">'.(isset($record['health_status'])?$record['health_status']:'').'&nbsp;</div>');
+  }
+}
+
+// Education
+$degree = isset($education['degree']) ? $education['degree'] : '';
+if ($degree == 'ประถมศึกษา')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 290px; left:214px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ม.3')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 290px; left:313px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ม.6')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 290px; left:403px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ปก.ศ.ต้น')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 290px; left:481px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ปก.ศ.สูง/อนุปริญญา')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 290px; left:565px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ปวช.')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 308px; left:215px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ปวท.')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 308px; left:315px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ปวส.')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 308px; left:404px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ปริญญาตรี')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 308px; left:482px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ปริญญาโท')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 308px; left:566px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($degree == 'ปริญญาเอก')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 308px; left:660px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+
 // Work YES
+$mpdf->WriteHTML('
+  <div style="position: absolute; top: 503px; left:170px;">'.(isset($work['work_yes']['position'])?$work['work_yes']['position']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 503px; left:645px;">'.(isset($work['work_yes']['age'])?$work['work_yes']['age']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 520px; left:380px;">'.(isset($work['work_yes']['place'])?$work['work_yes']['place']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 535px; left:180px;">'.(isset($work['work_yes']['street'])?$work['work_yes']['street']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 535px; left:480px;">'.(isset($work['work_yes']['tambon'])?$work['work_yes']['tambon']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 535px; left:620px;">'.(isset($work['work_yes']['amphur'])?$work['work_yes']['amphur']:'').'&nbsp;</div>
+
+  <div style="position: absolute; top: 550px; left:135px;">'.(isset($work['work_yes']['province'])?$work['work_yes']['province']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 550px; left:355px;">'.(isset($work['work_yes']['zip'])?$work['work_yes']['zip']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 550px; left:465px;">'.(isset($work['work_yes']['phone'])?$work['work_yes']['phone']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 550px; left:610px;">'.(isset($work['work_yes']['fax'])?$work['work_yes']['fax']:'').'&nbsp;</div>
+');
+
+// Workplace
+$work_category = isset($work['work_yes']['category']) ? $work['work_yes']['category'] : '';
+if ($work_category == 'ทำงานภาครัฐ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:214px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_category == 'ทำงานภาคเอกชน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_category == 'ทำงานรัฐวิสาหกิจ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:470px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_category == 'ประกอบธุรกิจส่วนตัว/ประกอบอาชีพอิสระ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 410px; left:218px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_category == 'ช่วยธุรกิจครัวเรือน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 443px; left:215px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+
+$work_type = isset($work['work_yes']['type']) ? $work['work_yes']['type'] : '';
+if ($work_type == 'ข้าราชการพลเรือน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:300px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'ข้าราชการตำรวจ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:408px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'ข้าราชการทหาร')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:508px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'ข้าราชการครู')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 364px; left:604px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'ข้าราชการอัยการ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:299px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'ลูกจ้างประจำ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:408px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'พนักงานราชการ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:506px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'พนักงานจ้างเหมา')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 380px; left:604px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'พนักงาน/ลูกจ้างภาคเอกชน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:322px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'พนักงาน/ลูกจ้างรัฐวิสาหกิจ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 393px; left:575px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'ผู้รวมกลุ่มอาชีพ/วิสาหกิจชุมชน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 410px; left:440px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'ผู้รับจ้างทั่วไปโดยไม่มีนายจ้าง')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 430px; left:260px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'เกษตรกร(ทำไร่/ทำนา/ทำสวน/เลี้ยงสัตว์)')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 430px; left:442px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_type == 'ลูกจ้างธุรกิจในครัวเรือน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 443px; left:326px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+  
+// Income
+$income = isset($work['work_yes']['income']) ? $work['work_yes']['income'] : '';
+if ($income == 'รายเดือน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income == 'รายสัปดาห์')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:288px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income == 'รายวัน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:373px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income == 'รายชั่วโมง')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:434px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income == 'งานเหมา/รายชิ้น')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 460px; left:507px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+  
+// Income Amount
+$income_amount = isset($work['work_yes']['income_amount']) ? $work['work_yes']['income_amount'] : '';
+if ($income_amount == '1-5,000 บาท')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income_amount == '5,001-9,000 บาท')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:331px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income_amount == '9,001-15,000 บาท')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:444px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income_amount == '15,001-20,000 บาท')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 478px; left:559px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income_amount == '20,001-30,000 บาท')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income_amount == '30,001-40,000 บาท')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:333px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($income_amount == '40,001 บาทขึ้นไป')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 496px; left:444px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+
+// Employee Amount
+$employee_amount = isset($work['work_yes']['employee_amount']) ? $work['work_yes']['employee_amount'] : '';
+if ($employee_amount == '1-100 คน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:308px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($employee_amount == '101-200 คน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:382px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($employee_amount == '201-300 คน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:468px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($employee_amount == '301 คนขึ้นไป')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 577px; left:565px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+
+// Work Group
 $wy = array('ยานยนต์และชิ้นส่วน','เหล็กและเหล็กกล้า','เฟอร์นิเจอร์','อาหาร','ซอฟต์แวร์','ปิโตรเคมี','ไฟฟ้าและอิเล็กทรอนิกส์','สิ่งทอและแฟชั่น','เซรามิกส์','แม่พิมพ์','ก่อสร้าง','โลจิสติกส์','ท่องเที่ยวและบริการ','ผลิตภัณฑ์ยาง');
 $work_yes_etc = '';
-if ($work_yes['group'] != '' && ! in_array($work_yes['group'],$wy))
+if ($work['work_yes']['group'] != '' && ! in_array($work['work_yes']['group'],$wy))
 {
-  $work_yes_etc = $work_yes['group'];
+  $work_yes_etc = $work['work_yes']['group'];
 }
-$mpdf->WriteHTML('
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['position'])?$work_yes['position']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['age'])?$work_yes['age']:'').'&nbsp;</div>
-
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['place'])?$work_yes['place']:'').'&nbsp;</div>
-
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['street'])?$work_yes['street']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['tambon'])?$work_yes['tambon']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['amphur'])?$work_yes['amphur']:'').'&nbsp;</div>
-
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['province'])?$work_yes['province']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['zip'])?$work_yes['zip']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['phone'])?$work_yes['phone']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_yes['fax'])?$work_yes['fax']:'').'&nbsp;</div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 215px; left:620px;">'.$work_yes_etc.'&nbsp;</div>
-');
+$work_group = isset($work['work_yes']['group']) ? $work['work_yes']['group'] : '';
+if ($work_group == $wy[0])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:217px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[1])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:350px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[2])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:456px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[3])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:531px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[4])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:590px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[5])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 609px; left:657px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[6])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[7])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:352px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[8])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:455px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[9])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:533px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[10])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:592px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[11])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 625px; left:657px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[12])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:217px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_group == $wy[13])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:351px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_yes_etc != '')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 642px; left:454px; height: 13px; width: 13px; background-color: black;"></div>');
+  $mpdf->WriteHTML('<div style="position: absolute; top: 635px; left:525px;">'.$work_yes_etc.'&nbsp;</div>');
+}
 
 // Work NO
 $wn = array('อยู่ระหว่างหางาน','นักเรียน/นักศึกษา','ทหารก่อนปลดประจำการ','ผู้อยู่ในสถานพินิจ','ผู้ต้องขัง','ผู้ประกันตนที่ถูกเลิกจ้าง');
 $work_no_etc = '';
-if ($record['work_no'] != '' && ! in_array($record['work_no'],$wn))
+if ($work['work_no'] != '' && ! in_array($work['work_no'],$wn))
 {
-  $work_no_etc = $record['work_no'];
+  $work_no_etc = $work['work_no'];
 }
-$mpdf->WriteHTML('
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
 
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 215px; left:620px;">'.$work_yes_etc.'&nbsp;</div>
-');
+$unemployed = isset($work['work_no']) ? $work['work_no'] : '';
+if ($unemployed == $wn[0])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 660px; left:214px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($unemployed == $wn[1])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 660px; left:321px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($unemployed == $wn[2])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 660px; left:456px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($unemployed == $wn[3])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 660px; left:606px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($unemployed == $wn[4])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 678px; left:215px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($unemployed == $wn[5])
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 678px; left:320px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+}
+elseif ($work_no_etc != '')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 678px; left:457px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  $mpdf->WriteHTML('<div style="position: absolute; top: 675px; left:520px;">'.$work_no_etc.'&nbsp;</div>');
+}
 
 // Used
-$mpdf->WriteHTML('
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>
-');
+$used = isset($record['used']) ? $record['used'] : '';
+if ($used == 'ไม่เคย')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 702px; left:219px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($used == 'เคย')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 702px; left:276px; height: 13px; width: 13px; background-color: black;"></div>');
+  $used_place = isset($record['used_place']) ? $record['used_place'] : '';
+  if ($used_place == 'จากกรมพัฒนาฝีมือแรงงาน')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 702px; left:315px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($used_place == 'ในสถานประกอบกิจการ')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 702px; left:461px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+  elseif ($used_place == 'จากหน่วยราชการอื่น')
+  {
+    $mpdf->WriteHTML('<div style="position: absolute; top: 702px; left:593px; height: 13px; width: 13px; background-color: black; border-radius: 50%;"></div>');
+  }
+}
 
 // Work NEED
-$mpdf->WriteHTML('
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($record['need_work_position'])?$record['need_work_position']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($record['need_work_group'])?$record['need_work_group']:'').'&nbsp;</div>
-
-  <div style="position: absolute; top: 125px; left:95px; height: 13px; width: 13px; background-color: black;"></div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($record['need_work_country'])?$record['need_work_country']:'').'&nbsp;</div>
-');
+$work_need = isset($record['need_work_status']) ? $record['need_work_status'] : '';
+if ($work_need == 'ไม่ต้องการ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 72+4px; left:637px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_need == 'ต้องการจัดหางานในประเทศ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 738px; left:221px; height: 13px; width: 13px; background-color: black;"></div>');
+  // Position & Group
+  $mpdf->WriteHTML('<div style="position: absolute; top: 735px; left:450px;">'.(isset($record['need_work_position'])?$record['need_work_position']:'').'&nbsp;</div>');
+  $mpdf->WriteHTML('<div style="position: absolute; top: 735px; left:655px;">'.(isset($record['need_work_group'])?$record['need_work_group']:'').'&nbsp;</div>');
+}
+elseif ($work_need == 'ต้องการจัดหางานในต่างประเทศ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 754px; left:221px; height: 13px; width: 13px; background-color: black;"></div>');
+  $mpdf->WriteHTML('<div style="position: absolute; top: 750px; left:510px;">'.(isset($record['need_work_country'])?$record['need_work_country']:'').'&nbsp;</div>');
+}
 
 // Work ABROAD
 $mpdf->WriteHTML('
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['agent'])?$work_abroad['agent']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 785px; left:360px;">'.(isset($work_abroad['agent'])?$work_abroad['agent']:'').'&nbsp;</div>
 
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['address'])?$work_abroad['address']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['street'])?$work_abroad['street']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['tambon'])?$work_abroad['tambon']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 805px; left:215px;">'.(isset($work_abroad['address'])?$work_abroad['address']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 805px; left:450px;">'.(isset($work_abroad['street'])?$work_abroad['street']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 805px; left:610px;">'.(isset($work_abroad['tambon'])?$work_abroad['tambon']:'').'&nbsp;</div>
 
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['amphur'])?$work_abroad['amphur']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['province'])?$work_abroad['province']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['zip'])?$work_abroad['zip']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['phone'])?$work_abroad['phone']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 820px; left:135px;">'.(isset($work_abroad['amphur'])?$work_abroad['amphur']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 820px; left:315px;">'.(isset($work_abroad['province'])?$work_abroad['province']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 820px; left:545px;">'.(isset($work_abroad['zip'])?$work_abroad['zip']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 820px; left:645px;">'.(isset($work_abroad['phone'])?$work_abroad['phone']:'').'&nbsp;</div>
 
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['company'])?$work_abroad['company']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['country'])?$work_abroad['country']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 215px; left:620px;">'.(isset($work_abroad['duration'])?$work_abroad['duration']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 838px; left:235px;">'.(isset($work_abroad['company'])?$work_abroad['company']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 838px; left:520px;">'.(isset($work_abroad['country'])?$work_abroad['country']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 838px; left:695px;">'.(isset($work_abroad['duration'])?$work_abroad['duration']:'').'&nbsp;</div>
 ');
+
+// Work Reason
+$work_reason = isset($record['reason']) ? $record['reason'] : '';
+if ($work_reason == 'ต้องการทราบฝีมือและความสามารถ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 864px; left:219px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_reason == 'ต้องการมีงานทำ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 864px; left:408px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_reason == 'เพื่อปรับหรือเลื่อนระดับตำแหน่งงาน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 864px; left:506px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_reason == 'เพื่อปรับรายได้ให้สูงขึ้น')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 880px; left:218px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_reason == 'ได้รับการสนับสนุนจากหัวหน้า/ผู้บังคับบัญชา')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 880px; left:350px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($work_reason == 'ไปทำงานในต่างประเทศ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 880px; left:585px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+
+//Work Information
+$source = isset($record['source']) ? $record['source'] : '';
+if ($source == 'วิทยุ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 905px; left:216px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'โทรทัศน์')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 905px; left:264px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'สื่อสิ่งพิมพ์' || $source == 'ป้ายประกาศ')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 905px; left:330px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'อินเทอร์เน็ต')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 905px; left:481px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'สถาบัน/ศูนย์พัฒนาฝีมือแรงงาน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 905px; left:560px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'หน่วยงานอื่นสังกัดกระทรวงแรงงาน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 922px; left:217px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'สถานศึกษา')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 922px; left:405px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'อบจ./อบต.')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 922px; left:481px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'พ่อแม่ ญาติ พี่น้อง เพื่อน')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 922px; left:560px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'กลุ่มอาชีพ กลุ่มสตรี กลุ่มสหกรณ์ กลุ่มออมทรัพย์')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 941px; left:215px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($source == 'นายจ้าง')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 941px; left:480px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+
+// Accept & Refference
+$allowed = isset($record['allow']) ? $record['allow'] : '';
+if ($allowed == '1')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 978px; left:215px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+elseif ($allowed == '2')
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 978px; left:330px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+
+if ( ! empty($reference['copy']))
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 1013px; left:365px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+if ( ! empty($reference['refer']))
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 1032px; left:365px; height: 13px; width: 13px; background-color: black;"></div>');
+}
+if ( ! empty($reference['etc']))
+{
+  $mpdf->WriteHTML('<div style="position: absolute; top: 1033px; left:640px; height: 13px; width: 13px; background-color: black;"></div>');
+  $mpdf->WriteHTML('<div style="position: absolute; top: 1029px; left:677px;">'.(isset($reference['etc'])?$reference['etc']:'').'&nbsp;</div>');
+}
 
 // exit();
 $mpdf->Output();

@@ -112,7 +112,7 @@ class Auth extends Public_Controller {
 				$this->session->set_userdata('is_login',TRUE);
 				$this->session->set_userdata('is_admin',TRUE);
 				$this->session->set_flashdata('success','ท่านได้เข้าสู่ระบบเรียบร้อยแล้ว');
-				redirect('admin/news', 'refresh');
+				redirect('admin/sites', 'refresh');
 			}
 			else
 			{

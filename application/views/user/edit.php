@@ -70,6 +70,9 @@ $work = unserialize($user['work']);
           echo form_dropdown(array('name'=>'y','class'=>'form-control'),$y,set_value('y',explode('-',$user['birthdate'])[0]));?>
         </div>
       </div>
+      <div class="form-group"> <?=form_label('เพศ*','sex',array('class'=>'control-label col-md-3'));?>
+        <div class="col-md-9"> <?=form_dropdown(array('name'=>'sex','class'=>'form-control'),array(''=>'เพศ','ชาย'=>'ชาย','หญิง'=>'หญิง'),set_value('sex',$user['sex']));?> </div>
+      </div>
       <div class="form-group"> <?=form_label('หมู่โลหิต*','blood',array('class'=>'control-label col-md-3'));?>
         <div class="col-md-9"> <?=form_input(array('name'=>'blood','class'=>'form-control'),set_value('blood',$user['blood']));?> </div>
       </div>
