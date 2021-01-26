@@ -233,6 +233,8 @@ class Request extends Private_Controller {
 				$this->data['body'] = 'กรุณากรอกข้อมูลการศึกษาให้ครบถ้วน';
 			elseif ($this->data['work']['work_status'] === '') :
 				$this->data['body'] = 'กรุณากรอกข้อมูลการทำงานให้ครบถ้วน';
+			elseif ($this->data['skill']) :
+				$this->data['body'] = 'ท่านได้ยื่นคำร้องขอสอบรับรองความรู้ความสามารถไปเรียบร้อยแล้ว';
 			elseif ($this->data['standard']) :
 				$this->data['body'] = 'ท่านได้ยื่นคำร้องขอสอบมาตรฐานฝีมือแรงงานไปเรียบร้อยแล้ว';
 			else:

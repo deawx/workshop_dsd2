@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row" style="padding-top:10em;">
+  <div class="row" style="padding-top:1em;">
     <div class="col-sm-6 col-sm-offset-3">
       <div class="panel panel-success">
         <div class="panel-heading"> <h3 class="panel-title"> <?php echo lang('create_user_heading');?> <small><?php echo lang('create_user_subheading');?></small> </h3> </div>
@@ -13,7 +13,10 @@
             <div class="col-md-8"> <?php echo form_password($password,'',array('class'=>'form-control'));?> </div>
           </div>
           <div class="form-group"> <?php echo lang('create_user_password_confirm_label', 'password_confirm',array('class'=>'control-label col-md-4'));?>
-            <div class="col-md-8"> <?php echo form_password($password_confirm,'',array('class'=>'form-control'));?> </div>
+            <div class="col-md-8">
+              <?php echo form_password($password_confirm,'',array('class'=>'form-control','maxlength'=>'8'));?>
+              **รหัสผ่าน 8 อักษรเท่านั้น**
+            </div>
           </div>
           <div class="form-group">
             <div class="col-md-8 col-md-offset-4">

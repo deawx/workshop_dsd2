@@ -33,7 +33,7 @@
   </div>
   <div class="form-group"> <?=form_label('แนบไฟล์เอกสารหลักฐาน','',array('class'=>'control-label col-md-4'));?>
     <div class="col-md-8">
-      <?php echo form_upload(array('name'=>'file_1','accept'=>'image/*')); ?> <br>
+      <?php echo form_upload(array('name'=>'file_1','accept'=>'image/*','required'=>true)); ?> <br>
       <?php echo form_upload(array('name'=>'file_2','accept'=>'image/*')); ?> <br>
       <?php echo form_upload(array('name'=>'file_3','accept'=>'image/*')); ?> <br>
       <?php echo form_upload(array('name'=>'file_4','accept'=>'image/*')); ?>

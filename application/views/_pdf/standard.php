@@ -10,6 +10,12 @@ $work_yes = unserialize($record['work_yes']);
 $work_abroad = unserialize($record['work_abroad']);
 $reference = unserialize($record['reference']);
 
+// echo '<pre>';
+// print_r($profile);
+// print_r($address);
+// echo '</pre>';
+// exit();
+
 try {
   $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
   $fontData = $defaultFontConfig['fontdata'];
@@ -80,9 +86,9 @@ $mpdf->WriteHTML('
   <div style="position: absolute; top: 215px; left:620px;">'.(isset($address['province'])?$address['province']:'').'&nbsp;</div>
 
   <div style="position: absolute; top: 230px; left:160px;">'.(isset($address['zip'])?$address['zip']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 265px; left:260px;">'.(isset($address['phone'])?$address['phone']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 430px; left:430px;">'.(isset($address['fax'])?$address['fax']:'').'&nbsp;</div>
-  <div style="position: absolute; top: 590px; left:590px;">'.(isset($address['email'])?$address['email']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 230px; left:260px;">'.(isset($profile['phone'])?$profile['phone']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 230px; left:430px;">'.(isset($profile['fax'])?$profile['fax']:'').'&nbsp;</div>
+  <div style="position: absolute; top: 230px; left:590px;">'.(isset($profile['email'])?$profile['email']:'').'&nbsp;</div>
 
   <div style="position: absolute; top: 320px; left:145px;">'.(isset($education['department'])?$education['department']:'').'&nbsp;</div>
   <div style="position: absolute; top: 320px; left:330px;">'.(isset($education['place'])?$education['place']:'').'&nbsp;</div>

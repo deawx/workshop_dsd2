@@ -127,7 +127,7 @@ $(function(){
     language: 'th',
     format: 'dd-mm-yyyy',
     daysOfWeekDisabled: '0,6',
-    startDate: '2d'
+    startDate: '1d'
   });
 
   var rows = $('.rows');

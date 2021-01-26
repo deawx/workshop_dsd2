@@ -70,7 +70,7 @@ class Auth extends Public_Controller {
 			{
 				// if the login was un-successful
 				// redirect them back to the login page
-				$this->session->set_flashdata('message','ไม่พบข้อมูล');
+				$this->session->set_flashdata('message','กรุณากรอกรหัสใหม่');
 				redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}

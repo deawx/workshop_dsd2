@@ -1,6 +1,6 @@
 <div class="container">
   <?php $this->load->view('_partials/messages'); ?>
-  <div class="row" style="padding-top:10em;">
+  <div class="row" style="padding-top:1em;">
     <div class="col-sm-6 col-sm-offset-3">
       <div class="panel panel-success">
         <div class="panel-heading"> <h3 class="panel-title"> <?php echo lang('login_heading');?> <small><?php echo lang('login_subheading');?></small> </h3> </div>
