@@ -122,6 +122,8 @@ class Approve extends Admin_Controller {
 
 	function view($user_id,$type)
 	{
+		error_reporting(0);
+		
 		if ( ! intval($user_id) OR ! $type)
 			show_404();
 
@@ -133,9 +135,8 @@ class Approve extends Admin_Controller {
 		if (is_null($record))
 			show_404();
 
-		$this->load->helper('inflector');
 		$this->data['record'] = $record;
-		$this->load->view('_pdf/'.singular($type),$this->data);
+		$this->load->view('_pdf/'.rtrim($type,'s'),$this->data);
 	}
 
 	function view_file($filename=FALSE)
