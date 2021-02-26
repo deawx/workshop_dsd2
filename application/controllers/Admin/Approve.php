@@ -81,7 +81,7 @@ class Approve extends Admin_Controller {
 			endif;
 		endforeach;
 
-		// print_data($requests); die();
+		// echo '<pre>'; print_data($requests); echo '</pre>'; die();
 
 		$this->data['requests'] = $requests;
 		if (isset($q['export']) && $q['export']=='1') :
@@ -158,7 +158,7 @@ class Approve extends Admin_Controller {
 			$data['approve_date'] = date('Y-m-d');
 			$data['approve_status'] = 'accept';
 
-			// print_data($data); die();
+			// print_data($data); exit();
 
 			if (in_array($data['approve_schedule'],$date_reject)) :
 				$this->session->set_flashdata('info','วันที่ไม่เปิดรับการสอบ');
@@ -197,7 +197,7 @@ class Approve extends Admin_Controller {
 		$data = $this->input->post();
 		if ($data) :
 
-			// print_data($data); die();
+			// print_data($data); exit();
 
 			if ($this->request->save($data,$data['type'])) :
 				$this->session->set_flashdata('success','บันทึกข้อมูลสำเร็จ');

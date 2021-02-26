@@ -18,7 +18,6 @@ $profile = $this->profile->get_id($record['user_id']);
 // $profile = unserialize($record['profile']);
 $address = unserialize($record['address']);
 $reference = unserialize($record['reference']);
-$type = isset($value['category']) ? $value['category'] : 'หนังสือรับรองความรู้ความสามารถ';
 ?>
 <body>
   <div style="padding:0.5cm 1.5cm;">

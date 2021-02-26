@@ -47,7 +47,7 @@ $uri_string = uri_string().'?'.$uri_get;
       <?php foreach ($requests as $value) :
           $profile = unserialize($value['profile']);
           $expired = strtotime('+30 days',strtotime($value['date_create']));
-          $type = (isset($value['category']) ? 'standards' : 'skills'); ?>
+          $type = isset($value['category']) ? 'standards' : 'skills'; ?>
           <tr class="rows" style="display:none;">
             <td>
               <?=isset($value['category']) ? $value['category'] : 'หนังสือรับรองความรู้ความสามารถ';
@@ -58,13 +58,13 @@ $uri_string = uri_string().'?'.$uri_get;
             <td>
             <?php if ($value['approve_status'] === 'accept') :
               if ($value['status'] === 'ผ่าน') : ?>
-                <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_status<?=$value['id'].$value['user_id'];?>">ผ่าน</a>
+                <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_status_<?=$type;?><?=$value['id'].$value['user_id'];?>">ผ่าน</a>
               <?php elseif ($value['status'] === 'ไม่ผ่าน') : ?>
-                <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#approve_status<?=$value['id'].$value['user_id'];?>">ไม่ผ่าน</a>
+                <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#approve_status_<?=$type;?><?=$value['id'].$value['user_id'];?>">ไม่ผ่าน</a>
               <?php else: ?>
-                <a href="#" class="btn btn-default btn-sm" data-toggle="modal" data-target="#approve_status<?=$value['id'].$value['user_id'];?>">เลือก</a>
+                <a href="#" class="btn btn-default btn-sm" data-toggle="modal" data-target="#approve_status_<?=$type;?><?=$value['id'].$value['user_id'];?>">เลือก</a>
               <?php endif; ?>
-              <div class="modal fade" id="approve_status<?=$value['id'].$value['user_id'];?>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+              <div class="modal fade" id="approve_status_<?=$type;?><?=$value['id'].$value['user_id'];?>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
                 <div class="modal-dialog">
                   <?=form_open('admin/approve/status',array('class'=>'form-horizontal'));?>
                   <?=form_hidden('id',$value[rtrim($type,'s').'_id']);?>
@@ -77,8 +77,8 @@ $uri_string = uri_string().'?'.$uri_get;
                       </div>
                     </div>
                     <div class="modal-footer"> <button type="submit" class="btn btn-primary btn-block">ยืนยัน</button> </div>
-                    <?=form_close();?>
                   </div>
+                  <?=form_close();?>
                 </div>
               </div>
             <?php endif; ?>
@@ -88,10 +88,10 @@ $uri_string = uri_string().'?'.$uri_get;
             <td><?=date('d-m-Y',strtotime($value['date_update']));?></td>
             <td><?=date('d-m-Y',strtotime('+30 days',strtotime($value['date_create'])));?></td>
             <td>
-              <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_date<?=$value['id'].$value['user_id'];?>">
+              <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_date_<?=$type;?><?=$value['id'].$value['user_id'];?>">
                 <?=($value['approve_schedule']!=='0000-00-00') ? date('d-m-Y',strtotime($value['approve_schedule'])) : 'กำหนดวันสอบ';?>
               </a>
-              <div class="modal fade" id="approve_date<?=$value['id'].$value['user_id'];?>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+              <div class="modal fade" id="approve_date_<?=$type;?><?=$value['id'].$value['user_id'];?>" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
                 <div class="modal-dialog">
                   <?=form_open('admin/approve/schedule',array('class'=>'form-horizontal'));?>
                   <?=form_hidden('id',$value[rtrim($type,'s').'_id']);?>
@@ -104,13 +104,10 @@ $uri_string = uri_string().'?'.$uri_get;
                       </div>
                     </div>
                     <div class="modal-footer"> <button type="submit" class="btn btn-primary btn-block">ยืนยัน</button> </div>
-                    <?=form_close();?>
                   </div>
+                  <?=form_close();?>
                 </div>
               </div>
-              <?php // if ($value['approve_status'] === 'accept') : ?>
-              <?php // else: ?>
-              <?php // endif; ?>
             </td>
             <td><?=anchor('admin/approve/view/'.$value['user_id'].'/'.$type,'ดู',array('class'=>'btn btn-default btn-sm','target'=>'_blank'));?></td>
           </tr>

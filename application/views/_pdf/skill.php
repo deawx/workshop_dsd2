@@ -68,11 +68,11 @@ $reference = unserialize($record['reference']);
       <div class="row">
         <div class="col-xs-12"> <p class="text-right">แบบ คร.10</p> </div>
         <div class="col-xs-10 text-center">
-          <p><img src="<?=base_url('assets/images/krut.jpg');?>" style="width:200px;height:200px;"></p>
+          <p><img src="<?=base_url('assets/images/krut.jpg');?>" style="width:113px;height:113px;"></p>
           <h3 style="font-size: 8pt !important;">คำขอหนังสือรับรองความรู้ความสามารถ</h3>
         </div>
         <div class="col-xs-2" style="margin:0 auto;">
-          <div class="thumbnail" style="height:200px;width:100%;">
+          <div class="thumbnail" style="height:96px;width:96px;">
             <div class="caption"> รูปถ่าย <br> 1 นิ้ว <br> </div>
           </div>
         </div>
@@ -158,7 +158,7 @@ $reference = unserialize($record['reference']);
           <tr>
             <td style="width:50%;">
               <div class="col-xs-4">
-                <div class="text-center" style="border:1px solid gray;">
+                <div class="text-center" style="width:96px; height:144px; border:1px solid gray;">
                   <br> รูปถ่ายขนาด <br> 1 x 1.5 นิ้ว <br> <br>
                 </div>
                 <br> ........................................

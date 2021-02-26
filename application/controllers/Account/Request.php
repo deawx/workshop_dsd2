@@ -490,8 +490,10 @@ class Request extends Private_Controller {
 	{
 		$this->session->set_flashdata('warning','');
 		$record = $this->request->get_code($user_id,$type);
-
+		$request = $this->request->get_userid($user_id,$type);
+		
 		$this->data['record'] = $record;
+		$this->data['type'] = isset($request['category']) ? $request['category'] : 'หนังสือรับรองความรู้ความสามารถ';
 		$this->load->view('_pdf/queue',$this->data);
 	}
 
