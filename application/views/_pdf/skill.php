@@ -67,14 +67,12 @@ $reference = unserialize($record['reference']);
       </div>
       <div class="row">
         <div class="col-xs-12"> <p class="text-right">แบบ คร.10</p> </div>
-        <div class="col-xs-10 text-center">
-          <p><img src="<?=base_url('assets/images/krut.jpg');?>" style="width:113px;height:113px;"></p>
-          <h3 style="font-size: 8pt !important;">คำขอหนังสือรับรองความรู้ความสามารถ</h3>
-        </div>
-        <div class="col-xs-2" style="margin:0 auto;">
-          <div class="thumbnail" style="height:96px;width:96px;">
+        <div class="col-xs-12 text-center">
+          <img src="<?=base_url('assets/images/krut.jpg');?>" style="width:113px;height:113px;">
+          <div class="thumbnail" style="position: absolute; top: 0px; right: 0px; height:96px;width:96px;">
             <div class="caption"> รูปถ่าย <br> 1 นิ้ว <br> </div>
           </div>
+          <h3 style="font-size: 8pt !important;">คำขอหนังสือรับรองความรู้ความสามารถ</h3>
         </div>
         <div class="col-xs-12">
           <p class="col-xs-4 col-xs-offset-8">เขียนที่ ........................................</p>
@@ -148,7 +146,7 @@ $reference = unserialize($record['reference']);
       </div>
     </div>
     <div class="clearfix"> </div> <hr>
-    <div class="container" style="">
+    <div class="container">
       <div class="row">
         <table class="table table-bordered">
           <tr>
@@ -184,16 +182,16 @@ $reference = unserialize($record['reference']);
         <p>รายการไฟล์เอกสารแนบ</p>
         <ul>
           <?php if ($record['file_1']!='') { ?>
-            <li><a href="<?=site_url('admin/approve/view_file/'.$record['file_1']);?>" target="_blank">เอกสารแนบ1</a></li>
+            <li><a href="<?=site_url('uploads/'.$record['file_1']);?>" target="_blank">เอกสารแนบ1</a></li>
           <?php } ?>
           <?php if ($record['file_2']!='') { ?>
-            <li><a href="<?=site_url('admin/approve/view_file/'.$record['file_2']);?>" target="_blank">เอกสารแนบ2</a></li>
+            <li><a href="<?=site_url('uploads/'.$record['file_2']);?>" target="_blank">เอกสารแนบ2</a></li>
           <?php } ?>
           <?php if ($record['file_3']!='') { ?>
-            <li><a href="<?=site_url('admin/approve/view_file/'.$record['file_3']);?>" target="_blank">เอกสารแนบ3</a></li>
+            <li><a href="<?=site_url('uploads/'.$record['file_3']);?>" target="_blank">เอกสารแนบ3</a></li>
           <?php } ?>
           <?php if ($record['file_4']!='') { ?>
-            <li><a href="<?=site_url('admin/approve/view_file/'.$record['file_4']);?>" target="_blank">เอกสารแนบ4</a></li>
+            <li><a href="<?=site_url('uploads/'.$record['file_4']);?>" target="_blank">เอกสารแนบ4</a></li>
           <?php } ?>
         </ul>
       </div>

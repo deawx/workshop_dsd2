@@ -75,7 +75,7 @@ class Approve extends Admin_Controller {
 				if (isset($q['approve_status']) && $q['approve_status']!='' && $q['approve_status']!=$value['approve_status']) :
 					unset($requests[$key]);
 				endif;
-				if (isset($q['date_create']) && $q['date_create']!='' && $q['date_create']!=date('d-m-Y',$value['date_create'])) :
+				if (isset($q['date_create']) && $q['date_create']!='' && strtotime($q['date_create'])!=strtotime($value['date_create'])) :
 					unset($requests[$key]);
 				endif;
 			endif;
