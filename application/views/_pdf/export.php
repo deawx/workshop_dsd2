@@ -41,12 +41,12 @@
               $profile = $this->profile->get_id($value['user_id']);
               ?>
               <tr>
-                <td class="text-center"><?=++$key;?></td>
-                <td><?=$type;?></td>
-                <td><?=$profile['title'].nbs(2).$profile['firstname'].nbs(2).$profile['lastname'];?></td>
-                <td class="text-center"><?=date('d-m-Y',strtotime($value['date_create']));?></td>
-                <td class="text-center"><?=($value['date_update']!=NULL)?date('d-m-Y',strtotime($value['date_update'])):'รออนุมัติใบคำร้อง';?></td>
-                <td class="text-center"><?=date('d-m-Y',strtotime($expired));?></td>
+                <td class="text-center" style="width: 5%"><?=++$key;?></td>
+                <td style="width: 30%"><?=$type;?></td>
+                <td style="width: 20%"><?=$profile['title'].nbs(2).$profile['firstname'].nbs(2).$profile['lastname'];?></td>
+                <td class="text-center" style="width: 15%"><?=date('d-m-Y',strtotime($value['date_create']));?></td>
+                <td class="text-center" style="width: 15%"><?=($value['date_update']!=NULL)?date('d-m-Y',strtotime($value['date_update'])):'รออนุมัติใบคำร้อง';?></td>
+                <td class="text-center" style="width: 15%"><?=date('d-m-Y',$expired);?></td>
               </tr>
             <?php endforeach; ?>
           </tbody>

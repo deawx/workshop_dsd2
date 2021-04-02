@@ -139,6 +139,23 @@ class Approve extends Admin_Controller {
 		$this->load->view('_pdf/'.rtrim($type,'s'),$this->data);
 	}
 
+	function viewfiles($user_id,$type)
+	{
+		if ( ! intval($user_id) OR ! $type)
+			show_404();
+
+		if ( ! in_array($type, ['standards', 'skills']))
+			show_404();
+
+		$record = $this->request->get_code($user_id,$type);
+
+		if (is_null($record))
+			show_404();
+
+		$this->data['record'] = $record;
+		$this->load->view('_pdf/viewfiles',$this->data);
+	}
+
 	function view_file($filename=FALSE)
 	{
 		$this->load->helper('download');

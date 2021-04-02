@@ -109,7 +109,10 @@ $uri_string = uri_string().'?'.$uri_get;
                 </div>
               </div>
             </td>
-            <td><?=anchor('admin/approve/view/'.$value['user_id'].'/'.$type,'ดู',array('class'=>'btn btn-default btn-sm','target'=>'_blank'));?></td>
+            <td>
+              <?=anchor('admin/approve/view/'.$value['user_id'].'/'.$type,'ดู',array('class'=>'btn btn-default btn-sm','target'=>'_blank'));?>
+              <?=anchor('admin/approve/viewfiles/'.$value['user_id'].'/'.$type,'ไฟล์',array('class'=>'btn btn-default btn-sm','target'=>'_blank'));?>
+            </td>
           </tr>
       <?php endforeach; ?>
     </tbody>
