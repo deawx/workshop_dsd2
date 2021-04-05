@@ -5,30 +5,6 @@ $uri_string = uri_string().'?'.$uri_get;
 ?>
 <div class="clearfix"> </div>
 <?php $this->load->view('_partials/messages'); ?>
-<!-- <div class="panel panel-success">
-  <div class="panel-heading"> <h3 class="panel-title">ข้อมูลวันที่ปิดรับคำร้อง <?=count($date_reject);?> รายการ</h3> </div>
-  <div class="panel-body">
-    <?=form_open(uri_string(),array('method'=>'post','class'=>'form-inline pull-right'));?>
-    <div class="form-group">
-      <?=form_label('วันที่ปิดรับคำร้อง : ','',array('class'=>'label-control'));?>
-      <?=form_input(array('name'=>'date_reject','class'=>'form-control datepicker','size'=>'40','placeholder'=>'วันที่ต้องการปิดรับคำร้อง'));?>
-    </div>
-    <div class="form-group"> <?=form_submit('','บันทึก',array('class'=>'btn btn-primary'));?> </div>
-    <?=form_close();?>
-  </div>
-  <table class="table table-condensed table-hover">
-    <thead> <tr> <th>ที่</th> <th>วันที่ปิดรับคำร้อง</th> <th></th> </tr> </thead>
-    <tbody>
-      <?php foreach ($date_reject as $key => $value) : ?>
-        <tr>
-          <th><?=++$key;?></th>
-          <th><?=$value['date'];?></th>
-          <th> <?=anchor('admin/approve/date_cancel/'.$value['id'],'ลบ',array('class'=>'btn btn-warning btn-sm','onclick'=>"return confirm('ยืนยันการลบข้อมูล?')"));?> </th>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
-</div> -->
 
 <div class="panel panel-default">
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลคำร้องทั้งหมด <?=count($requests);?> รายการ</h3> </div>
@@ -126,14 +102,12 @@ $(function(){
   $('.datepicker').datepicker({
     language: 'th',
     format: 'dd-mm-yyyy',
-    daysOfWeekDisabled: '0,6',
     startDate: '1d'
   });
 
   $('#datepickerSearch').datepicker({
     language: 'th',
-    format: 'dd-mm-yyyy',
-    daysOfWeekDisabled: '0,6'
+    format: 'dd-mm-yyyy'
   });
 
   var rows = $('.rows');
