@@ -225,6 +225,29 @@ class Approve extends Admin_Controller {
 		endif;
 	}
 
+	function remove($request_id, $type)
+	{
+		if ($request_id) :
+
+			// print_data($request_id, $type); exit();
+
+			$this->db->select('id');
+			$this->db->where('id', $request_id);
+			$select = $this->db->get($type);
+
+			if ($select->num_rows()) :
+				$this->db->where('id', $request_id);
+				if ($this->db->delete($type)) :
+					$this->session->set_flashdata('success','ลบข้อมูลสำเร็จ');
+				else:
+					$this->session->set_flashdata('danger','ลบข้อมูลล้มเหลว');
+				endif;
+				redirect('admin/approve');
+			endif;
+
+		endif;
+	}
+
 	function date_check($date)
 	{
 		$date = date('Y-m-d',strtotime($date));

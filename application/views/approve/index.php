@@ -88,6 +88,7 @@ $uri_string = uri_string().'?'.$uri_get;
             <td>
               <?=anchor('admin/approve/view/'.$value['user_id'].'/'.$type,'ดู',array('class'=>'btn btn-default btn-sm','target'=>'_blank'));?>
               <?=anchor('admin/approve/viewfiles/'.$value['user_id'].'/'.$type,'ไฟล์',array('class'=>'btn btn-default btn-sm','target'=>'_blank'));?>
+              <?=anchor('admin/approve/remove/'.$value[rtrim($type,'s').'_id'].'/'.$type,'ลบ',array('class'=>'btn btn-danger btn-sm','onclick'=>"return confirm('ยืนยันการลบรายการ?');"));?>
             </td>
           </tr>
       <?php endforeach; ?>
