@@ -38,6 +38,18 @@ class News extends Admin_Controller {
 				$data['date_create'] = date('Y-m-d');
 			endif;
 
+			if (isset($_FILES['file_1']) && $_FILES['file_1']['error'] === UPLOAD_ERR_OK) :
+				$data['file_1'] = $this->_upload('file_1', $_FILES['file_1']);
+			endif;
+
+			if (isset($_FILES['file_2']) && $_FILES['file_2']['error'] === UPLOAD_ERR_OK) :
+				$data['file_2'] = $this->_upload('file_2', $_FILES['file_2']);
+			endif;
+
+			if (isset($_FILES['file_3']) && $_FILES['file_3']['error'] === UPLOAD_ERR_OK) :
+				$data['file_3'] = $this->_upload('file_3', $_FILES['file_3']);
+			endif;
+
 			// print_data($data); die();
 
 			if ($this->news->save($data)) :
@@ -46,7 +58,14 @@ class News extends Admin_Controller {
 				$this->session->set_flashdata('danger','บันทึกข้อมูลล้มเหลว');
 			endif;
 
-			redirect('admin/news/index');
+			if ($id)
+			{
+				redirect('admin/news/post/'.$id);
+			}
+			else
+			{
+				redirect('admin/news/post/'.$this->db->insert_id());
+			}
 		endif;
 
 		$this->data['news'] = $this->news->get_id($id);
@@ -56,9 +75,38 @@ class News extends Admin_Controller {
 		$this->load->view('_layouts/boxed',$this->data);
 	}
 
-	function _upload()
+	function _upload($input_name, $file)
 	{
-		return ;
+		if ($input_name && $file) :
+			$upload = array(
+				'allowed_types'	=> 'jpg|jpeg|png|pdf',
+				'upload_path'	=> FCPATH.'uploads',
+				'file_ext_tolower' => TRUE,
+				'encrypt_name' => TRUE
+			);
+			$this->upload->initialize($upload);
+			if ( ! $this->upload->do_upload($input_name)) :
+				$this->session->set_flashdata('danger',$this->upload->display_errors());
+			endif;
+		endif;
+
+		return $this->upload->data('file_name');
+	}
+
+	function remove_upload($news_id, $input_name, $filename)
+	{
+		if ($news_id && $input_name && $filename)
+		{
+			$this->db
+				->set($input_name, 'NULL', FALSE)
+				->where($input_name, $filename)
+				->where('id', $news_id)
+				->update('news');
+		}
+
+		$this->session->set_flashdata('success','ลบข้อมูลรูปภาพสำเร็จ');
+
+		redirect('admin/news/post/'.$news_id);
 	}
 
 	function pinned($id='')

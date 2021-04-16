@@ -5,7 +5,7 @@ $news_id = isset($news['id']) ? $news['id'] : [];
 <div class="panel panel-default">
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลการโพสต์ข่าวสาร</h3> </div>
   <div class="panel-body">
-    <?=form_open(uri_string(),array('class'=>'form-horizontal'));?>
+    <?=form_open_multipart(uri_string(),array('class'=>'form-horizontal'));?>
     <?=form_hidden('id',$news_id);?>
     <div class="form-group"> <?=form_label('หัวข้อข่าวสาร','',array('class'=>'control-label col-md-3'));?>
       <div class="col-md-9"> <?=form_input(array('name'=>'title','class'=>'form-control','maxlength'=>'100'),set_value('title',$news['title']));?> </div>
@@ -20,56 +20,50 @@ $news_id = isset($news['id']) ? $news['id'] : [];
       <div class="col-md-9"> <?=form_input(array('name'=>'date_update','class'=>'form-control','disabled'=>TRUE,'value'=>($news['date_update']) ? date('d-m-Y',strtotime($news['date_update'])) : ''));?> </div>
     </div>
     <div class="form-group"> <?=form_label('เนื้อหาข่าวสาร','',array('class'=>'control-label col-md-3'));?>
-      <div class="col-md-9"> <?=form_textarea(array('name'=>'detail','class'=>'form-control','id'=>'summernote','value'=>$news['detail']),set_value('detail'));?> </div>
+      <div class="col-md-9"> <?=form_textarea(array('name'=>'detail','class'=>'form-control','value'=>$news['detail']),set_value('detail'));?> </div>
     </div>
+    <?php if ($news['file_1'] == '') : ?>
+    <div class="form-group"> <?=form_label('รูปภาพที่1','',array('class'=>'control-label col-md-3'));?>
+      <div class="col-md-9"> <?=form_upload(array('name'=>'file_1','class'=>'form-control'));?> </div>
+    </div>
+    <?php else : ?>
+      <div class="form-group">
+        <div class="col-md-9 col-md-offset-3">
+          <div class="text-right"> <a href="<?=site_url('admin/news/remove_upload/'.$news['id'].'/file_1/'.$news['file_1']);?>" onclick='return confirm("ยืนยันการลบรูปภาพนี้?");'>ลบ</a> </div>
+          <img src="<?=base_url('uploads/'.$news['file_1']);?>" class="img-thumbnail">
+        </div>
+      </div>
+    <?php endif; ?>
+    <?php if ($news['file_2'] == '') : ?>
+    <div class="form-group"> <?=form_label('รูปภาพที่2','',array('class'=>'control-label col-md-3'));?>
+      <div class="col-md-9"> <?=form_upload(array('name'=>'file_2','class'=>'form-control'));?> </div>
+    </div>
+    <?php else : ?>
+      <div class="form-group">
+        <div class="col-md-9 col-md-offset-3">
+          <div class="text-right"> <a href="<?=site_url('admin/news/remove_upload/'.$news['id'].'/file_2/'.$news['file_2']);?>" onclick='return confirm("ยืนยันการลบรูปภาพนี้?");'>ลบ</a> </div>
+          <img src="<?=base_url('uploads/'.$news['file_2']);?>" class="img-thumbnail">
+        </div>
+      </div>
+    <?php endif; ?>
+    <?php if ($news['file_3'] == '') : ?>
+    <div class="form-group"> <?=form_label('รูปภาพที่3','',array('class'=>'control-label col-md-3'));?>
+      <div class="col-md-9"> <?=form_upload(array('name'=>'file_3','class'=>'form-control'));?> </div>
+    </div>
+    <?php else : ?>
+      <div class="form-group">
+        <div class="col-md-9 col-md-offset-3">
+          <div class="text-right"> <a href="<?=site_url('admin/news/remove_upload/'.$news['id'].'/file_3/'.$news['file_3']);?>" onclick='return confirm("ยืนยันการลบรูปภาพนี้?");'>ลบ</a> </div>
+          <img src="<?=base_url('uploads/'.$news['file_3']);?>" class="img-thumbnail">
+        </div>
+      </div>
+    <?php endif; ?>
     <div class="form-group"> <?=form_label('','',array('class'=>'control-label col-md-3'));?>
       <div class="col-md-9">
         <?=form_submit('','ยืนยัน',array('class'=>'btn btn-primary'));?>
         <?=anchor('admin/news','ย้อนกลับ',array('class'=>'btn btn-default'));?>
-        <?php if ( ! empty($news_id)) : ?>
-          <?=anchor('#','แนบไฟล์เอกสาร',array('class'=>'btn btn-link pull-right','data-toggle'=>'modal','data-target'=>'#attachment'));?>
-        <?php endif; ?>
       </div>
     </div>
     <?=form_close();?>
   </div>
 </div>
-
-<div class="modal fade" id="attachment" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <?=form_open('admin/news/attachment/').form_hidden('id',$news_id);?>
-      <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title">รายการแนบไฟล์เอกสาร</h4> </div>
-      <div class="modal-body" style="padding:0px;">
-        <table class="table table-hover">
-          <thead> <tr> <th>#</th> <th>ชื่อไฟล์</th> <th>ขนาดไฟล์</th> <th></th> </tr> </thead>
-          <tbody>
-            <?php $assets_id = unserialize($news['assets_id']);
-              foreach ($assets as $asset) : ?>
-              <tr>
-                <td><?=form_checkbox(array('name'=>'assets_id[]'),$asset['id'],set_checkbox('assets_id',$asset['id'],(any_in_array($asset['id'],$assets_id))));?></td>
-                <td><?=$asset['client_name'];?></td>
-                <td><?=byte_format($asset['file_size']);?></td>
-                <td><?=anchor('uploads/attachments/'.$asset['file_name'],'ดู',array('class'=>'btn btn-info btn-sm','target'=>'_blank'));?></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer"> <button type="submit" class="btn btn-primary btn-block">ยืนยัน</button> </div>
-      <?=form_close();?>
-    </div>
-  </div>
-</div>
-
-<script type="text/javascript">
-$(function(){
-  $('#summernote').summernote({
-    lang: 'th-TH',
-    height: 300,
-    minHeight: null,
-    maxHeight: null,
-    focus: true
-  });
-});
-</script>
