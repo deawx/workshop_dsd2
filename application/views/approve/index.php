@@ -10,7 +10,7 @@ $uri_string = uri_string().'?'.$uri_get;
   <div class="panel-heading"> <h3 class="panel-title">ข้อมูลคำร้องทั้งหมด <?=count($requests);?> รายการ</h3> </div>
   <div class="panel-body">
     <?=form_open(uri_string(),array('method'=>'get','class'=>'form-inline pull-right'));?>
-    <div class="form-group"> <?=form_dropdown(array('name'=>'approve_status','class'=>'form-control'),array(''=>'เลือกทั้งหมด','accept'=>'ตอบรับ','reject'=>'ปฏิเสธ'),set_value('approve_status',$this->input->get('approve_status')));?> </div>
+    <div class="form-group"> <?=form_dropdown(array('name'=>'approve_status','class'=>'form-control'),array(''=>'เลือกทั้งหมด','accept'=>'ตอบรับ','waiting'=>'รอตอบรับ'),set_value('approve_status',$this->input->get('approve_status')));?> </div>
     <div class="form-group"> <?=form_input(array('name'=>'date_create','class'=>'form-control','id'=>'datepickerSearch', 'placeholder'=>'วันที่ยื่นคำร้อง'),set_value('date_create',$this->input->get('date_create')));?> </div>
     <div class="form-group"> <?=form_input(array('name'=>'id_card','class'=>'form-control','placeholder'=>'ค้นหาหมายเลขบัตร','maxlength'=>'13','oninput'=>"this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"),set_value('id_card',$this->input->get('id_card')));?> </div>
     <div class="form-group"> <?=form_submit('','ค้นหา',array('class'=>'btn btn-primary pull-right'));?> </div>
@@ -76,7 +76,7 @@ $uri_string = uri_string().'?'.$uri_get;
                     <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title">ระบุสถานะผลการสอบ</h4> </div>
                     <div class="modal-body">
                       <div class="form-group"> <?=form_label('กำหนดวันที่เข้าสอบ','status',array('class'=>'control-label col-md-4'));?>
-                        <div class="col-md-8"> <?=form_input(array('name'=>'approve_schedule','class'=>'form-control datepicker'),set_value('approve_schedule',$value['approve_schedule']));?> </div>
+                        <div class="col-md-8"> <?=form_input(array('name'=>'approve_schedule','class'=>'form-control datepicker', 'required'=>true),set_value('approve_schedule',$value['approve_schedule']));?> </div>
                       </div>
                     </div>
                     <div class="modal-footer"> <button type="submit" class="btn btn-primary btn-block">ยืนยัน</button> </div>

@@ -72,8 +72,14 @@ class Approve extends Admin_Controller {
 				if (isset($q['id_card']) && $q['id_card']!='' && $q['id_card']!=$value['id_card']) :
 					unset($requests[$key]);
 				endif;
-				if (isset($q['approve_status']) && $q['approve_status']!='' && $q['approve_status']!=$value['approve_status']) :
-					unset($requests[$key]);
+				if (isset($q['approve_status']) && $q['approve_status']!='') :
+					$q_approve_status = $q['approve_status'];
+					if ($q_approve_status == 'waiting') :
+						$q_approve_status = NULL;
+					endif;
+					if ($q_approve_status!=$value['approve_status']) :
+						unset($requests[$key]);
+					endif;
 				endif;
 				if (isset($q['date_create']) && $q['date_create']!='' && strtotime($q['date_create'])!=strtotime($value['date_create'])) :
 					unset($requests[$key]);

@@ -14,7 +14,7 @@
           <td><?=$standard['category'];?></td>
           <td><?=date('d-m-Y',strtotime($standard['date_create']));?></td>
           <td><?=date('d-m-Y',strtotime('+30 days',strtotime($standard['date_create'])));?></td>
-          <td><?=isset($standard['approve_status']) ? ($standard['approve_status'] == 'accept' ? 'อนุมัติ' : 'ไม่อนุมัติ') : 'รออนุมัติ';?></td>
+          <td><?=isset($standard['approve_status']) ? ($standard['approve_status'] == 'accept' ? 'อนุมัติ' : 'รออนุมัติ') : 'รออนุมัติ';?></td>
           <td>
             <?php if ($standard['approve_status'] == 'accept') { ?>
               <?=anchor_popup('account/request/view/'.$standard['user_id'].'/standards','พิมพ์',array('class'=>'btn btn-default btn-sm'));?></td>
@@ -28,7 +28,7 @@
           <td>สอบใบรับรองความรู้ความสามารถ</td>
           <td><?=date('d-m-Y',strtotime($skill['date_create']));?></td>
           <td><?=date('d-m-Y',strtotime('+30 days',strtotime($skill['date_create'])));?></td>
-          <td><?=isset($skill['approve_status']) ? ($skill['approve_status'] == 'accept' ? 'อนุมัติ' : 'ไม่อนุมัติ') : 'รออนุมัติ';?></td>
+          <td><?=isset($skill['approve_status']) ? ($skill['approve_status'] == 'accept' ? 'อนุมัติ' : 'รออนุมัติ') : 'รออนุมัติ';?></td>
           <td>
             <?php if ($skill['approve_status'] == 'accept') { ?>
               <?=anchor_popup('account/request/view/'.$skill['user_id'].'/skills','พิมพ์',array('class'=>'btn btn-default btn-sm'));?></td>
