@@ -3,8 +3,15 @@
 require_once FCPATH.'/vendor/autoload.php';
 
 $profile = $this->profile->get_id($record['user_id']);
+
 $address = unserialize($profile['address']);
+$address['province'] = dropdown_province()[$address['province']];
+$address['amphur'] = dropdown_amphur()[$address['amphur']];
+$address['tambon'] = dropdown_district()[$address['tambon']];
+
 $education = unserialize($profile['education']);
+$education['province'] = dropdown_province()[$education['province']];
+
 $work = unserialize($profile['work']);
 $work_yes = unserialize($record['work_yes']);
 $work_abroad = unserialize($record['work_abroad']);
