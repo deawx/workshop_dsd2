@@ -42,7 +42,15 @@
 <?php
 $profile = $this->profile->get_id($record['user_id']);
 $address = unserialize($profile['address']);
+$address['province'] = dropdown_province()[$address['province']];
+$address['amphur'] = dropdown_amphur()[$address['amphur']];
+$address['tambon'] = dropdown_district()[$address['tambon']];
+
 $address_current = unserialize($profile['address_current']);
+$address_current['province'] = dropdown_province()[$address_current['province']];
+$address_current['amphur'] = dropdown_amphur()[$address_current['amphur']];
+$address_current['tambon'] = dropdown_district()[$address_current['tambon']];
+
 $education = unserialize($profile['education']);
 $work = unserialize($profile['work']);
 // echo '<pre>';
@@ -81,7 +89,7 @@ $reference = unserialize($record['reference']);
             นามสกุล ..........<?=isset($profile['lastname'])?$profile['lastname']:'';?>..........</p>
           <p>เกิดวันที่ ..........<?=date('d',strtotime($profile['birthdate']));?>
             เดือน ..........<?=dropdown_month(date('m',strtotime($profile['birthdate'])));?>
-            พ.ศ. ..........<?=date('Y',strtotime($profile['birthdate']))+543;?>
+            พ.ศ. ..........<?=date('Y',strtotime($profile['birthdate']));?>
             อายุ ..........<?=age_calculate($profile['birthdate']);?> ปี
             สัญชาติ ..........<?=$profile['nationality'];?>
             หมู่โลหิต ..........<?=$profile['blood'];?> </p>
